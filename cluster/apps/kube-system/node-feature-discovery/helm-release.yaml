@@ -1,0 +1,55 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: node-feature-discovery
+  namespace: kube-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: node-feature-discovery
+      version: 0.11.0
+      sourceRef:
+        kind: HelmRepository
+        name: node-feature-discovery-charts
+        namespace: flux-system
+  install:
+    createNamespace: true
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    nodeFeatureRule:
+      createCRD: true
+    worker:
+      config:
+        core:
+          labelSources:
+            - usb
+            - custom
+        sources:
+          usb:
+            deviceClassWhitelist: ["02", "0e", "ef", "fe", "ff"]
+            deviceLabelFields:
+              - class
+              - vendor
+              - device
+          custom:
+            - name: deconz
+              matchOn:
+                - usbId:
+                    class: ["02"]
+                    vendor: ["1cf1"]
+                    device: ["0030"]
+            - name: sonoff-zigbee
+              matchOn:
+                - usbId:
+                    class: ["ff"]
+                    vendor: ["10c4"]
+                    device: ["ea60"]
+            - name: intel-gpu
+              matchOn:
+                - pciId:
+                    class: ["0300"]
+                    vendor: ["8086"]
