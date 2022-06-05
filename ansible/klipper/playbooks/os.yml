@@ -1,0 +1,12 @@
+---
+- hosts:
+    - solar
+  become: true
+  # become_user: ubuntu
+  gather_facts: true
+  any_errors_fatal: true
+  roles:
+    - role: os.klipper
+      tags: os
+    - role: setup.klipper
+      tags: setup

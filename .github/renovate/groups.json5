@@ -1,0 +1,25 @@
+{
+  packageRules: [
+    {
+      groupName: "home-assistant",
+      matchPackagePatterns: ["home-assistant"],
+      matchDatasources: ["docker", "helm"],
+      matchUpdateTypes: ["minor", "patch"],
+      separateMinorPatch: false,
+    },
+    {
+      groupName: "node-red",
+      matchPackagePatterns: ["node-red"],
+      matchDatasources: ["docker", "helm"],
+      matchUpdateTypes: ["minor", "patch"],
+      separateMinorPatch: false,
+    },
+    {
+      groupName: "mosquitto",
+      matchPackagePatterns: ["mosquitto"],
+      matchDatasources: ["docker", "helm"],
+      matchUpdateTypes: ["minor", "patch"],
+      separateMinorPatch: false,
+    },
+  ],
+}

@@ -1,0 +1,47 @@
+---
+- name: Create ~/git/fluidd folder
+  become_user: "{{ ansible_user }}"
+  ansible.builtin.file:
+    path: "{{ setup_home_dir }}/git/fluidd"
+    state: directory
+    mode: '0755'
+
+- name: Download Fluidd
+  become_user: "{{ ansible_user }}"
+  ansible.builtin.unarchive:
+    src: https://github.com/fluidd-core/fluidd/releases/download/v1.17.1/fluidd.zip
+    dest: "{{ setup_fluidd_dir }}"
+    remote_src: true
+
+- name: Download Caddy key
+  ansible.builtin.get_url:
+    url: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
+    dest: /etc/apt/trusted.gpg.d/caddy-stable.asc
+    mode: '0644'
+
+- name: Add Caddy repo
+  ansible.builtin.get_url:
+    url: https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt
+    dest: /etc/apt/sources.list.d/caddy-stable.list
+    mode: '0644'
+
+- name: Install Caddy
+  ansible.builtin.apt:
+    name: caddy
+    update_cache: true
+    state: present
+
+- name: Install Caddyfile
+  ansible.builtin.template:
+    src: Caddyfile.j2
+    dest: /etc/caddy/Caddyfile
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Start Caddy service
+  ansible.builtin.systemd:
+    name: caddy.service
+    daemon_reload: true
+    enabled: true
+    state: restarted

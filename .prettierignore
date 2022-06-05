@@ -1,0 +1,5 @@
+charts/
+.vscode/
+.old/
+*.sops.*
+gotk-components.yaml

@@ -1,0 +1,10 @@
+{
+    admin off
+    auto_https off
+    skip_install_trust
+}
+
+:4800 {
+    root * {{ setup_fluidd_dir }}
+    file_server
+}

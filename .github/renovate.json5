@@ -1,0 +1,96 @@
+{
+  extends: [
+    ":enableRenovate",
+    "config:base",
+    ":disableRateLimiting",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":separatePatchReleases",
+    "docker:enableMajor",
+    ":enablePreCommit",
+    "github>xmd3/homelab//.github/renovate/autoMerge.json5",
+    "github>xmd3/homelab//.github/renovate/labels.json5",
+    "github>xmd3/homelab//.github/renovate/semanticCommits.json5",
+    "github>xmd3/homelab//.github/renovate/groups.json5",
+  ],
+  timezone: "Europe/Berlin",
+  semanticCommits: "enabled",
+  dependencyDashboardTitle: "Renovate Dashboard",
+  suppressNotifications: ["prIgnoreNotification"],
+  rebaseWhen: "conflicted",
+  // set up ignored deps
+  ignorePaths: [".old/**"],
+  ignoreDeps: [
+    "ghcr.io/fluxcd/helm-controller",
+    "ghcr.io/fluxcd/image-automation-controller",
+    "ghcr.io/fluxcd/image-reflector-controller",
+    "ghcr.io/fluxcd/kustomize-controller",
+    "ghcr.io/fluxcd/notification-controller",
+    "ghcr.io/fluxcd/source-controller",
+  ],
+  "pre-commit": {
+    enabled: true,
+  },
+  flux: {
+    fileMatch: ["cluster/.+\\.ya?ml$"],
+  },
+  helmv3: {
+    fileMatch: ["charts/.+/Chart\\.ya?ml$"],
+  },
+  "helm-values": {
+    fileMatch: ["cluster/.+\\.ya?ml$"],
+  },
+  kubernetes: {
+    fileMatch: ["cluster/.+\\.ya?ml$"],
+  },
+  regexManagers: [
+    // Read and process GitHub Releases
+    {
+      fileMatch: [
+        "cluster/.+\\.ya?ml$",
+        "ansible/.+\\.ya?ml$",
+        "hack/.+\\.sh$",
+      ],
+      matchStrings: [
+        "datasource=(?<datasource>.*?)\n *url: https://github\\.com/(?<depName>.*?)\\.git\n *ref:\n *tag: (?<currentValue>.*)\n",
+        'datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_version: "(?<currentValue>.*)"\n',
+        'datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n.*?_VERSION="(?<currentValue>.*)"\n',
+      ],
+      datasourceTemplate: "github-releases",
+    },
+    // Read and process Custom Resource Definitions
+    {
+      fileMatch: ["cluster/.+\\.ya?ml$"],
+      matchStrings: [
+        "registryUrl=(?<registryUrl>.*?)\n *tag: (?<depName>[a-zA-Z-]+)-(?<currentValue>.*)\n",
+        "registryUrl=(?<registryUrl>.*?) chart=(?<depName>.*?)\n.*\\/(?<currentValue>.*?)\\/",
+      ],
+      datasourceTemplate: "helm",
+    },
+    // Read and process Custom Resources
+    {
+      fileMatch: ["cluster/.+\\.ya?ml$"],
+      matchStrings: [
+        "datasource=(?<datasource>.*?) depName=(?<depName>.*?)\n .*: (?<currentValue>.*=?)",
+      ],
+      datasourceTemplate: "docker",
+    },
+  ],
+  packageRules: [
+    // setup datasources
+    {
+      matchDatasources: ["helm"],
+      semanticCommitScope: "charts",
+      separateMinorPatch: true,
+      ignoreDeprecated: true,
+    },
+    // global docker datasource settings
+    {
+      matchDatasources: ["docker"],
+      enabled: true,
+      commitMessageTopic: "container image {{depName}}",
+      commitMessageExtra: "to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}",
+      matchUpdateTypes: ["major", "minor", "patch"],
+    },
+  ],
+}

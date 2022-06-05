@@ -1,0 +1,12 @@
+{
+  packageRules: [
+    {
+      automerge: true,
+      matchCurrentVersion: "!/^0/",
+      matchUpdateTypes: ["patch", "pin", "digest"],
+      excludePackageNames: ["ghcr.io/home-assistant/home-assistant"],
+      addLabels: ["renovate/automerge"],
+      schedule: ["before 4am"],
+    },
+  ],
+}
