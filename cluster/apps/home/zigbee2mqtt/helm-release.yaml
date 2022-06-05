@@ -1,0 +1,67 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zigbee2mqtt
+  namespace: home
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: charts/kah-common/
+      sourceRef:
+        kind: GitRepository
+        name: flux-system
+        namespace: flux-system
+      interval: 5m
+  dependsOn:
+    - name: mosquitto
+      namespace: home
+  values:
+    image:
+      repository: koenkk/zigbee2mqtt
+      tag: 1.25.2
+      pullPolicy: IfNotPresent
+    nameOverride: zigbee2mqtt
+    env:
+      TZ: Europe/Berlin
+      ZIGBEE2MQTT_DATA: /data
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
+        hosts:
+          - host: "z2m.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+    securityContext:
+      privileged: true
+    nodeSelector:
+      feature.node.kubernetes.io/custom-deconz: "true"
+      # feature.node.kubernetes.io/custom-sonoff-zigbee: "true"
+    persistence:
+      data:
+        enabled: true
+        type: pvc
+        mountPath: /data
+        existingClaim: zigbee2mqtt-data-v1
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2443005-if00
+        # hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_fe3bbcfff93aec11b2c29c957a0af07f-if00-port0
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 700Mi
