@@ -8,11 +8,10 @@ vars:
   ANSIBLE_DIR: "{{.PROJECT_DIR}}/ansible"
 
 env:
-  KUBECONFIG: "{{.CLUSTER_DIR}}/kubeconfig"
+  KUBECONFIG: "{{.PROJECT_DIR}}/cluster/kubeconfig"
 
 includes:
-  ansible: .taskfiles/ansible.yml
-  flux: .taskfiles/flux.yml
-  format: .taskfiles/format.yml
-  lint: .taskfiles/lint.yml
-  pre-commit: .taskfiles/pre-commit.yml
+  ansible: .taskfiles/AnsibleTasks.yml
+  cluster: .taskfiles/ClusterTasks.yml
+  precommit: .taskfiles/PrecommitTasks.yml
+
