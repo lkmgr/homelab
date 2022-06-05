@@ -1,0 +1,87 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: s3
+  namespace: external
+spec:
+  ports:
+    - port: 9000
+
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: s3
+  namespace: external
+subsets:
+  - addresses:
+      - ip: 192.168.178.40
+    ports:
+      - port: 9000
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: s3
+  namespace: external
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+spec:
+  ingressClassName: "traefik"
+  rules:
+    - host: "s3.${SECRET_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: s3
+                port:
+                  number: 9000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio
+  namespace: external
+spec:
+  ports:
+    - port: 9001
+
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: minio
+  namespace: external
+subsets:
+  - addresses:
+      - ip: 192.168.178.40
+    ports:
+      - port: 9001
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minio
+  namespace: external
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+spec:
+  ingressClassName: "traefik"
+  rules:
+    - host: "minio.${SECRET_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: minio
+                port:
+                  number: 9001
