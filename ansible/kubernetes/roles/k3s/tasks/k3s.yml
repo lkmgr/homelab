@@ -12,7 +12,7 @@
   when: k3s_check_installed.stat.exists
 
 - name: Install Kubernetes
-  include_role:
+  ansible.builtin.include_role:
     name: xanmanning.k3s
     public: true
 
