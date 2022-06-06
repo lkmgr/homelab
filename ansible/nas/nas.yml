@@ -1,9 +1,9 @@
 ---
 - hosts:
-    - master
-    - worker
+    - synology
   become: true
   gather_facts: true
   any_errors_fatal: true
   roles:
-    - k3s.kubernetes
+    - role: home_dns
+      tags: home-dns

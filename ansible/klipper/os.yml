@@ -6,7 +6,7 @@
   gather_facts: true
   any_errors_fatal: true
   roles:
-    - role: os.klipper
+    - role: os
       tags: os
-    - role: setup.klipper
+    - role: setup
       tags: setup

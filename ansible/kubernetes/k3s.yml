@@ -6,4 +6,4 @@
   gather_facts: true
   any_errors_fatal: true
   roles:
-    - os.kubernetes
+    - k3s
