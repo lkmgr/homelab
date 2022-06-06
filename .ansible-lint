@@ -1,0 +1,6 @@
+warn_list:
+  - unnamed-task
+# 'playbook', 'meta', 'tasks', 'handlers', 'requirements', 'role', 'yaml'
+kinds:
+  - playbook: "ansible/*/playbooks/*.{yml,yaml}"
+  - role: "ansible/*/roles/**/*.{yml,yaml}"
