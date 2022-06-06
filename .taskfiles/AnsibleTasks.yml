@@ -9,7 +9,6 @@ vars:
   ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
 
 tasks:
-
   init:
     desc: Install / Upgrade Ansible galaxy deps
     dir: ansible
@@ -65,4 +64,3 @@ tasks:
     dir: ansible
     cmds:
       - ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yml -a '/usr/bin/systemctl poweroff' --become
-

@@ -2,7 +2,6 @@
 version: "3"
 
 tasks:
-
   init:
     desc: Initialize pre-commit hooks
     cmds:
@@ -17,4 +16,3 @@ tasks:
     desc: Update pre-commt hooks
     cmds:
       - pre-commit autoupdate
-

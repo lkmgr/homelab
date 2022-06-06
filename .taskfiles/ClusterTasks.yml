@@ -2,7 +2,6 @@
 version: "3"
 
 tasks:
-
   flux:verify:
     desc: Verify flux meets the prerequisites
     cmds:
@@ -80,4 +79,3 @@ tasks:
       - task: gitrepositories
       - task: certificates
       - task: pods
-
