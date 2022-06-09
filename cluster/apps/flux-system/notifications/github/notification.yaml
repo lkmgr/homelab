@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   type: github
-  address: https://github.com/xmd3/homelab
+  address: https://github.com/dexvm/homelab
   secretRef:
     name: github-notifs-token
 
