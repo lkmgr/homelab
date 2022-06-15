@@ -10,9 +10,12 @@
 
 | Device | Type | Disk | RAM | OS |
 | --- | --- | --- | --- | --- |
-| Minis Forum Ryzen 5 4500U  | Master | 512GB NVME | 16 GB | Ubuntu 20.04 |
-| HP EliteDesk 800 G2 i5-6500T  | Master | 240GB SATA SSD | 16 GB | Ubuntu 20.04 |
-| Dell Optiplex 3040 i5-6500T  | Master | 240GB SATA SSD | 16 GB | Ubuntu 20.04 |
+| Minis Forum Ryzen 5 4500U  | Master | 512GB NVME | 16 GB | Ubuntu 22.04 |
+| HP EliteDesk 800 G2 i5-6500T  | Worker | 240GB SATA SSD | 16 GB | Ubuntu 22.04 |
+| Dell Optiplex 3040 i5-6500T  | Worker | 240GB SATA SSD | 16 GB | Ubuntu 22.04 |
+
+> Currently only one Master and only Local Path storage until I get better SSDs  
+> (etcd fsync delays were sometimes too high with the cheap 240GB drives)
 
 ### NAS
 
