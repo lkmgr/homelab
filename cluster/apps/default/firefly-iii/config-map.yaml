@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: firefly-iii-config
+  namespace: default
+data:
+  TRUSTED_PROXIES: "**"
+  LOG_CHANNEL: stdout
+  APP_LOG_LEVEL: info
+  DB_CONNECTION: pgsql
+  DB_HOST: firefly-iii-db
+  DB_PORT: "5432"
+  # AUTHENTICATION_GUARD: remote_user_guard
+  # AUTHENTICATION_GUARD_HEADER: HTTP_X_FORWARDED_PREFERRED_USERNAME
+  # AUTHENTICATION_GUARD_EMAIL: HTTP_X_FORWARDED_EMAIL

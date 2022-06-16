@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: firefly-iii
+  name: firefly-iii
+  namespace: default
+spec:
+  ports:
+    - name: http
+      port: 8080
+  selector:
+    app: firefly-iii
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: firefly-iii-db
+  name: firefly-iii-db
+  namespace: default
+spec:
+  ports:
+    - name: db
+      port: 5432
+  selector:
+    app: firefly-iii-db
