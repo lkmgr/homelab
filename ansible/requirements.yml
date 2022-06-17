@@ -10,4 +10,4 @@ collections:
     version: 1.2.2
 roles:
   - src: xanmanning.k3s
-    version: v3.1.2
+    version: v3.2.0
