@@ -38,12 +38,3 @@ spec:
         enabled: true
         type: pvc
         existingClaim: radicale-config-v1
-    configmap:
-      config:
-        enabled: true
-        data:
-          config.cfg: |
-            [server]
-            hosts = 0.0.0.0:5232
-            [storage]
-            filesystem_folder = /data/collections
