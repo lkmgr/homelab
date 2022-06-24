@@ -8,8 +8,9 @@ spec:
   interval: 30m
   url: https://github.com/traefik/traefik-helm-chart.git
   ref:
+    # TODO: renovate removes "v" from tag
     # renovate: registryUrl=https://helm.traefik.io/traefik chart=traefik
-    tag: 10.22.0
+    tag: v10.22.0
   ignore: |
     # exclude all
     /*
