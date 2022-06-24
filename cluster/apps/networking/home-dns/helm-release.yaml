@@ -21,8 +21,9 @@ spec:
       tag: v0.3.0
     serviceType: LoadBalancer
     service:
-      loadBalancerIP: "${SVC_HOME_DNS_ADDR}"
       externalTrafficPolicy: Local
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: "${SVC_HOME_DNS_ADDR}"
     serviceAccount:
       create: false
       name: home-dns-cluster

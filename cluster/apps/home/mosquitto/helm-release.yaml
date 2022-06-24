@@ -23,10 +23,9 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: "${SVC_MOSQUITTO_ADDR}"
-        # externalIPs:
-        #   - "${SVC_MOSQUITTO_ADDR}"
         externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${SVC_MOSQUITTO_ADDR}"
     auth:
       enabled: false
     persistence:

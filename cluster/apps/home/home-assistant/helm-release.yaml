@@ -29,8 +29,9 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: "${SVC_HOME_ASSISTANT_ADDR}"
         externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${SVC_HOME_ASSISTANT_ADDR}"
     ingress:
       main:
         enabled: true
