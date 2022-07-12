@@ -41,12 +41,12 @@ spec:
               - path: /
                 pathType: Prefix
     persistence:
-      serverFiles:
+      server-files:
         enabled: true
         type: pvc
         mountPath: /app/server-files
         existingClaim: actual-server-files-v1
-      userFiles:
+      user-files:
         enabled: true
         type: pvc
         mountPath: /app/user-files
