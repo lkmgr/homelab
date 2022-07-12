@@ -1,0 +1,60 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: actual
+  namespace: default
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: kah-common-chart
+      version: 1.1.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    image:
+      repository: ghcr.io/actualbudget/actual-server
+      tag: 1.0.3
+      pullPolicy: IfNotPresent
+    nameOverride: actual
+    env:
+      TZ: Europe/Berlin
+    service:
+      main:
+        ports:
+          http:
+            port: 5006
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
+          traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
+        hosts:
+          - host: "actual.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+    persistence:
+      serverFiles:
+        enabled: true
+        type: pvc
+        mountPath: /app/server-files
+        existingClaim: actual-server-files-v1
+      userFiles:
+        enabled: true
+        type: pvc
+        mountPath: /app/user-files
+        existingClaim: actual-user-files-v1
+    resources:
+      requests:
+        memory: 300Mi
+        cpu: 200m
+      limits:
+        memory: 800Mi
+
