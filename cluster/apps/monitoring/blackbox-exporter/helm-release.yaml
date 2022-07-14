@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: blackbox-exporter
+  namespace: monitoring
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: prometheus-blackbox-exporter
+      version: 5.8.1
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community-charts
+        namespace: flux-system
+      interval: 5m
+  values:
+    fullnameOverride: blackbox-exporter
+    image:
+      repository: quay.io/prometheus/blackbox-exporter
+      tag: v0.20.0
+    ingress:
+      enabled: true
+      className: traefik
+      hosts:
+        - host: "blackbox.${SECRET_DOMAIN}"
+          paths:
+            - path: /
+              pathType: Prefix
+    allowIcmp: true
+    config:
+      modules:
+        icmp:
+          prober: icmp
+          timeout: 15s
+          icmp:
+            preferred_ip_protocol: "ip4"
+    serviceMonitor:
+      enabled: true
+      defaults:
+        labels:
+          release: prometheus
+        interval: 1m
+        scrapeTimeout: 30s
+        module: icmp
+      targets:
+        - name: router-core
+          url: 192.168.178.1
+        - name: router-eg
+          url: 192.168.178.2
+        - name: router-og
+          url: 192.168.178.6
+        - name: repeater-kg
+          url: 192.168.178.7
+        - name: repeater-eg
+          url: 192.168.178.4
+        - name: repeater-og
+          url: 192.168.178.5
+    prometheusRule:
+      enabled: true
+      additionalLabels:
+        app: prometheus-operator
+        release: prometheus
+      rules:
+        - alert: BlackboxProbeFailed
+          expr: probe_success == 0
+          for: 3m
+          labels:
+            severity: critical
+          annotations:
+            description: The host {{"{{ $labels.target }}"}} is currently unreachable
