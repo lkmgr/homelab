@@ -134,28 +134,28 @@ spec:
     kubeApiServer:
       enabled: true
     kubeControllerManager:
-      enabled: true
-      endpoints:
-        - 192.168.178.76
-        - 192.168.178.144
+      enabled: false
+      # endpoints:
+      #   - 192.168.178.76
+      #   - 192.168.178.144
       # service:
       #   enabled: true
       #   port: 10259
       #   targetPort: 10259
     kubeScheduler:
-      enabled: true
-      endpoints:
-        - 192.168.178.76
-        - 192.168.178.144
+      enabled: false
+      # endpoints:
+      #   - 192.168.178.76
+      #   - 192.168.178.144
       # service:
       #   enabled: true
       #   port: 10259
       #   targetPort: 10259
     kubeProxy:
-      enabled: true
-      endpoints:
-        - 192.168.178.76
-        - 192.168.178.144
+      enabled: false
+      # endpoints:
+      #   - 192.168.178.76
+      #   - 192.168.178.144
     kubeEtcd:
       enabled: false
       # endpoints:
