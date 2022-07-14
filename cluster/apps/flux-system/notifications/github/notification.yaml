@@ -22,6 +22,14 @@ spec:
   eventSeverity: info
   eventSources:
     - kind: Kustomization
-      name: "*"
+      name: flux-system
+    - kind: Kustomization
+      name: config
+    - kind: Kustomization
+      name: charts
+    - kind: Kustomization
+      name: core
+    - kind: Kustomization
+      name: apps
     - kind: HelmRelease
       name: "*"
