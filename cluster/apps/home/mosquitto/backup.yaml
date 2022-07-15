@@ -3,6 +3,7 @@ apiVersion: batch/v1
 kind: CronJob
 metadata:
   name: mosquitto-backup
+  namespace: home
 spec:
   schedule: "16 13 * * *"
   concurrencyPolicy: Forbid
