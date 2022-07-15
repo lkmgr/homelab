@@ -7,16 +7,20 @@ metadata:
 spec:
   schedule: "10 2 * * *"
   concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 2
   jobTemplate:
     spec:
+      backoffLimit: 1
+      ttlSecondsAfterFinished: 300
       template:
         spec:
           automountServiceAccountToken: false
           restartPolicy: OnFailure
           containers:
             - name: backup
-              image: ghcr.io/bjw-s/pmb:rolling
-              imagePullPolicy: Always
+              image: ghcr.io/bjw-s/pmb:v0.4.0
+              imagePullPolicy: IfNotPresent
               securityContext:
                 privileged: true
               env:
