@@ -1,0 +1,50 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: mosquitto-backup
+spec:
+  schedule: "16 13 * * *"
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          automountServiceAccountToken: false
+          restartPolicy: OnFailure
+          containers:
+            - name: backup
+              image: ghcr.io/bjw-s/pmb:rolling
+              imagePullPolicy: Always
+              securityContext:
+                privileged: true
+              env:
+                - name: KOPIA_PASSWORD
+                  value: "my_super_secret_password"
+                - name: PMB__ACTION
+                  value: "backup"
+                - name: PMB__DEBUG
+                  value: "true"
+              volumeMounts:
+                - name: data
+                  mountPath: /data/src
+                - name: backup
+                  mountPath: /data/dest
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: mosquitto-data-v1
+            - name: backup
+              nfs:
+                server: "${NAS_ADDR}"
+                path: "/volume1/backups/pmb/mosquitto"
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: app.kubernetes.io/name
+                        operator: In
+                        values:
+                          - mosquitto
+                  topologyKey: kubernetes.io/hostname
