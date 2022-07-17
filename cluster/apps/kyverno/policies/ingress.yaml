@@ -1,0 +1,19 @@
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: ingress
+spec:
+  generateExistingOnPolicyUpdate: true
+  rules:
+    - name: add-default-traefik-entrypoint
+      match:
+        any:
+          - resources:
+              kinds:
+                - Ingress
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              +(traefik.ingress.kubernetes.io/router.entrypoints): "websecure"
