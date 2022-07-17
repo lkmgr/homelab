@@ -5,7 +5,7 @@ metadata:
   name: home-dns
   namespace: networking
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       chart: coredns
@@ -14,7 +14,6 @@ spec:
         kind: HelmRepository
         name: coredns-charts
         namespace: flux-system
-      interval: 5m
   values:
     image:
       repository: quay.io/oriedge/k8s_gateway

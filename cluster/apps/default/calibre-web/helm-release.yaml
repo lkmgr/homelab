@@ -5,7 +5,7 @@ metadata:
   name: calibre-web
   namespace: default
 spec:
-  interval: 5m
+  interval: 15m
   chart:
     spec:
       chart: calibre-web
