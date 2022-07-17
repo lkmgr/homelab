@@ -15,6 +15,9 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
+    controller:
+      labels:
+        backup.home.arpa/backup-claim: &claimName "mosquitto-data-v1"
     image:
       repository: docker.io/eclipse-mosquitto
       tag: 2.0.14
@@ -33,4 +36,4 @@ spec:
         enabled: true
         type: pvc
         mountPath: /mosquitto/data
-        existingClaim: mosquitto-data-v1
+        existingClaim: *claimName
