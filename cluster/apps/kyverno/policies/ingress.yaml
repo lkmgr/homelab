@@ -17,3 +17,16 @@ spec:
           metadata:
             annotations:
               +(traefik.ingress.kubernetes.io/router.entrypoints): "websecure"
+    - name: add-default-external-dns-target
+      match:
+        any:
+          - resources:
+              kinds:
+                - Ingress
+              annotations:
+                external-dns/is-public: "true"
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              +(external-dns.alpha.kubernetes.io/target): "ipv4.${SECRET_DOMAIN}"
