@@ -15,6 +15,9 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
+    controller:
+      labels:
+        backup.home.arpa/backup-claim: &claimName "node-red-data-v1"
     image:
       repository: ghcr.io/k8s-at-home/node-red
       tag: v2.2.2
@@ -46,7 +49,7 @@ spec:
       data:
         enabled: true
         type: pvc
-        existingClaim: node-red-data-v1
+        existingClaim: *claimName
       settings:
         enabled: true
         type: custom

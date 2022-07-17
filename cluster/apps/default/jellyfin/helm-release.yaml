@@ -15,6 +15,9 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
+    controller:
+      labels:
+        backup.home.arpa/backup-claim: &claimName "jellyfin-data-v1"
     image:
       repository: docker.io/jellyfin/jellyfin
       tag: 10.8.1
@@ -49,7 +52,7 @@ spec:
       config:
         enabled: true
         type: pvc
-        existingClaim: jellyfin-data-v1
+        existingClaim: *claimName
       media:
         enabled: true
         type: custom
