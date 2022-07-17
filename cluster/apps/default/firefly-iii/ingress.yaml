@@ -8,7 +8,6 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
     # traefik.ingress.kubernetes.io/router.middlewares: "default-ak-outpost-embedded@kubernetescrd"
     # external-dns/is-public: "true"
-    # external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
 spec:
   ingressClassName: "traefik"
   rules:

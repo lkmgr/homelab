@@ -20,7 +20,6 @@ spec:
       enabled: true
       annotations:
         external-dns/is-public: "true"
-        external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
       className: traefik
       subdomain: auth
       tls:
