@@ -121,7 +121,6 @@ spec:
       enabled: true
       ingressClassName: "traefik"
       annotations:
-        traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         traefik.ingress.kubernetes.io/router.middlewares: "networking-authelia@kubernetescrd"
         external-dns/is-public: "true"
         external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"

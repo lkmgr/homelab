@@ -171,7 +171,6 @@ spec:
         pathType: Prefix
         ingressClassName: "traefik"
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
         hosts:
           - "prometheus.${SECRET_DOMAIN}"

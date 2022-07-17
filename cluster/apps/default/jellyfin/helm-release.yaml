@@ -37,7 +37,6 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
           traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
         hosts:
           - host: "jellyfin.${SECRET_DOMAIN}"

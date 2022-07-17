@@ -27,7 +27,6 @@ metadata:
   name: paperless
   namespace: external
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
     traefik.ingress.kubernetes.io/router.middlewares: "networking-authelia@kubernetescrd"
 spec:
   ingressClassName: "traefik"

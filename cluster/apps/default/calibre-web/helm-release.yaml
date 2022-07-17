@@ -25,8 +25,6 @@ spec:
       main:
         enabled: true
         ingressClassName: "traefik"
-        annotations:
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "calibre-web.${SECRET_DOMAIN}"
             paths:

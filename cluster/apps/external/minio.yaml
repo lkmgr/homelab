@@ -26,8 +26,6 @@ kind: Ingress
 metadata:
   name: s3
   namespace: external
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
 spec:
   ingressClassName: "traefik"
   rules:
@@ -70,8 +68,6 @@ kind: Ingress
 metadata:
   name: minio
   namespace: external
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
 spec:
   ingressClassName: "traefik"
   rules:

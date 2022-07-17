@@ -38,7 +38,6 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "ipv4.${SECRET_DOMAIN}"
           external-dns/is-public: "true"
-          traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
         hosts:
           - host: "ha.${SECRET_DOMAIN}"
             paths:
@@ -108,7 +107,6 @@ spec:
           enabled: true
           ingressClassName: "traefik"
           annotations:
-            traefik.ingress.kubernetes.io/router.entrypoints: "websecure"
             traefik.ingress.kubernetes.io/router.middlewares: "networking-authelia@kubernetescrd,networking-local-only@kubernetescrd"
           hosts:
             - host: "ha-config.${SECRET_DOMAIN}"
