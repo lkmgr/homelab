@@ -5,10 +5,10 @@ metadata:
   name: backup-operator
   annotations:
     policies.kyverno.io/title: backup-operator
-    policies.kyverno.io/subject: Deployment
+    policies.kyverno.io/subject: Deployment,StatefulSet
     policies.kyverno.io/description: >-
-      This policy generates a backup CronJob for Deployments
-      with the 'backup.home.arpa/backup-claim' label
+      This policy generates a backup CronJob for Deployments or
+      StatefulSets with the 'backup.home.arpa/backup-claim' label
 spec:
   generateExistingOnPolicyUpdate: true
   mutateExistingOnPolicyUpdate: true
@@ -19,6 +19,7 @@ spec:
           - resources:
               kinds:
                 - Deployment
+                - StatefulSet
               selector:
                 matchLabels:
                   backup.home.arpa/backup-claim: "*"
