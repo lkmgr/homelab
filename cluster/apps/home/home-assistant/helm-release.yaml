@@ -83,8 +83,6 @@ spec:
         existingSecret: ha-postgresql-secret
       primary:
         labels:
-          app.kubernetes.io/name: home-assistant-postgresql
-          app.kubernetes.io/instance: home-assistant-postgresql
           backup.home.arpa/backup-claim: &claimNamePostgresql "home-assistant-postgres-v1"
         persistence:
           enabled: true
