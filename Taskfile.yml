@@ -12,5 +12,7 @@ env:
 
 includes:
   ansible: .taskfiles/AnsibleTasks.yml
+  backup: .taskfiles/BackupTasks.yml
   cluster: .taskfiles/ClusterTasks.yml
   precommit: .taskfiles/PrecommitTasks.yml
+  restore: .taskfiles/RestoreTasks.yml
