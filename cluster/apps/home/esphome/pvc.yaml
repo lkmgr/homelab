@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: esphome-config-v1
   namespace: home
+  labels:
+    app.kubernetes.io/name: &name esphome
+    app.kubernetes.io/instance: *name
 spec:
   storageClassName: local-path
   accessModes:

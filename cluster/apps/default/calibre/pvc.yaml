@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: calibre-config-v1
   namespace: default
+  labels:
+    app.kubernetes.io/name: &name calibre
+    app.kubernetes.io/instance: *name
 spec:
   storageClassName: local-path
   accessModes:

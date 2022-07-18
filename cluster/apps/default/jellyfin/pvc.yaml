@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: jellyfin-data-v1
   namespace: default
+  labels:
+    app.kubernetes.io/name: &name jellyfin
+    app.kubernetes.io/instance: *name
 spec:
   storageClassName: local-path
   accessModes:

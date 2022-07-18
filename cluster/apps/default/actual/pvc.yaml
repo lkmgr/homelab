@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: actual-server-files-v1
   namespace: default
+  labels:
+    app.kubernetes.io/name: &name actual
+    app.kubernetes.io/instance: *name
 spec:
   storageClassName: local-path
   accessModes:
@@ -18,6 +21,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: actual-user-files-v1
   namespace: default
+  labels:
+    app.kubernetes.io/name: &name actual
+    app.kubernetes.io/instance: *name
 spec:
   storageClassName: local-path
   accessModes:

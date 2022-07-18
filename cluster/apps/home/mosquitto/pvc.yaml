@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: mosquitto-data-v1
   namespace: home
+  labels:
+    app.kubernetes.io/name: &name mosquitto
+    app.kubernetes.io/instance: *name
 spec:
   storageClassName: local-path
   accessModes:

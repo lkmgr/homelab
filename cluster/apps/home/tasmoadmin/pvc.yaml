@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: tasmoadmin-data-v1
   namespace: home
+  labels:
+    app.kubernetes.io/name: &name tasmoadmin
+    app.kubernetes.io/instance: *name
 spec:
   storageClassName: local-path
   accessModes:

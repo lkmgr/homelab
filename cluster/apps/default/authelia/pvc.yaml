@@ -4,6 +4,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: authelia-data-v1
   namespace: default
+  labels:
+    app.kubernetes.io/name: &name authelia
+    app.kubernetes.io/instance: *name
 spec:
   storageClassName: local-path
   accessModes:
