@@ -25,6 +25,10 @@ spec:
       repository: koenkk/zigbee2mqtt
       tag: 1.26.0
       pullPolicy: IfNotPresent
+
+    command: [ "/bin/bash", "-c", "--" ]
+    args: [ "while true; do sleep 30; done;" ]
+
     nameOverride: zigbee2mqtt
     env:
       TZ: Europe/Berlin
