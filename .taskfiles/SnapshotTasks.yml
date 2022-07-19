@@ -57,15 +57,16 @@ tasks:
       - kubectl -n {{.NAMESPACE}} wait pod --for delete --selector="app.kubernetes.io/name={{.APP}}" --timeout=2m
       - envsubst < <(cat ./hack/restore-job.yaml) | kubectl apply -f -
       - sleep 2
-      - kubectl -n {{.NAMESPACE}} wait job --for condition=complete {{.APP}}-restore-backup --timeout=120m
+      - kubectl -n {{.NAMESPACE}} wait job --for condition=complete {{.APP}}-restore --timeout=120m
       - flux -n {{.NAMESPACE}} resume helmrelease {{.APP}}
-      - kubectl -n {{.NAMESPACE}} logs job/{{.APP}}-restore-backup
-      - defer: kubectl -n {{.NAMESPACE}} delete job {{.APP}}-restore-backup
+      - kubectl -n {{.NAMESPACE}} logs job/{{.APP}}-restore
+      - defer: kubectl -n {{.NAMESPACE}} delete job {{.APP}}-restore
     vars: *vars
     env:
       APP: "{{.APP}}"
       NAMESPACE: "{{.NAMESPACE}}"
       VOLUME: "{{.VOLUME}}"
+      KOPIA_PASSWORD: "{{.KOPIA_PASSWORD}}"
       SNAPSHOT:
         sh: |
           if [[ {{.SNAPSHOT}} == "latest" ]]; then

@@ -2,8 +2,8 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: $APP-restore
-  namespace: $NAMESPACE
+  name: ${APP}-restore
+  namespace: ${NAMESPACE}
 spec:
   ttlSecondsAfterFinished: 3600
   template:
@@ -15,7 +15,7 @@ spec:
           image: ghcr.io/onedr0p/kopia:0.11.3@sha256:2ae9ede0edac68c09d517abd71fa12c96efcf19f27ce7ffca968cebb10ed0e2d
           env:
             - name: KOPIA_PASSWORD
-              value: "$KOPIA_PASSWORD"
+              value: ${KOPIA_PASSWORD}
           command:
             - /bin/bash
             - -c
@@ -35,7 +35,7 @@ spec:
       volumes:
         - name: config
           persistentVolumeClaim:
-            claimName: $PVC
+            claimName: ${VOLUME}
         - name: backups
           nfs:
             server: 192.168.178.40
