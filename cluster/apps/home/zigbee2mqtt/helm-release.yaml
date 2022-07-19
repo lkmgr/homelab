@@ -61,6 +61,35 @@ spec:
         type: hostPath
         hostPath: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2443005-if00
         # hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_fe3bbcfff93aec11b2c29c957a0af07f-if00-port0
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: codercom/code-server
+          tag: 4.5.0
+        env:
+          TZ: "Europe/Berlin"
+        workingDir: "/data"
+        args:
+          - --auth
+          - "none"
+          - --user-data-dir
+          - "/data/.vscode"
+          - --extensions-dir
+          - "/data/.vscode"
+        ingress:
+          enabled: true
+          ingressClassName: "traefik"
+          annotations:
+            traefik.ingress.kubernetes.io/router.middlewares: "networking-authelia@kubernetescrd,networking-local-only@kubernetescrd"
+          hosts:
+            - host: "z2m-config.${SECRET_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+        volumeMounts:
+          - name: data
+            mountPath: /data
     resources:
       requests:
         memory: 100Mi
