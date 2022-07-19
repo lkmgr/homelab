@@ -42,6 +42,7 @@ tasks:
         kubectl -n {{.NAMESPACE}} create job --from=cronjob/{{.APP}}-backup {{.APP}}-backup-{{.TS}} --dry-run=client --output yaml \
           | yq eval "del(.spec.template.spec.initContainers)" - \
           | kubectl apply -f -
+      - sleep 2
       - kubectl -n {{.NAMESPACE}} wait pod --for condition=ready --selector=job-name={{.APP}}-backup-{{.TS}} --timeout=1m
       - kubectl -n {{.NAMESPACE}} logs --selector=job-name={{.APP}}-backup-{{.TS}} -f
       - defer: kubectl -n {{.NAMESPACE}} delete job {{.APP}}-backup-{{.TS}}
@@ -55,6 +56,7 @@ tasks:
       - kubectl -n {{.NAMESPACE}} scale {{.NAME}} --replicas 0
       - kubectl -n {{.NAMESPACE}} wait pod --for delete --selector="app.kubernetes.io/name={{.APP}}" --timeout=2m
       - envsubst < <(cat ./hack/restore-job.yaml) | kubectl apply -f -
+      - sleep 2
       - kubectl -n {{.NAMESPACE}} wait job --for condition=complete {{.APP}}-restore-backup --timeout=120m
       - flux -n {{.NAMESPACE}} resume helmrelease {{.APP}}
       - kubectl -n {{.NAMESPACE}} logs job/{{.APP}}-restore-backup
