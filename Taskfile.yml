@@ -4,14 +4,107 @@ version: "3"
 vars:
   PROJECT_DIR:
     sh: "git rev-parse --show-toplevel"
-  CLUSTER_DIR: "{{.PROJECT_DIR}}/cluster"
-  ANSIBLE_DIR: "{{.PROJECT_DIR}}/ansible"
 
 env:
   KUBECONFIG: "{{.PROJECT_DIR}}/cluster/kubeconfig"
 
 includes:
-  ansible: .taskfiles/AnsibleTasks.yml
-  cluster: .taskfiles/ClusterTasks.yml
-  precommit: .taskfiles/PrecommitTasks.yml
   snapshot: .taskfiles/SnapshotTasks.yml
+
+tasks:
+  ansible:init:
+    desc: install/upgrade ansible deps
+    dir: ansible
+    cmds:
+      - "ansible-galaxy install -r requirements.yml --roles-path ~/.ansible/roles --force"
+      - "ansible-galaxy collection install -r requirements.yml --collections-path ~/.ansible/collections --force"
+
+  # https://github.com/bjw-s/home-ops/blob/0eb06856e6b8e0a677b2f8aa4c19d98de8c8a554/.taskfiles/cluster.yaml
+  debug:volume:
+    desc: Attach a volume to a container for debugging, ex. VOLUME=zigbee2mqtt-config-v1 NAMESPACE=home task debug:volume
+    interactive: true
+    silent: true
+    vars:
+      NAS_ADDRESS: "192.168.178.40"
+    cmds:
+      - |
+        kubectl run debug-{{.VOLUME}} -n {{.NAMESPACE}} -i --tty --rm --image=null --overrides='
+          {
+            "spec": {
+              "containers": [
+                {
+                  "name": "debug",
+                  "image": "docker.io/library/ubuntu:focal",
+                  "command": [
+                    "/bin/bash"
+                  ],
+                  "stdin": true,
+                  "stdinOnce": true,
+                  "tty": true,
+                  "lifecycle": {
+                    "postStart": {
+                      "exec": {
+                        "command": [
+                          "/bin/sh",
+                          "-c",
+                          "apt update -y && apt install -y curl vim"
+                        ]
+                      }
+                    }
+                  },
+                  "volumeMounts": [
+                    {
+                      "name": "backups",
+                      "mountPath": "/mnt/backups/"
+                    },
+                    {
+                      "name": "debug-volume",
+                      "mountPath": "/mnt/volume/"
+                    }
+                  ]
+                }
+              ],
+              "volumes": [
+                {
+                  "name": "backups",
+                  "nfs": {
+                    "server": "{{.NAS_ADDRESS}}",
+                    "path": "/volume1/backups/kopia"
+                  }
+                },
+                {
+                  "name": "debug-volume",
+                  "persistentVolumeClaim": {
+                    "claimName": "{{.VOLUME}}"
+                  }
+                }
+              ],
+              "restartPolicy": "Never"
+            }
+          }'
+
+  flux:reconcile:
+    desc: flux reconcile
+    cmds:
+      - flux reconcile source git flux-system
+
+  flux:restart-hr:
+    desc: restart all failed helm releases
+    cmds:
+      - kubectl get hr -A | grep False | awk '{print $2, $1}' | xargs -l bash -c 'flux suspend hr $0 -n $1'
+      - kubectl get hr -A | grep False | awk '{print $2, $1}' | xargs -l bash -c 'flux resume hr $0 -n $1'
+
+  precommit:init:
+    desc: Install pre-commit hooks
+    cmds:
+      - pre-commit install --install-hooks
+
+  precommit:update:
+    desc: Update pre-commit hooks
+    cmds:
+      - pre-commit autoupdate
+
+  precommit:run:
+    desc: Run pre-commit on all files
+    cmds:
+      - pre-commit run --all-files
