@@ -20,7 +20,7 @@ spec:
         backup.home.arpa/backup-claim: &claimName "node-red-data-v1"
     image:
       repository: ghcr.io/k8s-at-home/node-red
-      tag: v2.2.2
+      tag: v3.0.1
     env:
       TZ: "Europe/Berlin"
       NODE_RED_ENABLE_PROJECTS: "true"
