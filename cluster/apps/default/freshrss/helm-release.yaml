@@ -1,0 +1,43 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: freshrss
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: freshrss
+      version: 6.3.2
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-at-home-charts
+        namespace: flux-system
+  values:
+    controller:
+      labels:
+        backup.home.arpa/backup-claim: &claimName "freshrss-config-v1"
+    image:
+      repository: docker.io/linuxserver/freshrss
+      tag: version-1.19.2
+    env:
+      TZ: Europe/Berlin
+      PUID: "1000"
+      PGID: "1000"
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "traefik"
+        annotations:
+          external-dns/is-public: "true"
+        hosts:
+          - host: "freshrss.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+    persistence:
+      config:
+        enabled: true
+        type: pvc
+        existingClaim: *claimName
