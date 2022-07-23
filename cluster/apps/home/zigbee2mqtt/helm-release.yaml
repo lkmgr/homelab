@@ -23,14 +23,6 @@ spec:
       tag: 1.26.0
       pullPolicy: IfNotPresent
     nameOverride: zigbee2mqtt
-    # command: ["/bin/sh", "-ec", "while :; do echo '.'; sleep 5 ; done"]
-    # probes:
-    #   liveness:
-    #     enabled: false
-    #   readiness:
-    #     enabled: false
-    #   startup:
-    #     enabled: false
     env:
       TZ: Europe/Berlin
       ZIGBEE2MQTT_DATA: /data
@@ -53,7 +45,6 @@ spec:
     securityContext:
       privileged: true
     nodeSelector:
-      # feature.node.kubernetes.io/custom-deconz: "true"
       feature.node.kubernetes.io/custom-sonoff-zigbee: "true"
     persistence:
       data:
@@ -65,36 +56,35 @@ spec:
         enabled: true
         type: hostPath
         hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_fe3bbcfff93aec11b2c29c957a0af07f-if00-port0
-        # hostPath: /dev/serial/by-id/usb-dresden_elektronik_ingenieurtechnik_GmbH_ConBee_II_DE2443005-if00
-    # addons:
-    #   codeserver:
-    #     enabled: true
-    #     image:
-    #       repository: codercom/code-server
-    #       tag: 4.5.1
-    #     env:
-    #       TZ: "Europe/Berlin"
-    #     workingDir: "/data"
-    #     args:
-    #       - --auth
-    #       - "none"
-    #       - --user-data-dir
-    #       - "/data/.vscode"
-    #       - --extensions-dir
-    #       - "/data/.vscode"
-    #     ingress:
-    #       enabled: true
-    #       ingressClassName: "traefik"
-    #       annotations:
-    #         traefik.ingress.kubernetes.io/router.middlewares: "networking-authelia@kubernetescrd,networking-local-only@kubernetescrd"
-    #       hosts:
-    #         - host: "z2m-config.${SECRET_DOMAIN}"
-    #           paths:
-    #             - path: /
-    #               pathType: Prefix
-    #     volumeMounts:
-    #       - name: data
-    #         mountPath: /data
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: codercom/code-server
+          tag: 4.5.1
+        env:
+          TZ: "Europe/Berlin"
+        workingDir: "/data"
+        args:
+          - --auth
+          - "none"
+          - --user-data-dir
+          - "/data/.vscode"
+          - --extensions-dir
+          - "/data/.vscode"
+        ingress:
+          enabled: true
+          ingressClassName: "traefik"
+          annotations:
+            traefik.ingress.kubernetes.io/router.middlewares: "networking-authelia@kubernetescrd,networking-local-only@kubernetescrd"
+          hosts:
+            - host: "z2m-config.${SECRET_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+        volumeMounts:
+          - name: data
+            mountPath: /data
     resources:
       requests:
         memory: 100Mi
