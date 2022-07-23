@@ -15,9 +15,6 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
-    controller:
-      labels:
-        backup.home.arpa/backup-claim: &claimName "home-assistant-config-v1"
     image:
       repository: ghcr.io/home-assistant/home-assistant
       tag: 2022.7.5
@@ -59,7 +56,7 @@ spec:
       config:
         enabled: true
         mountPath: /config
-        existingClaim: *claimName
+        existingClaim: home-assistant-config-v1
     additionalContainers:
       appdaemon:
         name: appdaemon
@@ -82,11 +79,9 @@ spec:
         database: home-assistant
         existingSecret: ha-postgresql-secret
       primary:
-        labels:
-          backup.home.arpa/backup-claim: &claimNamePostgresql "home-assistant-postgres-v1"
         persistence:
           enabled: true
-          existingClaim: *claimNamePostgresql
+          existingClaim: home-assistant-postgres-v1
         nodeSelector:
           kubernetes.io/hostname: helios
     addons:

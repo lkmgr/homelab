@@ -25,6 +25,20 @@ spec:
   values:
     global:
       nameOverride: kopia
+    initContainers:
+      wait-for-repo:
+        image: ghcr.io/onedr0p/kopia:0.11.3@sha256:37e10143585ff2e668a10d878d854831e92bfb7f482f823d1f58af3910fcff41
+        command:
+          - /bin/bash
+          - -c
+          - |-
+            until [ -f /snapshots/kopia.repository.f ]; do
+                echo "Kopia repo not created yet, awaiting creation ..."
+                sleep 1
+            done
+        volumeMounts:
+          - name: snapshots
+            mountPath: /snapshots
     image:
       repository: ghcr.io/onedr0p/kopia
       tag: 0.11.3@sha256:db13525a2779b77e4c1db2e14470a369a2c8c9ebac575706c1141f0a786c7f62
@@ -68,12 +82,12 @@ spec:
         subPath: repository.config
         mountPath: /config/repository.config
         readOnly: true
-      backups:
+      snapshots:
         enabled: true
         type: nfs
         server: "${NAS_ADDR}"
-        path: /volume1/backups
-        mountPath: /backups
+        path: /volume1/backups/kopia
+        mountPath: /snapshots
     resources:
       requests:
         cpu: 10m

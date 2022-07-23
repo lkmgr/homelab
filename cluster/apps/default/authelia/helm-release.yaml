@@ -26,8 +26,6 @@ spec:
         enabled: false
     pod:
       kind: Deployment
-      labels:
-        backup.home.arpa/backup-claim: &claimName "authelia-data-v1"
       replicas: 1
       strategy:
         type: Recreate
@@ -87,4 +85,4 @@ spec:
       existingSecret: authelia-secrets
     persistence:
       enabled: true
-      existingClaim: *claimName
+      existingClaim: authelia-data-v1

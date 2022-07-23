@@ -15,9 +15,6 @@ spec:
         name: k8s-at-home-charts
         namespace: flux-system
   values:
-    controller:
-      labels:
-        backup.home.arpa/backup-claim: &claimName "freshrss-config-v1"
     image:
       repository: docker.io/linuxserver/freshrss
       tag: version-1.19.2
@@ -40,4 +37,4 @@ spec:
       config:
         enabled: true
         type: pvc
-        existingClaim: *claimName
+        existingClaim: freshrss-config-v1
