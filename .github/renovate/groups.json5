@@ -21,5 +21,12 @@
       matchUpdateTypes: ["minor", "patch"],
       separateMinorPatch: false,
     },
+    {
+      groupName: "cert-manager",
+      matchPackagePatterns: ["cert-manager"],
+      matchDatasources: ["docker", "helm"],
+      matchUpdateTypes: ["minor", "patch"],
+      separateMinorPatch: false,
+    },
   ],
 }
