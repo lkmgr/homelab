@@ -60,7 +60,7 @@ spec:
             failedJobsHistoryLimit: 2
             jobTemplate:
               spec:
-                ttlSecondsAfterFinished: 900
+                ttlSecondsAfterFinished: 86400 # 24h
                 template:
                   spec:
                     automountServiceAccountToken: false
