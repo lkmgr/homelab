@@ -23,9 +23,13 @@ spec:
       TZ: Europe/Berlin
     service:
       main:
+        type: LoadBalancer
         ports:
           http:
             port: 80
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${SVC_TASMOADMIN_ADDR}"
     ingress:
       main:
         enabled: true
