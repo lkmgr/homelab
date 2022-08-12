@@ -27,7 +27,6 @@ spec:
           paths:
             - path: /
               pathType: Prefix
-    allowIcmp: true
     config:
       modules:
         icmp:
@@ -56,6 +55,11 @@ spec:
           url: 192.168.178.4
         - name: repeater-og
           url: 192.168.178.5
+    securityContext:
+      readOnlyRootFilesystem: true
+      allowPrivilegeEscalation: false
+      capabilities:
+        add: ["NET_RAW"]
     prometheusRule:
       enabled: true
       additionalLabels:
