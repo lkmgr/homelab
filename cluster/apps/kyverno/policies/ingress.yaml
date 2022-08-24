@@ -25,6 +25,14 @@ spec:
                 - Ingress
               annotations:
                 external-dns/is-public: "true"
+      # exclude when explicit target set
+      exclude:
+        any:
+          - resources:
+              kinds:
+                - Ingress
+              annotations:
+                external-dns.alpha.kubernetes.io/target: "*"
       mutate:
         patchStrategicMerge:
           metadata:
