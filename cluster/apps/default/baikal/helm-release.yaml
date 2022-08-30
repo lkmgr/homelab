@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: baikal
+      chart: app-template
       version: 4.2.2
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
   values:
     image:
@@ -20,6 +20,11 @@ spec:
       tag: 0.9.2
     env:
       TZ: Europe/Berlin
+    service:
+      main:
+        ports:
+          http:
+            port: 80
     ingress:
       main:
         enabled: true
