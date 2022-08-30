@@ -82,7 +82,7 @@ spec:
       nameOverride: redis
       image:
         repository: bitnami/redis
-        tag: 6.2.7
+        tag: 7.0.4
       architecture: standalone
       auth:
         enabled: false
