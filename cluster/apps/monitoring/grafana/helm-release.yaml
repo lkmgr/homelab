@@ -23,7 +23,7 @@ spec:
   values:
     image:
       repository: grafana/grafana
-      tag: 9.1.1
+      tag: 9.1.2
     replicas: 1
     admin:
       existingSecret: grafana-secrets
