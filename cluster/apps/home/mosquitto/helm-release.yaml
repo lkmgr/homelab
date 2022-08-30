@@ -23,9 +23,6 @@ spec:
     service:
       main:
         type: LoadBalancer
-        externalTrafficPolicy: Local
-        annotations:
-          metallb.universe.tf/loadBalancerIPs: "${SVC_MOSQUITTO_ADDR}"
         ports:
           http:
             enabled: false
@@ -34,6 +31,16 @@ spec:
             primary: true
             port: 1883
             protocol: TCP
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${SVC_MOSQUITTO_ADDR}"
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
     persistence:
       data:
         enabled: true
