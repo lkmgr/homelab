@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: calibre
-      version: 5.4.2
+      chart: app-template
+      version: 0.1.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
   values:
     image:
@@ -20,9 +20,23 @@ spec:
       tag: version-v6.0.0
     env:
       TZ: Europe/Berlin
+      PUID: "1001"
+      PGID: "1001"
+      UMASK_SET: "022"
     service:
+      main:
+        ports:
+          http:
+            port: 8080
       webserver:
         enabled: true
+        type: ClusterIP
+        ports:
+          webserver:
+            enabled: true
+            port: 8081
+            protocol: TCP
+            targetPort: 8081
     ingress:
       main:
         enabled: true
