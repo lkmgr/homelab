@@ -3,6 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: mosquitto-config
+  namespace: home
 data:
   mosquitto.conf: |
     per_listener_settings false
