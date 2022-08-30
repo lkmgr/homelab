@@ -27,6 +27,8 @@ spec:
         annotations:
           metallb.universe.tf/loadBalancerIPs: "${SVC_MOSQUITTO_ADDR}"
         ports:
+          http:
+            enabled: false
           mqtt:
             enabled: true
             port: 1883
