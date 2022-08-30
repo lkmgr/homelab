@@ -8,11 +8,11 @@ spec:
   interval: 15m
   chart:
     spec:
-      chart: calibre-web
-      version: 8.4.2
+      chart: app-template
+      version: 0.1.1
       sourceRef:
         kind: HelmRepository
-        name: k8s-at-home-charts
+        name: bjw-s-charts
         namespace: flux-system
   values:
     image:
@@ -21,6 +21,13 @@ spec:
     env:
       TZ: Europe/Berlin
       DOCKER_MODS: "linuxserver/calibre-web:calibre"
+      PUID: "1001"
+      PGID: "1001"
+    service:
+      main:
+        ports:
+          http:
+            port: 8083
     ingress:
       main:
         enabled: true
