@@ -31,7 +31,9 @@ spec:
             enabled: false
           mqtt:
             enabled: true
+            primary: true
             port: 1883
+            protocol: TCP
     persistence:
       data:
         enabled: true
