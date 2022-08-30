@@ -32,6 +32,9 @@ spec:
         externalTrafficPolicy: Local
         annotations:
           metallb.universe.tf/loadBalancerIPs: "${SVC_JELLYFIN_ADDR}"
+        ports:
+          http:
+            port: 8096
     ingress:
       main:
         enabled: true

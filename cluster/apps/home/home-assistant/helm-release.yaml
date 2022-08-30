@@ -31,6 +31,9 @@ spec:
         externalTrafficPolicy: Local
         annotations:
           metallb.universe.tf/loadBalancerIPs: "${SVC_HOME_ASSISTANT_ADDR}"
+        ports:
+          http:
+            port: 8123
     ingress:
       main:
         enabled: true
