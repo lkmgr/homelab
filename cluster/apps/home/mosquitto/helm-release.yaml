@@ -34,16 +34,17 @@ spec:
         externalTrafficPolicy: Local
         annotations:
           metallb.universe.tf/loadBalancerIPs: "${SVC_MOSQUITTO_ADDR}"
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
     persistence:
       data:
         enabled: true
         type: pvc
         mountPath: /mosquitto/data
         existingClaim: mosquitto-data-v1
+      config:
+        enabled: true
+        mountPath: /mosquitto/config/mosquitto.conf
+        subPath: mosquitto.conf
+        type: custom
+        volumeSpec:
+          configMap:
+            name: mosquitto-config
