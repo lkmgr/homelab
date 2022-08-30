@@ -5,6 +5,6 @@ metadata:
   name: app-template-extra-charts
   namespace: flux-system
 spec:
-  interval: 1h
+  interval: 5m
   url: https://lkmgr.github.io/charts
   timeout: 3m
