@@ -82,6 +82,7 @@ spec:
         database: home-assistant
         existingSecret: ha-postgresql-secret
       primary:
+        enabled: true
         persistence:
           enabled: true
           existingClaim: home-assistant-postgres-v1
