@@ -1,0 +1,26 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: whoami-host
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: whoami-host
+  template:
+    metadata:
+      labels:
+        app: whoami-host
+    spec:
+      hostNetwork: true
+      containers:
+        - image: containous/whoami:latest
+          name: whoami-host
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 100m
+              memory: 200M
