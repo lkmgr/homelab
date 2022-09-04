@@ -35,7 +35,7 @@ spec:
       extraEnvs:
         - name: TZ
           value: "Europe/Berlin"
-      type: DaemonSet
+      kind: DaemonSet
       service:
         enabled: false
       config:
