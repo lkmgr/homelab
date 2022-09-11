@@ -60,6 +60,7 @@ metadata:
   labels:
     app.kubernetes.io/name: paperless
     app.kubernetes.io/instance: paperless
+    snapshot.home.arpa/enabled: "true"
 spec:
   storageClassName: local-path
   accessModes:
