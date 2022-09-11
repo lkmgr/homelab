@@ -65,9 +65,9 @@ spec:
     postgresql:
       enabled: true
       nameOverride: postgresql
-      image:
-        repository: bitnami/postgresql
-        tag: 13.8.0
+      # image:
+      #   repository: bitnami/postgresql
+      #   tag: 13.8.0
       auth:
         username: paperless
         database: paperless
@@ -80,9 +80,9 @@ spec:
     redis:
       enabled: true
       nameOverride: redis
-      image:
-        repository: bitnami/redis
-        tag: 6.2.7
+      # image:
+      #   repository: bitnami/redis
+      #   tag: 6.2.7
       architecture: standalone
       auth:
         enabled: false
