@@ -27,6 +27,7 @@ spec:
   values:
     controller:
       dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
       hostPort:
         enabled: true
         ports:
