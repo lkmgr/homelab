@@ -19,7 +19,7 @@ spec:
     ingress:
       enabled: true
       annotations:
-        external-dns/is-public: "true"
+        external.home.arpa/enabled: "true"
       className: traefik
       subdomain: auth
       tls:

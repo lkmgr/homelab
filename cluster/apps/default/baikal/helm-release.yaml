@@ -30,7 +30,7 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
-          external-dns/is-public: "true"
+          external.home.arpa/enabled: "true"
         hosts:
           - host: "baikal.${SECRET_DOMAIN}"
             paths:

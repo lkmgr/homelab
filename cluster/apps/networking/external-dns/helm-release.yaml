@@ -33,7 +33,7 @@ spec:
             key: api-token
     extraArgs:
       - --cloudflare-proxied
-      - --annotation-filter=external-dns/is-public in (true)
+      - --annotation-filter=external.home.arpa/enabled in (true)
     policy: sync
     sources:
       - ingress

@@ -32,7 +32,7 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         annotations:
-          external-dns/is-public: "true"
+          external.home.arpa/enabled: "true"
         hosts:
           - host: "freshrss.${SECRET_DOMAIN}"
             paths:
