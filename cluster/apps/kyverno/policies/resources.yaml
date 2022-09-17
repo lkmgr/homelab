@@ -2,16 +2,35 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: resources
+  name: resources-remove-cpu-limits
 spec:
+  mutateExistingOnPolicyUpdate: true
   generateExistingOnPolicyUpdate: true
   rules:
-    - name: remove-cpu-limits
+    - name: resources-remove-cpu-limits
       match:
         any:
           - resources:
               kinds:
                 - Pod
+      exclude:
+        any:
+          - resources:
+              namespaces:
+                - calico-system
+                - tigera-operator
+          - resources:
+              kinds:
+                - Pod
+              selector:
+                matchLabels:
+                  job-name: "*"
+          - resources:
+              kinds:
+                - Pod
+              selector:
+                matchLabels:
+                  statefulset.kubernetes.io/pod-name: "*"
       mutate:
         patchStrategicMerge:
           spec:

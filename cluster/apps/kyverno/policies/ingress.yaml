@@ -2,11 +2,11 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: ingress
+  name: ingress-add-default-traefik-entrypoint
 spec:
   generateExistingOnPolicyUpdate: true
   rules:
-    - name: add-default-traefik-entrypoint
+    - name: ingress-add-default-traefik-entrypoint
       match:
         any:
           - resources:
@@ -17,20 +17,28 @@ spec:
           metadata:
             annotations:
               +(traefik.ingress.kubernetes.io/router.entrypoints): "websecure"
-    - name: add-default-external-dns-target
+
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: ingress-add-external-dns-target
+spec:
+  mutateExistingOnPolicyUpdate: true
+  generateExistingOnPolicyUpdate: true
+  rules:
+    - name: ingress-add-external-dns-target
       match:
         any:
           - resources:
               kinds:
                 - Ingress
               annotations:
-                external-dns/is-public: "true"
+                external.home.arpa/enabled: "true"
       # exclude when explicit target set
       exclude:
         any:
           - resources:
-              kinds:
-                - Ingress
               annotations:
                 external-dns.alpha.kubernetes.io/target: "*"
       mutate:
@@ -38,3 +46,29 @@ spec:
           metadata:
             annotations:
               +(external-dns.alpha.kubernetes.io/target): "ipv4.${SECRET_DOMAIN}"
+
+---
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: ingress-add-lan-whitelist
+spec:
+  mutateExistingOnPolicyUpdate: true
+  generateExistingOnPolicyUpdate: true
+  rules:
+    - name: ingress-add-lan-whitelist
+      match:
+        any:
+          - resources:
+              kinds:
+                - Ingress
+      exclude:
+        any:
+          - resources:
+              annotations:
+                external.home.arpa/enabled: "true"
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              +(nginx.ingress.kubernetes.io/whitelist-source-range): "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
