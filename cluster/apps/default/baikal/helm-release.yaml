@@ -28,7 +28,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
           external.home.arpa/enabled: "true"
         hosts:

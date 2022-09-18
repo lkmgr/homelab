@@ -28,7 +28,7 @@ spec:
       ingress:
         enabled: true
         hostname: "thanos.${SECRET_DOMAIN}"
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         pathType: Prefix
     existingObjstoreSecret: thanos-objstore
     queryFrontend:
@@ -38,14 +38,14 @@ spec:
       ingress:
         enabled: true
         hostname: "thanos-bucketweb.${SECRET_DOMAIN}"
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         pathType: Prefix
     compactor:
       enabled: true
       ingress:
         enabled: true
         hostname: "thanos-compactor.${SECRET_DOMAIN}"
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         pathType: Prefix
       persistence:
         enabled: true
@@ -56,7 +56,7 @@ spec:
       ingress:
         enabled: true
         hostname: "thanos-storegateway.${SECRET_DOMAIN}"
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         pathType: Prefix
       persistence:
         enabled: true

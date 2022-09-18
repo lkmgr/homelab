@@ -9,7 +9,7 @@ metadata:
     # traefik.ingress.kubernetes.io/router.middlewares: "default-ak-outpost-embedded@kubernetescrd"
     # external.home.arpa/enabled: "true"
 spec:
-  ingressClassName: "traefik"
+  ingressClassName: "nginx"
   rules:
     - host: "firefly.${SECRET_DOMAIN}"
       http:

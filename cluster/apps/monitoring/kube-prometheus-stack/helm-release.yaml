@@ -99,7 +99,7 @@ spec:
       ingress:
         enabled: true
         pathType: Prefix
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         hosts:
           - "alert-manager.${SECRET_DOMAIN}"
       alertmanagerSpec:
@@ -184,7 +184,7 @@ spec:
       ingress:
         enabled: true
         pathType: Prefix
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
         hosts:

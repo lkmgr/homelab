@@ -27,7 +27,7 @@ metadata:
   name: s3
   namespace: external
 spec:
-  ingressClassName: "traefik"
+  ingressClassName: "nginx"
   rules:
     - host: "s3.${SECRET_DOMAIN}"
       http:
@@ -69,7 +69,7 @@ metadata:
   name: minio
   namespace: external
 spec:
-  ingressClassName: "traefik"
+  ingressClassName: "nginx"
   rules:
     - host: "minio.${SECRET_DOMAIN}"
       http:

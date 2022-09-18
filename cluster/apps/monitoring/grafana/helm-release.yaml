@@ -119,7 +119,7 @@ spec:
       enabled: false
     ingress:
       enabled: true
-      ingressClassName: "traefik"
+      ingressClassName: "nginx"
       annotations:
         traefik.ingress.kubernetes.io/router.middlewares: "networking-authelia@kubernetescrd"
         external.home.arpa/enabled: "true"

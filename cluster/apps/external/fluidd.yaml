@@ -27,7 +27,7 @@ metadata:
   name: fluidd
   namespace: external
 spec:
-  ingressClassName: "traefik"
+  ingressClassName: "nginx"
   rules:
     - host: "fluidd.${SECRET_DOMAIN}"
       http:

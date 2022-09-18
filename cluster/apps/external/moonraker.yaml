@@ -29,7 +29,7 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
 spec:
-  ingressClassName: "traefik"
+  ingressClassName: "nginx"
   rules:
     - host: "moonraker.${SECRET_DOMAIN}"
       http:

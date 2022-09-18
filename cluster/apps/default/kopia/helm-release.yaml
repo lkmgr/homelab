@@ -65,7 +65,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         hosts:
           - host: "kopia.${SECRET_DOMAIN}"
             paths:

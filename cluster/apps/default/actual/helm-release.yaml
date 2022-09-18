@@ -30,7 +30,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
           traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
         hosts:

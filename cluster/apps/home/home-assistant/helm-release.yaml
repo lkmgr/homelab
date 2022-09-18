@@ -37,7 +37,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         annotations:
           external.home.arpa/enabled: "true"
         hosts:
@@ -108,7 +108,7 @@ spec:
           - "/config/.vscode"
         ingress:
           enabled: true
-          ingressClassName: "traefik"
+          ingressClassName: "nginx"
           annotations:
             traefik.ingress.kubernetes.io/router.middlewares: "networking-authelia@kubernetescrd,networking-local-only@kubernetescrd"
           hosts:

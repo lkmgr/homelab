@@ -31,7 +31,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: "traefik"
+        ingressClassName: "nginx"
         hosts:
           - host: "calibre-web.${SECRET_DOMAIN}"
             paths:

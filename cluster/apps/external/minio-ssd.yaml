@@ -27,7 +27,7 @@ metadata:
   name: s3-ssd
   namespace: external
 spec:
-  ingressClassName: "traefik"
+  ingressClassName: "nginx"
   rules:
     - host: "s3-ssd.${SECRET_DOMAIN}"
       http:
@@ -69,7 +69,7 @@ metadata:
   name: minio-ssd
   namespace: external
 spec:
-  ingressClassName: "traefik"
+  ingressClassName: "nginx"
   rules:
     - host: "minio-ssd.${SECRET_DOMAIN}"
       http:
