@@ -28,31 +28,30 @@ spec:
               +(external-dns.alpha.kubernetes.io/target): "eos.${SECRET_DOMAIN}"
 
 ---
-# apiVersion: kyverno.io/v1
-# kind: ClusterPolicy
-# metadata:
-#   name: ingress-add-lan-whitelist
-# spec:
-#   mutateExistingOnPolicyUpdate: true
-#   generateExistingOnPolicyUpdate: true
-#   rules:
-#     - name: ingress-add-lan-whitelist
-#       match:
-#         any:
-#           - resources:
-#               kinds:
-#                 - Ingress
-#       exclude:
-#         any:
-#           - resources:
-#               annotations:
-#                 external.home.arpa/enabled: "true"
-#       mutate:
-#         patchStrategicMerge:
-#           metadata:
-#             annotations:
-#               +(nginx.ingress.kubernetes.io/whitelist-source-range): |-
-#                 "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: ingress-add-lan-whitelist
+spec:
+  mutateExistingOnPolicyUpdate: true
+  generateExistingOnPolicyUpdate: true
+  rules:
+    - name: ingress-add-lan-whitelist
+      match:
+        any:
+          - resources:
+              kinds:
+                - Ingress
+      exclude:
+        any:
+          - resources:
+              annotations:
+                external.home.arpa/enabled: "true"
+      mutate:
+        patchStrategicMerge:
+          metadata:
+            annotations:
+              +(nginx.ingress.kubernetes.io/whitelist-source-range): "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
 
 ---
 apiVersion: kyverno.io/v1
