@@ -4,10 +4,6 @@ kind: Ingress
 metadata:
   name: firefly-iii
   namespace: default
-  annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
-    # traefik.ingress.kubernetes.io/router.middlewares: "default-ak-outpost-embedded@kubernetescrd"
-    # external.home.arpa/enabled: "true"
 spec:
   ingressClassName: "nginx"
   rules:

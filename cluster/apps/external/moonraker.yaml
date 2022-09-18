@@ -26,8 +26,6 @@ kind: Ingress
 metadata:
   name: moonraker
   namespace: external
-  annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
 spec:
   ingressClassName: "nginx"
   rules:

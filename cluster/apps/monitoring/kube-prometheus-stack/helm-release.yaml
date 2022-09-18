@@ -185,8 +185,6 @@ spec:
         enabled: true
         pathType: Prefix
         ingressClassName: "nginx"
-        annotations:
-          traefik.ingress.kubernetes.io/router.middlewares: "networking-local-only@kubernetescrd"
         hosts:
           - "prometheus.${SECRET_DOMAIN}"
       thanosService:

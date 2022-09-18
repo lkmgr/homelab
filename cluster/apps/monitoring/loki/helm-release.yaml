@@ -17,7 +17,7 @@ spec:
   values:
     ingress:
       enabled: true
-      ingressClassName: traefik
+      ingressClassName: nginx
       hosts:
         - host: "loki.${SECRET_DOMAIN}"
           paths:

@@ -21,7 +21,7 @@ spec:
       tag: v0.22.0
     ingress:
       enabled: true
-      className: traefik
+      className: nginx
       hosts:
         - host: "blackbox.${SECRET_DOMAIN}"
           paths:

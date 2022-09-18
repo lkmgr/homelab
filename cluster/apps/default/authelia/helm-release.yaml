@@ -20,7 +20,7 @@ spec:
       enabled: true
       annotations:
         external.home.arpa/enabled: "true"
-      className: traefik
+      className: nginx
       subdomain: auth
       tls:
         enabled: false
