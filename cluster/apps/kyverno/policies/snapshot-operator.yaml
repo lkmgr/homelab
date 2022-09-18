@@ -60,7 +60,7 @@ spec:
             failedJobsHistoryLimit: 2
             jobTemplate:
               spec:
-                ttlSecondsAfterFinished: 86400 # 24h
+                ttlSecondsAfterFinished: 3600 # 1h
                 template:
                   spec:
                     automountServiceAccountToken: false
@@ -68,7 +68,7 @@ spec:
                     # Stagger jobs to run randomly within X seconds to avoid bringing down all apps at once
                     initContainers:
                       - name: wait
-                        image: ghcr.io/onedr0p/alpine:3.16.2@sha256:35dc08b62b80ebd6d9a4e46ff1c4503967d4c0ca6a9ca8b04e299102b0319bf6
+                        image: ghcr.io/onedr0p/kopia:0.11.3@sha256:72406602c99357951cb7284abbf88699081d60f6cffd22baddd8a6a2afe919f5
                         command: ["/scripts/sleep.sh"]
                         args: ["1", "900"]
                     containers:
@@ -87,7 +87,7 @@ spec:
                           - |-
                             echo "[01/08] Create repo ..."           && [[ ! -f /snapshots/kopia.repository.f ]] && kopia repository create filesystem --path=/snapshots
                             echo "[02/08] Connect to repo ..."       && kopia repo connect filesystem --path=/snapshots --override-hostname=cluster --override-username=root
-                            echo "[03/08] Set policies ..."          && kopia policy set /data/{{ claimName }} --compression=zstd --keep-latest 14 --keep-hourly 0 --keep-daily 0 --keep-weekly 0 --keep-monthly 0 --keep-annual 0
+                            echo "[03/08] Set policies ..."          && kopia policy set /data/{{ claimName }} --compression=zstd --keep-latest 7 --keep-hourly 0 --keep-daily 7 --keep-weekly 2 --keep-monthly 1 --keep-annual 0
                             echo "[04/08] Snapshot ..."              && kopia snap create /data/{{ claimName }}
                             echo "[05/08] List snapshots ..."        && kopia snap list /data/{{ claimName }}
                             echo "[06/08] Show stats ..."            && kopia content stats
