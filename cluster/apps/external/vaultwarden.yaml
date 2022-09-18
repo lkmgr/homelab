@@ -43,25 +43,37 @@ subsets:
       - port: 3012
 
 ---
-apiVersion: traefik.containo.us/v1alpha1
-kind: IngressRoute
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
   name: vaultwarden
   namespace: external
+  annotations:
+    external.home.arpa/enabled: "true"
 spec:
-  entryPoints:
-    - websecure
-  routes:
-    - match: Host(`bw.${SECRET_DOMAIN}`)
-      kind: Rule
-      services:
-        - name: vaultwarden-ui
-          port: 3120
-    - match: Host(`bw.${SECRET_DOMAIN}`) && Path(`/notifications/hub`)
-      kind: Rule
-      services:
-        - name: vaultwarden-ws
-          port: 3012
-  tls:
-    store:
-      name: default
+  ingressClassName: "nginx"
+  rules:
+    - host: "bw.${SECRET_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: vaultwarden-ui
+                port:
+                  number: 3120
+          - path: /notifications/hub
+            pathType: Prefix
+            backend:
+              service:
+                name: vaultwarden-ws
+                port:
+                  number: 3012
+          - path: /notifications/hub/negotiate
+            pathType: Prefix
+            backend:
+              service:
+                name: vaultwarden-ui
+                port:
+                  number: 3120
