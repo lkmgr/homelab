@@ -32,7 +32,7 @@ spec:
             name: external-dns-cloudflare
             key: api-token
     extraArgs:
-      - --cloudflare-proxied
+      # - --cloudflare-proxied
       - --annotation-filter=external.home.arpa/enabled in (true)
     policy: sync
     sources:

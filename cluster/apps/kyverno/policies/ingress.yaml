@@ -2,26 +2,6 @@
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
-  name: ingress-add-default-traefik-entrypoint
-spec:
-  generateExistingOnPolicyUpdate: true
-  rules:
-    - name: ingress-add-default-traefik-entrypoint
-      match:
-        any:
-          - resources:
-              kinds:
-                - Ingress
-      mutate:
-        patchStrategicMerge:
-          metadata:
-            annotations:
-              +(traefik.ingress.kubernetes.io/router.entrypoints): "websecure"
-
----
-apiVersion: kyverno.io/v1
-kind: ClusterPolicy
-metadata:
   name: ingress-add-external-dns-target
 spec:
   mutateExistingOnPolicyUpdate: true
@@ -45,7 +25,7 @@ spec:
         patchStrategicMerge:
           metadata:
             annotations:
-              +(external-dns.alpha.kubernetes.io/target): "ipv4.${SECRET_DOMAIN}"
+              +(external-dns.alpha.kubernetes.io/target): "eos.${SECRET_DOMAIN}"
 
 ---
 apiVersion: kyverno.io/v1
