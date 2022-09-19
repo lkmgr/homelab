@@ -42,9 +42,9 @@ spec:
       config:
         # custom-http-errors: |-
         #   400,401,403,404,500,502,503,504
-        # enable-real-ip: "true"
-        # proxy-real-ip-cidr: ""
-        # use-proxy-protocol: "true"
+        enable-real-ip: "true"
+        proxy-real-ip-cidr: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,100.64.0.0/10"
+        use-proxy-protocol: "true"
         # ssl-protocols: "TLSv1.3 TLSv1.2"
         brotli-level: "6"
         client-body-buffer-size: "100M"
@@ -52,13 +52,13 @@ spec:
         client-header-timeout: "120"
         enable-brotli: "true"
         force-ssl-redirect: "true"
-        forwarded-for-header: "X-Forwarded-For"
+        # forwarded-for-header: "X-Forwarded-For"
         gzip-level: "6"
         hsts-max-age: "31449600"
         keep-alive-requests: "10000"
         keep-alive: "120"
         proxy-body-size: "100M"
-        use-forwarded-headers: "true"
+        # use-forwarded-headers: "true"
         use-gzip: "true"
         use-http2: "true"
       extraArgs:
