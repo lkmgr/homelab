@@ -39,7 +39,7 @@ spec:
           secretAccessKey: "${SECRET_MINIO_SECRET_KEY}"
           accessKeyId: "${SECRET_MINIO_ACCESS_KEY}"
           s3ForcePathStyle: true
-          # insecure: false
+          insecure: true
     monitoring:
       selfMonitoring:
         enabled: false
