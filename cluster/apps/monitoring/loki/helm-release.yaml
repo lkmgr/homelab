@@ -14,38 +14,84 @@ spec:
         kind: HelmRepository
         name: grafana-charts
         namespace: flux-system
+  install:
+    createNamespace: true
+    remediation:
+      retries: 5
+  upgrade:
+    remediation:
+      retries: 5
   values:
-    ingress:
-      enabled: true
-      ingressClassName: nginx
-      hosts:
-        - host: "loki.${SECRET_DOMAIN}"
-          paths:
-            - /
-    # extraArgs:
-    #   server.grpc-max-recv-msg-size-bytes: "8388608"
-    #   server.grpc-max-send-msg-size-bytes: "8388608"
-    serviceMonitor:
-      enabled: true
-    config:
-      limits_config:
-        enforce_metric_name: false
-        reject_old_samples: true
-        reject_old_samples_max_age: 168h
-        ingestion_rate_mb: 16
-        ingestion_burst_size_mb: 24
-      storage_config:
-        aws:
-          bucketnames: loki
+    loki:
+      authEnabled: false
+      commonConfig:
+        path_prefix: /var/loki
+        replication_factor: 1
+      storage:
+        bucketNames:
+          chunks: loki
+          ruler: loki
+          admin: loki
+        type: s3
+        s3:
           endpoint: "${MINIO_SSD_NAS_ADDR}"
-          access_key_id: "${SECRET_MINIO_ACCESS_KEY}"
-          secret_access_key: "${SECRET_MINIO_SECRET_KEY}"
-          s3forcepathstyle: true
-          insecure: true
-        boltdb_shipper:
-          active_index_directory: /data/loki/index
-          cache_location: /data/loki/index_cache
-          resync_interval: 5s
-          shared_store: s3
-      compactor:
-        shared_store: s3
+          # region: null
+          secretAccessKey: "${SECRET_MINIO_SECRET_KEY}"
+          accessKeyId: "${SECRET_MINIO_ACCESS_KEY}"
+          s3ForcePathStyle: true
+          # insecure: false
+    write:
+      replicas: 1
+      persistence:
+        size: 10Gi
+        storageClass: local-path
+    read:
+      replicas: 1
+      persistence:
+        size: 10Gi
+        storageClass: local-path
+    gateway:
+      enabled: true
+      ingress:
+        enabled: true
+        ingressClassName: "nginx"
+        hosts:
+          - host: "loki.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+
+    # ingress:
+    #   enabled: true
+    #   ingressClassName: nginx
+    #   hosts:
+    #     - host: "loki.${SECRET_DOMAIN}"
+    #       paths:
+    #         - /
+    # # extraArgs:
+    # #   server.grpc-max-recv-msg-size-bytes: "8388608"
+    # #   server.grpc-max-send-msg-size-bytes: "8388608"
+    # serviceMonitor:
+    #   enabled: true
+    # config:
+    #   limits_config:
+    #     enforce_metric_name: false
+    #     reject_old_samples: true
+    #     reject_old_samples_max_age: 168h
+    #     ingestion_rate_mb: 16
+    #     ingestion_burst_size_mb: 24
+    #   storage_config:
+    #     aws:
+    #       bucketnames: loki
+    #       endpoint: "${MINIO_SSD_NAS_ADDR}"
+    #       access_key_id: "${SECRET_MINIO_ACCESS_KEY}"
+    #       secret_access_key: "${SECRET_MINIO_SECRET_KEY}"
+    #       s3forcepathstyle: true
+    #       insecure: true
+    #     boltdb_shipper:
+    #       active_index_directory: /data/loki/index
+    #       cache_location: /data/loki/index_cache
+    #       resync_interval: 5s
+    #       shared_store: s3
+    #   compactor:
+    #     shared_store: s3
