@@ -55,16 +55,23 @@ spec:
       persistence:
         size: 10Gi
         storageClass: local-path
-    gateway:
+    ingress:
       enabled: true
-      ingress:
-        enabled: true
-        ingressClassName: "nginx"
-        hosts:
-          - host: "loki.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
+      ingressClassName: "nginx"
+      hosts:
+        - "loki.${SECRET_DOMAIN}"
+    gateway:
+      enabled: false
+    # gateway:
+    #   enabled: true
+    #   ingress:
+    #     enabled: true
+    #     ingressClassName: "nginx"
+    #     hosts:
+    #       - host: "loki.${SECRET_DOMAIN}"
+    #         paths:
+    #           - path: /
+    #             pathType: Prefix
 
     # ingress:
     #   enabled: true
