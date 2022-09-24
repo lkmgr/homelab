@@ -28,6 +28,12 @@ metadata:
   namespace: external
 spec:
   ingressClassName: "nginx"
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "300"
+    nginx.ingress.kubernetes.io/proxy-body-size: "2000m"
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      chunked_transfer_encoding off;
   rules:
     - host: "s3.${SECRET_DOMAIN}"
       http:
