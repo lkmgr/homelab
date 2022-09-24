@@ -40,6 +40,11 @@ spec:
           accessKeyId: "${SECRET_MINIO_ACCESS_KEY}"
           s3ForcePathStyle: true
           # insecure: false
+    monitoring:
+      selfMonitoring:
+        enabled: false
+        grafanaAgent:
+          installOperator: false
     write:
       replicas: 1
       persistence:
