@@ -59,6 +59,13 @@ spec:
           source: |
             .message = parse_json!(string!(.message))
       sinks:
+        debug_logging:
+          type: console
+          inputs:
+            - route_app.nginx
+          target: stdout
+          encoding:
+            codec: json
         loki_journal:
           type: loki
           inputs:
