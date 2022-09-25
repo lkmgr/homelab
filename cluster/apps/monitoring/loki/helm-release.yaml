@@ -28,6 +28,10 @@ spec:
         path_prefix: /var/loki
         replication_factor: 1
       storage:
+        bucketNames:
+          chunks: loki
+          ruler: loki
+          admin: loki
         type: s3
         s3:
           s3: "s3://${SECRET_MINIO_ACCESS_KEY}:${SECRET_MINIO_SECRET_KEY}@${MINIO_SSD_NAS_ADDR}/loki"
