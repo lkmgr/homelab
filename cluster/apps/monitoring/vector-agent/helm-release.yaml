@@ -27,10 +27,10 @@ spec:
       api:
         enabled: false
       sources:
-        journal_logs:
+        sr_journal_logs:
           type: journald
           journal_directory: /var/log/journal
-        kubernetes_logs:
+        sr_kubernetes_logs:
           type: kubernetes_logs
           pod_annotation_fields:
             container_image: container_image
@@ -39,37 +39,30 @@ spec:
             pod_labels: pod_labels
             pod_name: pod_name
       transforms:
-        kubernetes_logs_remap:
+        tr_kubernetes_logs_remap:
           type: remap
           inputs:
-            - kubernetes_logs
+            - sr_kubernetes_logs
           source: |
             # Standardize 'app' index
             .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
-        route_app:
+        tr_route_app:
           type: route
           inputs:
-            - kubernetes_logs_remap
+            - tr_kubernetes_logs_remap
           route:
             nginx: .custom_app_name == "ingress-nginx"
-        nginx_json_parsed:
+        tr_app_parsed_json:
           type: remap
           inputs:
-            - route_app.nginx
+            - tr_route_app.nginx
           source: |
             .message = parse_json!(.message)
       sinks:
-        debug_logging:
-          type: console
-          inputs:
-            - nginx_json_parsed
-          target: stdout
-          encoding:
-            codec: json
-        loki_journal:
+        si_loki_journal:
           type: loki
           inputs:
-            - journal_logs
+            - sr_journal_logs
           endpoint: http://loki-write:3100
           encoding:
             codec: json
@@ -81,11 +74,11 @@ spec:
           labels:
             hostname: >-
               {{`{{ host }}`}}
-        loki_kubernetes:
+        si_loki_kubernetes:
           type: loki
           inputs:
-            - nginx_json_parsed
-            - route_app._unmatched
+            - tr_app_parsed_json
+            - tr_route_app._unmatched
           endpoint: http://loki-write:3100
           encoding:
             codec: json
