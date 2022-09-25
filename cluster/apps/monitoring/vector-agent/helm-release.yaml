@@ -49,6 +49,17 @@ spec:
           source: |
             # Standardize 'app' index
             .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
+        nginx_logs_filtered:
+          type: filter
+          inputs:
+            - kubernetes_logs
+          condition: .custom_app_name == "ingress-nginx"
+        nginx_logs_json_parsed:
+          type: remap
+          inputs:
+            - nginx_logs_filtered
+          source: |
+            .message = parse_json!(string!(.message))
       sinks:
         loki_journal:
           type: loki
@@ -69,6 +80,7 @@ spec:
           type: loki
           inputs:
             - kubernetes_logs_remap
+            - nginx_logs_json_parsed
           endpoint: http://loki-write:3100
           encoding:
             codec: json
