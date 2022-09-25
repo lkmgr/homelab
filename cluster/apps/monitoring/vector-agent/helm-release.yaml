@@ -57,12 +57,12 @@ spec:
           inputs:
             - route_app.nginx
           source: |
-            .message = parse_json!(string!(.message))
+            .message = parse_json!(.message)
       sinks:
         debug_logging:
           type: console
           inputs:
-            - route_app.nginx
+            - nginx_json_parsed
           target: stdout
           encoding:
             codec: json
