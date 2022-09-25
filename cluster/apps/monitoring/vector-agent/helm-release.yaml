@@ -22,9 +22,6 @@ spec:
       repository: timberio/vector
       tag: 0.24.1-debian
     role: Agent
-    env:
-      - name: VECTOR_LOG
-        value: debug
     customConfig:
       data_dir: /vector-data-dir
       api:
