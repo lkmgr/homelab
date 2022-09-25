@@ -35,6 +35,20 @@ spec:
           journal_directory: /var/log/journal
         kubernetes_logs:
           type: kubernetes_logs
+          pod_annotation_fields:
+            container_image: container_image
+            container_name: container_name
+            pod_annotations: pod_annotations
+            pod_labels: pod_labels
+            pod_name: pod_name
+      transforms:
+        kubernetes_logs_remap:
+          type: remap
+          inputs:
+            - kubernetes_logs
+          source: |
+            # Standardize 'app' index
+            .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
       sinks:
         loki_journal:
           type: loki
@@ -54,7 +68,7 @@ spec:
         loki_kubernetes:
           type: loki
           inputs:
-            - kubernetes_logs
+            - kubernetes_logs_remap
           endpoint: http://loki-write:3100
           encoding:
             codec: json
@@ -65,19 +79,13 @@ spec:
           remove_timestamp: true
           labels:
             app: >-
-              {{`{{ kubernetes.pod_labels.app\.kubernetes\.io/name }}`}}
-            container: >-
-              {{`{{ kubernetes.container_name }}`}}
-            filename: >-
-              {{`{{ kubernetes.file }}`}}
-            instance: >-
-              {{`{{ kubernetes.pod_labels.app\.kubernetes\.io/instance }}`}}
+              {{`{{ custom_app_name }}`}}
             namespace: >-
               {{`{{ kubernetes.pod_namespace }}`}}
             node: >-
               {{`{{ kubernetes.pod_node_name }}`}}
-            pod: >-
-              {{`{{ kubernetes.pod_name }}`}}
+            container: >-
+              {{`{{ kubernetes.container_name }}`}}
     service:
       enabled: false
     podMonitor:
