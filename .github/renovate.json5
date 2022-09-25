@@ -19,6 +19,7 @@
   suppressNotifications: ["prIgnoreNotification"],
   rebaseWhen: "conflicted",
   commitBodyTable: true,
+  ignorePaths: ["archive/**"],
   ignoreDeps: [
     "ghcr.io/fluxcd/helm-controller",
     "ghcr.io/fluxcd/image-automation-controller",

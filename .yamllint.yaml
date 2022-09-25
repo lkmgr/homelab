@@ -2,7 +2,7 @@
 ignore: |
   charts/
   .vscode/
-  .old/
+  archive/
   *.sops.*
   gotk-components.yaml
 extends: default
