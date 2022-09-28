@@ -21,9 +21,6 @@ spec:
     remediation:
       retries: 3
   values:
-    image:
-      repository: grafana/grafana
-      tag: 9.1.6
     replicas: 1
     # admin:
     #   existingSecret: grafana-secrets

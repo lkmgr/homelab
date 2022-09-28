@@ -18,7 +18,6 @@ spec:
     fullnameOverride: blackbox-exporter
     image:
       repository: quay.io/prometheus/blackbox-exporter
-      tag: v0.22.0
     ingress:
       enabled: true
       className: nginx
