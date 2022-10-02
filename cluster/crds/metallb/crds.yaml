@@ -2,24 +2,24 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
 metadata:
-  name: kyverno-source
+  name: metallb-source
   namespace: flux-system
 spec:
   interval: 6h
-  url: https://github.com/kyverno/kyverno.git
+  url: https://github.com/metallb/metallb.git
   ref:
-    # renovate: registryUrl=https://kyverno.github.io/kyverno chart=kyverno
-    tag: kyverno-chart-v2.5.3
+    # renovate: registryUrl=https://metallb.github.io/metallb chart=metallb
+    tag: v0.13.5
   ignore: |
     # exclude all
     /*
     # include crd directory
-    !/config/crds
+    !/config/crd
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: kyverno-crds
+  name: metallb-crds
   namespace: flux-system
 spec:
   interval: 30m
@@ -27,4 +27,4 @@ spec:
   wait: true
   sourceRef:
     kind: GitRepository
-    name: kyverno-source
+    name: metallb-source
