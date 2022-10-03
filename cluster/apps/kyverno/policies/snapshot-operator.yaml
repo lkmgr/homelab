@@ -60,7 +60,7 @@ spec:
             failedJobsHistoryLimit: 2
             jobTemplate:
               spec:
-                ttlSecondsAfterFinished: 3600 # 1h
+                ttlSecondsAfterFinished: 86400 # 24h
                 template:
                   spec:
                     automountServiceAccountToken: false
@@ -75,6 +75,8 @@ spec:
                       - name: snapshot
                         image: ghcr.io/onedr0p/kopia:0.12.1@sha256:e333295b519ce586e7c050c970b2255d87bdb2979298ff87ebdb1113e381ba3b
                         env:
+                          - name: TZ
+                            value: Europe/Berlin
                           - name: KOPIA_CACHE_DIRECTORY
                             value: /snapshots/{{ claimName }}/cache
                           - name: KOPIA_LOG_DIR
