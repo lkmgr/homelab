@@ -56,7 +56,7 @@ spec:
         app: firefly-iii-db
     spec:
       containers:
-        - image: postgres:13.8-alpine
+        - image: postgres:13.9-alpine
           name: firefly-iii-db
           ports:
             - containerPort: 5432
