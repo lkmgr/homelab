@@ -17,7 +17,7 @@ spec:
   values:
     image:
       repository: docker.io/dgtlmoon/changedetection.io
-      tag: "0.39.20.4"
+      tag: "0.39.22.1"
     env:
       TZ: Europe/Berlin
     service:
