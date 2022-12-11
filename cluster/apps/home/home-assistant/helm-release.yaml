@@ -63,7 +63,7 @@ spec:
     additionalContainers:
       appdaemon:
         name: appdaemon
-        image: docker.io/acockburn/appdaemon:4.2.1
+        image: docker.io/acockburn/appdaemon:4.1.0
         env:
           - name: TZ
             value: "Europe/Berlin"
