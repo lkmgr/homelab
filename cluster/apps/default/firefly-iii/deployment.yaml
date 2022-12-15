@@ -14,7 +14,7 @@ spec:
         app: firefly-iii
     spec:
       containers:
-        - image: fireflyiii/core:version-5.7.6
+        - image: fireflyiii/core:version-5.7.15
           name: firefly-iii
           ports:
             - containerPort: 8080
