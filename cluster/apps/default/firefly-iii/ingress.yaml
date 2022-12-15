@@ -6,6 +6,8 @@ metadata:
   namespace: default
 spec:
   ingressClassName: "nginx"
+  annotations:
+    auth.home.arpa/enabled: "true"
   rules:
     - host: "firefly.${SECRET_DOMAIN}"
       http:
