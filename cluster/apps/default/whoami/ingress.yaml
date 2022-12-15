@@ -6,6 +6,7 @@ metadata:
   namespace: default
   annotations:
     external.home.arpa/enabled: "true"
+    auth.home.arpa/enabled: "true"
 spec:
   ingressClassName: "nginx"
   rules:
