@@ -4,10 +4,10 @@ kind: Ingress
 metadata:
   name: firefly-iii
   namespace: default
-spec:
-  ingressClassName: "nginx"
   annotations:
     auth.home.arpa/enabled: "true"
+spec:
+  ingressClassName: "nginx"
   rules:
     - host: "firefly.${SECRET_DOMAIN}"
       http:
