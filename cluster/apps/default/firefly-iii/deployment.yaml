@@ -79,6 +79,29 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: firefly-iii-redis
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: firefly-iii-redis
+  template:
+    metadata:
+      labels:
+        app: firefly-iii-redis
+    spec:
+      containers:
+        - image: redis:7.0.7
+          name: firefly-iii-redis
+          ports:
+            - containerPort: 6379
+          command: ["redis-server"]
+          args: ["--protected-mode", "no"]
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
   name: firefly-iii-cron
   namespace: default
 spec:
