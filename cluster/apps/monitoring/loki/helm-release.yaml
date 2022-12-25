@@ -79,6 +79,8 @@ spec:
         - "loki.${SECRET_DOMAIN}"
     gateway:
       enabled: false
+    test:
+      enabled: false
     # gateway:
     #   enabled: true
     #   ingress:
