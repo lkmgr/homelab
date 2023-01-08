@@ -18,7 +18,6 @@ spec:
     image:
       repository: influxdb
       tag: 2.3.0-alpine
-    fullnameOverride: influxdb
     adminUser:
       organization: influxdata
       bucket: default
