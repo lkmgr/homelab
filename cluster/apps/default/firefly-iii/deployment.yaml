@@ -91,7 +91,7 @@ spec:
         app: firefly-iii-redis
     spec:
       containers:
-        - image: redis:7.0.7
+        - image: redis:7.0.8
           name: firefly-iii-redis
           ports:
             - containerPort: 6379
