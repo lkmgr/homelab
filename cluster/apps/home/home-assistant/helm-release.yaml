@@ -60,6 +60,10 @@ spec:
         enabled: true
         mountPath: /config
         existingClaim: home-assistant-config-v1
+      dbus:
+        enabled: true
+        type: hostPath
+        hostPath: /run/dbus
     additionalContainers:
       appdaemon:
         name: appdaemon
