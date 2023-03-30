@@ -23,17 +23,15 @@ k3s_server:
   cluster-cidr: "10.42.0.0/16"
   service-cidr: "10.43.0.0/16"
   etcd-expose-metrics: true
-  kubelet-arg:
-    - "feature-gates=MixedProtocolLBService=true"
   kube-controller-manager-arg:
-    - "feature-gates=MixedProtocolLBService=true"
+    # Required to monitor kube-controller-manager with kube-prometheus-stack
     - "bind-address=0.0.0.0"
   kube-proxy-arg:
-    - "feature-gates=MixedProtocolLBService=true"
+    # Required to monitor kube-proxy with kube-prometheus-stack
     - "metrics-bind-address=0.0.0.0"
   kube-scheduler-arg:
-    - "feature-gates=MixedProtocolLBService=true"
+    # Required to monitor kube-scheduler with kube-prometheus-stack
     - "bind-address=0.0.0.0"
   kube-apiserver-arg:
-    - "feature-gates=MixedProtocolLBService=true"
+    # Required for HAProxy health-checks
     - "anonymous-auth=true"
