@@ -80,7 +80,7 @@ spec:
       nameOverride: postgresql
       image:
         repository: bitnami/postgresql
-        tag: 15.1.0-debian-11-r19
+        tag: 15.2.0-debian-11-r19
       auth:
         username: home-assistant
         database: home-assistant
