@@ -16,12 +16,11 @@ spec:
         namespace: flux-system
   values:
     image:
-      repository: docker.io/linuxserver/freshrss
-      tag: version-1.19.2
+      repository: freshrss/freshrss
+      tag: 1.21.0
     env:
       TZ: Europe/Berlin
-      PUID: "1000"
-      PGID: "1000"
+      CRON_MIN: 2,17,32,47
     service:
       main:
         ports:
@@ -39,7 +38,8 @@ spec:
               - path: /
                 pathType: Prefix
     persistence:
-      config:
+      data:
         enabled: true
         type: pvc
-        existingClaim: freshrss-config-v1
+        existingClaim: freshrss-data-v1
+        mountPath: /var/www/FreshRSS/data
