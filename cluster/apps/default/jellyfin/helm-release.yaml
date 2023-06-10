@@ -59,6 +59,14 @@ spec:
             server: "${NAS_ADDR}"
             path: /volume1/video/Serien
         mountPath: /data/tvshows
+      mediade:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "${NAS_ADDR}"
+            path: /volume1/video/Serien-DE
+        mountPath: /data/tvshowsde
       transcode:
         enabled: true
         type: emptyDir
