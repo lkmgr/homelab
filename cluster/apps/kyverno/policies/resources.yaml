@@ -3,44 +3,36 @@ apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: resources-remove-cpu-limits
+  annotations:
+    policies.kyverno.io/title: Remove CPU limits
+    pod-policies.kyverno.io/autogen-controllers: none
 spec:
-  mutateExistingOnPolicyUpdate: true
   generateExistingOnPolicyUpdate: true
   rules:
-    - name: resources-remove-cpu-limits
+    - name: remove-containers-cpu-limits
       match:
         any:
           - resources:
-              kinds:
-                - Pod
-      exclude:
+              kinds: ["Pod"]
+      mutate:
+        foreach:
+          - list: "request.object.spec.containers"
+            patchesJson6902: |-
+              - path: /spec/containers/{{elementIndex}}/resources/limits/cpu
+                op: remove
+    - name: delete-initcontainers-cpu-limits
+      match:
         any:
           - resources:
-              namespaces:
-                - calico-system
-                - tigera-operator
-          - resources:
-              kinds:
-                - Pod
-              selector:
-                matchLabels:
-                  job-name: "*"
-          - resources:
-              kinds:
-                - Pod
-              selector:
-                matchLabels:
-                  statefulset.kubernetes.io/pod-name: "*"
+              kinds: ["Pod"]
+      preconditions:
+        all:
+          - key: "{{ request.object.spec.initContainers[] || `[]` | length(@) }}"
+            operator: GreaterThanOrEquals
+            value: 1
       mutate:
-        patchStrategicMerge:
-          spec:
-            initContainers:
-              - (name): "*"
-                resources:
-                  limits:
-                    cpu: null
-            containers:
-              - (name): "*"
-                resources:
-                  limits:
-                    cpu: null
+        foreach:
+          - list: "request.object.spec.initContainers"
+            patchesJson6902: |-
+              - path: /spec/initContainers/{{elementIndex}}/resources/limits/cpu
+                op: remove
