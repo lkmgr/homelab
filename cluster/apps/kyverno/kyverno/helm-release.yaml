@@ -26,7 +26,6 @@ spec:
     installCRDs: false
     replicaCount: 1
     extraArgs:
-      - --autogenInternals=false
       - --clientRateLimitQPS=30
       - --clientRateLimitBurst=60
     serviceMonitor:
