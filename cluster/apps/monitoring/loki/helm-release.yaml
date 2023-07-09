@@ -28,11 +28,11 @@ spec:
         path_prefix: /var/loki
         replication_factor: 1
       storage:
+        type: s3
         bucketNames:
           chunks: loki
           ruler: loki
           admin: loki
-        type: s3
         s3:
           s3: "s3://${SECRET_MINIO_ACCESS_KEY}:${SECRET_MINIO_SECRET_KEY}@${MINIO_SSD_NAS_ADDR}/loki"
           # endpoint: "${MINIO_SSD_NAS_ADDR}"
@@ -60,8 +60,8 @@ spec:
         enabled: false
         grafanaAgent:
           installOperator: false
-        lokiCanary:
-          enabled: false
+      lokiCanary:
+        enabled: false
     write:
       replicas: 1
       persistence:
