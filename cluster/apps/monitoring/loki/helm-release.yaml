@@ -72,6 +72,11 @@ spec:
       persistence:
         size: 10Gi
         storageClass: local-path
+    backend:
+      replicas: 1
+      persistence:
+        size: 10Gi
+        storageClass: local-path
     ingress:
       enabled: true
       ingressClassName: "nginx"
