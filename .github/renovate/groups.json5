@@ -1,32 +1,32 @@
 {
   packageRules: [
-    {
-      groupName: "home-assistant",
-      matchPackagePatterns: ["home-assistant"],
-      matchDatasources: ["docker", "helm"],
-      matchUpdateTypes: ["minor", "patch"],
-      separateMinorPatch: false,
-    },
-    {
-      groupName: "node-red",
-      matchPackagePatterns: ["node-red"],
-      matchDatasources: ["docker", "helm"],
-      matchUpdateTypes: ["minor", "patch"],
-      separateMinorPatch: false,
-    },
-    {
-      groupName: "mosquitto",
-      matchPackagePatterns: ["mosquitto"],
-      matchDatasources: ["docker", "helm"],
-      matchUpdateTypes: ["minor", "patch"],
-      separateMinorPatch: false,
-    },
-    {
-      groupName: "cert-manager",
-      matchPackagePatterns: ["cert-manager"],
-      matchDatasources: ["docker", "helm"],
-      matchUpdateTypes: ["minor", "patch"],
-      separateMinorPatch: false,
-    },
+    // {
+    //   groupName: "home-assistant",
+    //   matchPackagePatterns: ["home-assistant"],
+    //   matchDatasources: ["docker", "helm"],
+    //   matchUpdateTypes: ["minor", "patch"],
+    //   separateMinorPatch: false,
+    // },
+    // {
+    //   groupName: "node-red",
+    //   matchPackagePatterns: ["node-red"],
+    //   matchDatasources: ["docker", "helm"],
+    //   matchUpdateTypes: ["minor", "patch"],
+    //   separateMinorPatch: false,
+    // },
+    // {
+    //   groupName: "mosquitto",
+    //   matchPackagePatterns: ["mosquitto"],
+    //   matchDatasources: ["docker", "helm"],
+    //   matchUpdateTypes: ["minor", "patch"],
+    //   separateMinorPatch: false,
+    // },
+    // {
+    //   groupName: "cert-manager",
+    //   matchPackagePatterns: ["cert-manager"],
+    //   matchDatasources: ["docker", "helm"],
+    //   matchUpdateTypes: ["minor", "patch"],
+    //   separateMinorPatch: false,
+    // },
   ],
 }
