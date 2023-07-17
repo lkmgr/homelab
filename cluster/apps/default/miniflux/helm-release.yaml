@@ -23,6 +23,8 @@ spec:
     envFrom:
       - secretRef:
           name: miniflux-secret
+    command: ["/bin/bash", "-c", "--"]
+    args: ["while true; do sleep 30; done;"]
     service:
       main:
         ports:
