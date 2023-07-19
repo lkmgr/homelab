@@ -20,6 +20,8 @@ spec:
       tag: 2.0.45
     env:
       TZ: "Europe/Berlin"
+      POLLING_FREQUENCY: "20"
+      BASE_URL: "https://miniflux.${SECRET_DOMAIN}/"
     envFrom:
       - secretRef:
           name: miniflux-secret
