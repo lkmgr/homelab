@@ -1,3 +1,0 @@
----
-kubeconfig_dest_dir: /volume1/docker/home-dns
-cluster_addr: 192.168.178.250

@@ -1,20 +1,12 @@
-.config.env
-.temp
-report/
-
 # Trash
 .DS_Store
 Thumbs.db
-
 # k8s
-kubeconfig*
-
-# sops
-.decrypted~*
+kubeconfig
+.decrypted~*.yaml
+.config.env
 *.agekey
-github-deploy-key*
-
+*.pub
+*.key
 # Ansible
-xanmanning.k3s*
-
-megalinter-reports/
+.venv*
