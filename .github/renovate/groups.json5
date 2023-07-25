@@ -1,32 +1,16 @@
 {
-  packageRules: [
-    // {
-    //   groupName: "home-assistant",
-    //   matchPackagePatterns: ["home-assistant"],
-    //   matchDatasources: ["docker", "helm"],
-    //   matchUpdateTypes: ["minor", "patch"],
-    //   separateMinorPatch: false,
-    // },
-    // {
-    //   groupName: "node-red",
-    //   matchPackagePatterns: ["node-red"],
-    //   matchDatasources: ["docker", "helm"],
-    //   matchUpdateTypes: ["minor", "patch"],
-    //   separateMinorPatch: false,
-    // },
-    // {
-    //   groupName: "mosquitto",
-    //   matchPackagePatterns: ["mosquitto"],
-    //   matchDatasources: ["docker", "helm"],
-    //   matchUpdateTypes: ["minor", "patch"],
-    //   separateMinorPatch: false,
-    // },
-    // {
-    //   groupName: "cert-manager",
-    //   matchPackagePatterns: ["cert-manager"],
-    //   matchDatasources: ["docker", "helm"],
-    //   matchUpdateTypes: ["minor", "patch"],
-    //   separateMinorPatch: false,
-    // },
-  ],
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": "Flux Group",
+      "groupName": "Flux",
+      "matchPackagePatterns": ["flux"],
+      "matchDatasources": ["docker", "github-tags"],
+      "versioning": "semver",
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      },
+      "separateMinorPatch": true
+    }
+  ]
 }
