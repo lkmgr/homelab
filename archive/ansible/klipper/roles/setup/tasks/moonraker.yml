@@ -1,0 +1,41 @@
+---
+- name: Clone Moonraker repo
+  become_user: "{{ ansible_user }}"
+  ansible.builtin.git:
+    repo: https://github.com/Arksine/moonraker.git
+    dest: "{{ setup_moonraker_dir }}"
+    version: master
+
+- name: Setup Moonraker virtualenv
+  become_user: "{{ ansible_user }}"
+  ansible.builtin.pip:
+    requirements: "{{ setup_moonraker_dir }}/scripts/moonraker-requirements.txt"
+    virtualenv: "{{ setup_moonraker_venv_dir }}"
+
+- name: Create moonraker-admin group
+  ansible.builtin.group:
+    name: moonraker-admin
+    state: present
+
+- name: Create Moonraker service
+  ansible.builtin.template:
+    src: moonraker.service.j2
+    dest: /etc/systemd/system/moonraker.service
+    mode: '0644'
+    owner: root
+    group: root
+
+# TODO: only for polkit 0.105
+- name: Create Moonraker PolicyKit config
+  ansible.builtin.template:
+    src: moonraker-policykit.pkla.j2
+    dest: /etc/polkit-1/localauthority/50-local.d/10-moonraker.pkla
+    mode: '0644'
+    owner: root
+    group: root
+
+- name: Enable klipper service
+  ansible.builtin.systemd:
+    name: moonraker.service
+    daemon_reload: true
+    enabled: true
