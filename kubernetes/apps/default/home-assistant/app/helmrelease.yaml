@@ -37,11 +37,15 @@ spec:
     dnsPolicy: ClusterFirstWithHostNet
     service:
       main:
-        # type: LoadBalancer
-        # externalTrafficPolicy: Cluster
-        # annotations:
-        #   external-dns.alpha.kubernetes.io/hostname: "ha.${SECRET_DOMAIN}"
-        #   io.cilium/lb-ipam-ips: "${VIP_HOME_ASSISTANT}"
+        ports:
+          http:
+            port: 8123
+      lb:
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        annotations:
+          external-dns.alpha.kubernetes.io/hostname: "ha.${SECRET_DOMAIN}"
+          io.cilium/lb-ipam-ips: "${VIP_HOME_ASSISTANT}"
         ports:
           http:
             port: 8123
