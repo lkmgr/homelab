@@ -52,10 +52,13 @@ spec:
         annotations:
           external-dns.alpha.kubernetes.io/target: "ha.${SECRET_DOMAIN}"
         hosts:
-          - host: "ha.${SECRET_DOMAIN}"
+          - host: &host "ha.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
+        tls:
+          - hosts:
+              - *host
     # TODO: maybe enable probes
     probes:
       liveness:
@@ -122,10 +125,13 @@ spec:
           annotations:
             nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
           hosts:
-            - host: "ha-config.${SECRET_DOMAIN}"
+            - host: &hostConfig "ha-config.${SECRET_DOMAIN}"
               paths:
                 - path: /
                   pathType: Prefix
+          tls:
+            - hosts:
+                - *hostConfig
         volumeMounts:
           - name: config
             mountPath: /config
