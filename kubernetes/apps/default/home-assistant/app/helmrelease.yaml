@@ -37,10 +37,6 @@ spec:
     dnsPolicy: ClusterFirstWithHostNet
     service:
       main:
-        ports:
-          http:
-            port: 8123
-      lb:
         type: LoadBalancer
         externalTrafficPolicy: Cluster
         annotations:
