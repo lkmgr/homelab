@@ -1,0 +1,103 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zigbee2mqtt
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: longhorn
+      namespace: longhorn-system
+    - name: mosquitto
+      namespace: default
+  values:
+    image:
+      repository: ghcr.io/koenkk/zigbee2mqtt
+      tag: 1.32.1
+    env:
+      TZ: Europe/Berlin
+      ZIGBEE2MQTT_DATA: /data
+    service:
+      main:
+        ports:
+          http:
+            port: 8080
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+        hosts:
+          - host: "z2m.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+    securityContext:
+      privileged: true
+    nodeSelector:
+      feature.node.kubernetes.io/custom-sonoff-zigbee: "true"
+    persistence:
+      data:
+        enabled: true
+        type: pvc
+        mountPath: /data
+        existingClaim: zigbee2mqtt-data
+      usb:
+        enabled: true
+        type: hostPath
+        hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_fe3bbcfff93aec11b2c29c957a0af07f-if00-port0
+    # addons:
+    #   codeserver:
+    #     enabled: true
+    #     image:
+    #       repository: codercom/code-server
+    #       tag: 4.13.0
+    #     env:
+    #       TZ: "Europe/Berlin"
+    #     workingDir: "/data"
+    #     args:
+    #       - --auth
+    #       - "none"
+    #       - --user-data-dir
+    #       - "/data/.vscode"
+    #       - --extensions-dir
+    #       - "/data/.vscode"
+    #     ingress:
+    #       enabled: true
+    #       ingressClassName: "nginx"
+    #       annotations:
+    #         auth.home.arpa/enabled: "true"
+    #       hosts:
+    #         - host: "z2m-config.${SECRET_DOMAIN}"
+    #           paths:
+    #             - path: /
+    #               pathType: Prefix
+    #     volumeMounts:
+    #       - name: data
+    #         mountPath: /data
+    resources:
+      requests:
+        memory: 100Mi
+        cpu: 100m
+      limits:
+        memory: 700Mi
