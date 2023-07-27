@@ -1,0 +1,50 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: mosquitto
+  namespace: home
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  values:
+    image:
+      repository: docker.io/eclipse-mosquitto
+      tag: 2.0.15
+    env:
+      TZ: "Europe/Berlin"
+    service:
+      main:
+        type: LoadBalancer
+        ports:
+          http:
+            enabled: false
+          mqtt:
+            enabled: true
+            primary: true
+            port: 1883
+            protocol: TCP
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${SVC_MOSQUITTO_ADDR}"
+    persistence:
+      data:
+        enabled: true
+        type: pvc
+        mountPath: /mosquitto/data
+        existingClaim: mosquitto-data-v1
+      config:
+        enabled: true
+        mountPath: /mosquitto/config/mosquitto.conf
+        subPath: mosquitto.conf
+        type: custom
+        volumeSpec:
+          configMap:
+            name: mosquitto-config

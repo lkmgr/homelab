@@ -1,0 +1,131 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template-postgres
+      version: 2.0.0
+      sourceRef:
+        kind: HelmRepository
+        name: app-template-extra-charts
+        namespace: flux-system
+  values:
+    image:
+      repository: ghcr.io/home-assistant/home-assistant
+      tag: 2023.7.3
+    env:
+      TZ: "Europe/Berlin"
+    # envFrom:
+    #   - secretRef:
+    #       name: home-assistant
+    hostNetwork: true
+    dnsPolicy: ClusterFirstWithHostNet
+    service:
+      main:
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${SVC_HOME_ASSISTANT_ADDR}"
+        ports:
+          http:
+            port: 8123
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          external.home.arpa/enabled: "true"
+        hosts:
+          - host: "ha.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+    # TODO: maybe enable probes
+    probes:
+      liveness:
+        enabled: false
+      readiness:
+        enabled: false
+      startup:
+        enabled: false
+    nodeSelector:
+      kubernetes.io/hostname: helios
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
+        existingClaim: home-assistant-config-v1
+      dbus:
+        enabled: true
+        type: hostPath
+        hostPath: /run/dbus
+    additionalContainers:
+      appdaemon:
+        name: appdaemon
+        image: docker.io/acockburn/appdaemon:4.4.2
+        env:
+          - name: TZ
+            value: "Europe/Berlin"
+        volumeMounts:
+          - name: config
+            subPath: appdaemon
+            mountPath: /conf
+    postgresql:
+      enabled: true
+      nameOverride: postgresql
+      image:
+        repository: bitnami/postgresql
+        tag: 15.2.0-debian-11-r19
+      auth:
+        username: home-assistant
+        database: home-assistant
+        existingSecret: ha-postgresql-secret
+      primary:
+        enabled: true
+        persistence:
+          enabled: true
+          existingClaim: home-assistant-postgres-v1
+        nodeSelector:
+          kubernetes.io/hostname: helios
+    addons:
+      codeserver:
+        enabled: true
+        image:
+          repository: codercom/code-server
+          tag: 4.13.0
+        env:
+          TZ: "Europe/Berlin"
+        # git:
+        #   deployKeySecret: code-server
+        workingDir: "/config"
+        args:
+          - --auth
+          - "none"
+          - --user-data-dir
+          - "/config/.vscode"
+          - --extensions-dir
+          - "/config/.vscode"
+        ingress:
+          enabled: true
+          ingressClassName: "nginx"
+          annotations:
+            auth.home.arpa/enabled: "true"
+          hosts:
+            - host: "ha-config.${SECRET_DOMAIN}"
+              paths:
+                - path: /
+                  pathType: Prefix
+        volumeMounts:
+          - name: config
+            mountPath: /config
+    resources:
+      requests:
+        memory: 750Mi
+        cpu: 200m
+      limits:
+        memory: 2500Mi
