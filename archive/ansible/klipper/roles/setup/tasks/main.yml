@@ -1,0 +1,13 @@
+---
+- import_tasks: prepare.yml
+  tags:
+    - prepare
+- import_tasks: klipper.yml
+  tags:
+    - klipper
+- import_tasks: moonraker.yml
+  tags:
+    - moonraker
+- import_tasks: frontends.yml
+  tags:
+    - frontends
