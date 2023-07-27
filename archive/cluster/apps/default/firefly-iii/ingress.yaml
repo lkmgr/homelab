@@ -1,0 +1,21 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: firefly-iii
+  namespace: default
+  annotations:
+    auth.home.arpa/enabled: "true"
+spec:
+  ingressClassName: "nginx"
+  rules:
+    - host: "firefly.${SECRET_DOMAIN}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: firefly-iii
+                port:
+                  number: 8080

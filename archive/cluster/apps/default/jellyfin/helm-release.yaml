@@ -1,0 +1,80 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: jellyfin
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  values:
+    image:
+      repository: docker.io/jellyfin/jellyfin
+      tag: 10.8.10
+    env:
+      TZ: "Europe/Berlin"
+      JELLYFIN_CACHE_DIR: "/config/cache"
+    podSecurityContext:
+      supplementalGroups:
+        - 44
+        - 100
+        - 109
+    service:
+      main:
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: "${SVC_JELLYFIN_ADDR}"
+        ports:
+          http:
+            port: 8096
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        hosts:
+          - host: "jellyfin.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+    nodeSelector:
+      feature.node.kubernetes.io/custom-intel-gpu: "true"
+    persistence:
+      config:
+        enabled: true
+        type: pvc
+        existingClaim: jellyfin-data-v1
+      media:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "${NAS_ADDR}"
+            path: /volume1/video/Serien
+        mountPath: /data/tvshows
+      mediade:
+        enabled: true
+        type: custom
+        volumeSpec:
+          nfs:
+            server: "${NAS_ADDR}"
+            path: /volume1/video/Serien-DE
+        mountPath: /data/tvshowsde
+      transcode:
+        enabled: true
+        type: emptyDir
+    resources:
+      requests:
+        gpu.intel.com/i915: 1
+        cpu: 500m
+        memory: 750Mi
+      limits:
+        gpu.intel.com/i915: 1
+        memory: 3500Mi

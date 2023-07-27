@@ -1,0 +1,109 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vector-agent
+  namespace: monitoring
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: vector
+      version: 0.23.0
+      sourceRef:
+        kind: HelmRepository
+        name: vector-charts
+        namespace: flux-system
+  dependsOn:
+    - name: loki
+      namespace: monitoring
+  values:
+    image:
+      repository: timberio/vector
+      tag: 0.31.0-debian
+    role: Agent
+    customConfig:
+      data_dir: /vector-data-dir
+      api:
+        enabled: false
+      sources:
+        sr_journal_logs:
+          type: journald
+          journal_directory: /var/log/journal
+        sr_kubernetes_logs:
+          type: kubernetes_logs
+          pod_annotation_fields:
+            container_image: container_image
+            container_name: container_name
+            pod_annotations: pod_annotations
+            pod_labels: pod_labels
+            pod_name: pod_name
+      transforms:
+        tr_kubernetes_logs_remap:
+          type: remap
+          inputs:
+            - sr_kubernetes_logs
+          source: |
+            # Standardize 'app' index
+            .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
+        tr_route_app:
+          type: route
+          inputs:
+            - tr_kubernetes_logs_remap
+          route:
+            nginx: .custom_app_name == "ingress-nginx"
+        tr_app_parsed_json:
+          type: remap
+          inputs:
+            - tr_route_app.nginx
+          source: |
+            .message = parse_json!(.message)
+      sinks:
+        si_loki_journal:
+          type: loki
+          inputs:
+            - sr_journal_logs
+          endpoint: http://loki-write:3100
+          encoding:
+            codec: json
+          batch:
+            max_bytes: 2049000
+          out_of_order_action: accept
+          remove_label_fields: true
+          remove_timestamp: true
+          labels:
+            hostname: >-
+              {{`{{ host }}`}}
+        si_loki_kubernetes:
+          type: loki
+          inputs:
+            - tr_app_parsed_json
+            - tr_route_app._unmatched
+          endpoint: http://loki-write:3100
+          encoding:
+            codec: json
+          batch:
+            max_bytes: 2049000
+          out_of_order_action: accept
+          remove_label_fields: true
+          remove_timestamp: true
+          labels:
+            app: >-
+              {{`{{ custom_app_name }}`}}
+            namespace: >-
+              {{`{{ kubernetes.pod_namespace }}`}}
+            node: >-
+              {{`{{ kubernetes.pod_node_name }}`}}
+            container: >-
+              {{`{{ kubernetes.container_name }}`}}
+    service:
+      enabled: false
+    podMonitor:
+      enabled: true
+    securityContext:
+      privileged: true
+    tolerations:
+      - effect: NoSchedule
+        operator: Exists
+      - effect: NoExecute
+        operator: Exists

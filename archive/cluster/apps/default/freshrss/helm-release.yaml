@@ -1,0 +1,45 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: freshrss
+  namespace: default
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s-charts
+        namespace: flux-system
+  values:
+    image:
+      repository: freshrss/freshrss
+      tag: 1.21.0
+    env:
+      TZ: Europe/Berlin
+      CRON_MIN: 2,17,32,47
+    service:
+      main:
+        ports:
+          http:
+            port: 80
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: "nginx"
+        annotations:
+          external.home.arpa/enabled: "true"
+        hosts:
+          - host: "freshrss.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+    persistence:
+      data:
+        enabled: true
+        type: pvc
+        existingClaim: freshrss-data-v1
+        mountPath: /var/www/FreshRSS/data
