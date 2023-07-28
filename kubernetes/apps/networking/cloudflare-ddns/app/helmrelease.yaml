@@ -39,7 +39,12 @@ spec:
       HEALTH_SERVER_ADDRESS: 0.0.0.0:9999
     service:
       main:
-        enabled: false
+        ports:
+          http:
+            enabled: false
+          health:
+            enabled: true
+            port: 9999
     probes:
       liveness: &probe
         enabled: true
