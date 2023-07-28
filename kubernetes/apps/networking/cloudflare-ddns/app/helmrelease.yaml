@@ -1,0 +1,59 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cloudflare-ddns
+  namespace: networking
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 1.5.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: ghcr.io/qdm12/ddns-updater
+      tag: v2.5.0
+    env:
+      TZ: "${TIMEZONE}"
+      PERIOD: 5m
+      PUBLICIP_FETCHERS: dns
+      PUBLICIP_DNS_PROVIDERS: cloudflare,opendns
+      PUBLICIP_DNS_TIMEOUT: 15s
+      DATADIR: /updater/data
+      RESOLVER_ADDRESS: 1.1.1.1:53
+    service:
+      main:
+        enabled: false
+    persistence:
+      data:
+        enabled: true
+        type: emptyDir
+        mountPath: /updater/data
+      config:
+        enabled: true
+        type: secret
+        name: cloudflare-ddns-secret
+        subPath: config.json
+        mountPath: /updater/data/config.json
+        readOnly: true
+    resources:
+      requests:
+        cpu: 15m
+        memory: 64M
+      limits:
+        memory: 128M
