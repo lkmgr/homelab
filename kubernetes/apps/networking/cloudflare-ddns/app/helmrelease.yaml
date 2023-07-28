@@ -39,6 +39,21 @@ spec:
     service:
       main:
         enabled: false
+    probes:
+      liveness: &probe
+        enabled: true
+        custom: true
+        spec:
+          httpGet:
+            path: /
+            port: 9999
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          timeoutSeconds: 1
+          failureThreshold: 3
+      readiness: *probe
+      startup:
+        enabled: false
     persistence:
       data:
         enabled: true
