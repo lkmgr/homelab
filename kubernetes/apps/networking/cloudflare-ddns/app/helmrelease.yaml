@@ -36,6 +36,7 @@ spec:
       PUBLICIP_DNS_TIMEOUT: 15s
       DATADIR: /updater/data
       RESOLVER_ADDRESS: 1.1.1.1:53
+      HEALTH_SERVER_ADDRESS: 0.0.0.0:9999
     service:
       main:
         enabled: false
