@@ -32,7 +32,7 @@ spec:
       TZ: "${TIMEZONE}"
       PERIOD: 5m
       PUBLICIP_FETCHERS: dns
-      PUBLICIP_DNS_PROVIDERS: cloudflare,opendns
+      PUBLICIP_DNS_PROVIDERS: cloudflare
       PUBLICIP_DNS_TIMEOUT: 15s
       DATADIR: /updater/data
       RESOLVER_ADDRESS: 1.1.1.1:53
