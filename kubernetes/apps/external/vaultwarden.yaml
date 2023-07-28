@@ -31,7 +31,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: "bw.${SECRET_DOMAIN}"
+    - host: &host "bw.${SECRET_DOMAIN}"
       http:
         paths:
           - path: /
@@ -41,3 +41,6 @@ spec:
                 name: vaultwarden
                 port:
                   number: 3120
+  tls:
+    - hosts:
+        - *host
