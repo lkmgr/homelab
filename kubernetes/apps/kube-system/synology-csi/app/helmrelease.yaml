@@ -40,8 +40,4 @@ spec:
       retain:
         disabled: true
     # created in snapshot-controller helmrelease
-    volumeSnapshotClasses:
-      delete:
-        disabled: true
-      retain:
-        disabled: true
+    volumeSnapshotClasses: {}
