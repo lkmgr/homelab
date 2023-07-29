@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: synology-csi
-      version: 0.9.6-SNAPSHOT
+      version: v0.9.5
       sourceRef:
         kind: HelmRepository
         name: synology-csi
