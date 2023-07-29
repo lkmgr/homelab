@@ -29,15 +29,6 @@ spec:
       create: false
       name: synology-csi-secret
     installCSIDriver: false
-    storageClasses:
-      delete:
-        disabled: false
-        isDefault: false
-        reclaimPolicy: Delete
-        parameters:
-          fsType: ext4
-          location: /volume1
-      retain:
-        disabled: true
+    storageClasses: {}
     # created in snapshot-controller helmrelease
     volumeSnapshotClasses: {}
