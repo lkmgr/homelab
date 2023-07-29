@@ -1,0 +1,47 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: synology-csi
+  namespace: kube-system
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: synology-csi
+      version: 0.9.6-SNAPSHOT
+      sourceRef:
+        kind: HelmRepository
+        name: synology-csi
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    clientInfoSecret:
+      create: false
+      name: synology-csi-secret
+    installCSIDriver: false
+    storageClasses:
+      delete:
+        disabled: false
+        isDefault: false
+        reclaimPolicy: Delete
+        parameters:
+          fsType: ext4
+          location: /volume1
+      retain:
+        disabled: true
+    # created in snapshot-controller helmrelease
+    volumeSnapshotClasses:
+      delete:
+        disabled: true
+      retain:
+        disabled: true

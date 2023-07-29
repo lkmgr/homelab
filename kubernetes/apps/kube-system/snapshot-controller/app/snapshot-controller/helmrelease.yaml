@@ -33,5 +33,10 @@ spec:
         deletionPolicy: Delete
         parameters:
           type: snap
+      - name: synology-iscsi-vsc
+        driver: csi.san.synology.com
+        deletionPolicy: Delete
+        parameters:
+          description: "Kubernetes CSI"
     serviceMonitor:
       create: true
