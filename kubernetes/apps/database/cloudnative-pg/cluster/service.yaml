@@ -5,8 +5,7 @@ metadata:
   name: postgres-lb
   namespace: database
   annotations:
-    external-dns.alpha.kubernetes.io/hostname: postgres.devbu.io
-    io.cilium/lb-ipam-ips: 192.168.42.205
+    io.cilium/lb-ipam-ips: "${VIP_POSTGRES}"
 spec:
   type: LoadBalancer
   externalTrafficPolicy: Cluster
