@@ -31,4 +31,4 @@ spec:
     installCSIDriver: false
     storageClasses: {}
     # created in snapshot-controller helmrelease
-    volumeSnapshotClasses: {}
+    volumeSnapshotClasses: null
