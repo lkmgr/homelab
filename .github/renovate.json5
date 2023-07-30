@@ -8,6 +8,7 @@
     ":semanticCommits",
     ":automergeDigest",
     ":automergeBranch",
+    "github>lkmgr/homelab//.github/renovate/allowedVersions.json5",
     "github>lkmgr/homelab//.github/renovate/autoMerge.json5",
     "github>lkmgr/homelab//.github/renovate/commitMessage.json5",
     "github>lkmgr/homelab//.github/renovate/groups.json5",
