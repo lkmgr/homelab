@@ -1,0 +1,39 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres
+  namespace: database
+  annotations:
+    kyverno.io/ignore: "true"
+spec:
+  instances: 2
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.3-10
+  primaryUpdateStrategy: unsupervised
+  storage:
+    size: 60Gi
+    storageClass: local-path
+  superuserSecret:
+    name: cloudnative-pg
+  postgresql:
+    parameters:
+      max_connections: "600"
+      shared_buffers: 512MB
+  monitoring:
+    enablePodMonitor: true
+  backup:
+    retentionPolicy: 30d
+    barmanObjectStore:
+      wal:
+        compression: bzip2
+        maxParallel: 2
+      destinationPath: "s3://${SECRET_CNPG_BUCKET_NAME}/"
+      endpointURL: https://s3.eu-central-003.backblazeb2.com
+      serverName: postgres-v1
+      s3Credentials:
+        accessKeyId:
+          name: cloudnative-pg-s3
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: cloudnative-pg-s3
+          key: ACCESS_SECRET_KEY
