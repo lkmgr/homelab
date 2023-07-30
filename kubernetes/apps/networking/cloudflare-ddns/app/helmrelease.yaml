@@ -71,7 +71,7 @@ spec:
       config:
         enabled: true
         type: secret
-        name: cloudflare-ddns-secret
+        name: cloudflare-ddns
         subPath: config.json
         mountPath: /updater/data/config.json
         readOnly: true
