@@ -5,6 +5,10 @@ metadata:
   name: cluster-apps-home-assistant
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-cloudnative-pg-cluster
+    - name: cluster-apps-postgres-operator
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/default/home-assistant/app
   prune: true
   sourceRef:

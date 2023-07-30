@@ -33,6 +33,9 @@ spec:
       tag: 2023.7.3
     env:
       TZ: "${TIMEZONE}"
+    envFrom:
+      - secretRef:
+          name: home-assistant-db
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
     service:
