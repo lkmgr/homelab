@@ -11,8 +11,8 @@
 | Device | Type | Disk | RAM | OS |
 | --- | --- | --- | --- | --- |
 | Minis Forum Ryzen 5 4500U  | Control Plane | 512GB NVME | 16 GB | Debian 12 |
-| HP EliteDesk 800 G2 i5-6500T  | Worker | 480GB SATA SSD | 16 GB | Debian 12 |
-| Dell Optiplex 3040 i5-6500T  | Worker | 480GB SATA SSD | 16 GB | Debian 12 |
+| HP EliteDesk 800 G2 i5-6500T  | Control Plane | 480GB SATA SSD | 16 GB | Debian 12 |
+| Dell Optiplex 3040 i5-6500T  | Control Plane | 480GB SATA SSD | 16 GB | Debian 12 |
 
 ### NAS
 
@@ -27,9 +27,7 @@
 | Raspberry Pi 4 4GB | Klipper/Moonraker/Fluidd |
 | Raspberry Pi 2 | - |
 
-## Setup
-
-### Requirements
+## Requirements
 
 ```
 age
@@ -57,5 +55,5 @@ MIT
 
 ## Acknowledgments
 
-[`flux-cluster-template`](https://github.com/onedr0p/flux-cluster-template) and the k8s-at-home community
+[`flux-cluster-template`](https://github.com/onedr0p/flux-cluster-template), [`onedr0p/home-ops`](https://github.com/onedr0p/home-ops) and the k8s-at-home community
 
