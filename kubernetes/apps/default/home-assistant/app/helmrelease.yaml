@@ -35,7 +35,7 @@ spec:
       TZ: "${TIMEZONE}"
     envFrom:
       - secretRef:
-          name: home-assistant-db
+          name: home-assistant-db-home-assistant-user
     hostNetwork: true
     dnsPolicy: ClusterFirstWithHostNet
     service:
