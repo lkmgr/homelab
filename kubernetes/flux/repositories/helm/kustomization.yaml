@@ -21,6 +21,7 @@ resources:
   - ./metrics-server.yaml
   - ./node-feature-discovery.yaml
   - ./piraeus.yaml
+  - ./postgres-operator.yaml
   - ./prometheus-community.yaml
   - ./stakater.yaml
   - ./synology-csi.yaml
