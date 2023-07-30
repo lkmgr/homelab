@@ -5,6 +5,8 @@ metadata:
   name: cluster-apps-cloudflare-ddns
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/networking/cloudflare-ddns/app
   prune: true
   sourceRef:
