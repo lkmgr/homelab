@@ -25,6 +25,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    controller:
+      annotations:
+        reloader.stakater.com/auto: "true"
     image:
       repository: ghcr.io/qdm12/ddns-updater
       tag: v2.5.0
