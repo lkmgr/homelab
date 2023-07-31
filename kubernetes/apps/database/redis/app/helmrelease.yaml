@@ -27,8 +27,9 @@ spec:
     keepHistory: false
   values:
     auth:
-      enabled: false
-      sentinel: false
+      sentinel: true
+      existingSecret: redis
+      existingSecretPasswordKey: password
     master:
       persistence:
         enabled: false
@@ -38,9 +39,9 @@ spec:
     sentinel:
       enabled: true
       masterSet: redis-master
-      getMasterTimeout: 20
+      getMasterTimeout: 30
       startupProbe:
-        failureThreshold: 2
+        failureThreshold: 3
       persistence:
         enabled: false
     metrics:
