@@ -16,5 +16,6 @@ metadata:
 spec:
   role: home-assistant
   database: home-assistant
-  secretName: home-assistant-db
+  secretName: pg
   privileges: OWNER
+
