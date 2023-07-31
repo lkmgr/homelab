@@ -26,6 +26,7 @@ spec:
     keepHistory: false
   values:
     controller:
+      replicaCount: 2
       extraEnvs:
         - name: TZ
           value: "${TIMEZONE}"
