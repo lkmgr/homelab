@@ -5,5 +5,4 @@ namespace: default
 resources:
   - ./helmrelease.yaml
   - ./postgresql.yaml
-  - ./postgresql-secret.sops.yaml
   - ./pvc.yaml

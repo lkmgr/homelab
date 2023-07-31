@@ -92,20 +92,6 @@ spec:
           - name: config
             subPath: appdaemon
             mountPath: /conf
-    postgresql:
-      enabled: true
-      nameOverride: postgresql
-      auth:
-        username: home-assistant
-        database: home-assistant
-        existingSecret: ha-postgresql-secret
-      primary:
-        enabled: true
-        persistence:
-          enabled: true
-          existingClaim: home-assistant-postgres
-        nodeSelector:
-          kubernetes.io/hostname: helios
     addons:
       codeserver:
         enabled: true
