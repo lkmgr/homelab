@@ -108,11 +108,20 @@ spec:
           - "/config/.vscode"
           - --extensions-dir
           - "/config/.vscode"
+        service:
+          enabled: true
+          type: ClusterIP
+          ports:
+            codeserver:
+              port: 12321
+              enabled: true
+              protocol: TCP
+              targetPort: 12321
         ingress:
           enabled: true
           ingressClassName: nginx
           annotations:
-            # nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+            nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
             nginx.ingress.kubernetes.io/auth-method: GET
             nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
             nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}?rm=$request_method
