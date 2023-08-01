@@ -33,6 +33,10 @@ spec:
   values:
     crds:
       enabled: true
+    defaultRules:
+      create: true
+      rules:
+        kubelet: false
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
       enabled: true
