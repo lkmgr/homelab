@@ -76,25 +76,25 @@ spec:
         size: 20Gi
     ruler:
       enabled: false
-      # replicaCount: 1
-      # replicaLabel: __replica__
-      # alertmanagers: ["http://alertmanager-operated.monitoring.svc.cluster.local:9093"]
-      # extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
-      # config: |-
-      #   groups:
-      #     - name: PrometheusWatcher
-      #       rules:
-      #         - alert: PrometheusDown
-      #           annotations:
-      #             summary: A Prometheus has disappeared from Prometheus target discovery
-      #           expr: absent(up{job="kube-prometheus-stack-prometheus"})
-      #           for: 5m
-      #           labels:
-      #             severity: critical
-      # persistence:
-      #   enabled: true
-      #   storageClass: local-path
-      #   size: 20Gi
+      replicaCount: 1
+      replicaLabel: __replica__
+      alertmanagers: ["http://alertmanager-operated.monitoring.svc.cluster.local:9093"]
+      extraFlags: ["--web.prefix-header=X-Forwarded-Prefix"]
+      config: |-
+        groups:
+          - name: PrometheusWatcher
+            rules:
+              - alert: PrometheusDown
+                annotations:
+                  summary: A Prometheus has disappeared from Prometheus target discovery
+                expr: absent(up{job="kube-prometheus-stack-prometheus"})
+                for: 5m
+                labels:
+                  severity: critical
+      persistence:
+        enabled: true
+        storageClass: local-path
+        size: 20Gi
     metrics:
       enabled: true
       serviceMonitor:
