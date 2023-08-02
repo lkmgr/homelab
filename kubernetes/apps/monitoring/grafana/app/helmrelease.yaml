@@ -29,11 +29,10 @@ spec:
     annotations:
       secret.reloader.stakater.com/reload: "pg-grafana"
     envValueFrom:
-      - name: GF_DATABASE_URL
-        valueFrom:
-          secretKeyRef:
-            name: pg-grafana
-            key: POSTGRES_URL
+      GF_DATABASE_URL:
+        secretKeyRef:
+          name: pg-grafana
+          key: POSTGRES_URL
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
