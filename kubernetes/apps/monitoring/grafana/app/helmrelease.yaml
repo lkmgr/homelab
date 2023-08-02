@@ -52,6 +52,10 @@ spec:
         enabled: false
       auth.anonymous:
         enabled: false
+      users:
+        allow_sign_up: false
+        auto_assign_org: true
+        auto_assign_org_role: Admin
       database:
         type: postgres
         ssl_mode: disable
