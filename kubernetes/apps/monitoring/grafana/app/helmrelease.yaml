@@ -28,7 +28,7 @@ spec:
     replicas: 2
     annotations:
       secret.reloader.stakater.com/reload: "pg-grafana"
-    env:
+    envValueFrom:
       - name: GF_DATABASE_URL
         valueFrom:
           secretKeyRef:
