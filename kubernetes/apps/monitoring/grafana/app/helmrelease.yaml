@@ -65,7 +65,8 @@ spec:
         enabled: false
       users:
         allow_sign_up: false
-        auto_assign_org: true
+        auto_assign_org: false
+        auto_assign_org_id: 1
         auto_assign_org_role: Admin
       security:
         disable_initial_admin_creation: true
