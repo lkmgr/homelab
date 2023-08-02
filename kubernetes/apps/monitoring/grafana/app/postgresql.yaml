@@ -1,0 +1,21 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  database: grafana
+  dropOnDelete: false
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  role: grafana
+  database: grafana
+  secretName: pg
+  privileges: OWNER
+
