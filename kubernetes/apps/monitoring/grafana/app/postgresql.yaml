@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
 spec:
   database: grafana
-  dropOnDelete: false
+  dropOnDelete: true
 ---
 apiVersion: db.movetokube.com/v1alpha1
 kind: PostgresUser
