@@ -16,7 +16,7 @@ metadata:
   namespace: external
 subsets:
   - addresses:
-      - ip: 192.168.178.76
+      - ip: 192.168.4.11
     ports:
       - port: 3120
 
