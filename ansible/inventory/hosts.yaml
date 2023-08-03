@@ -5,10 +5,10 @@ kubernetes:
       hosts:
         helios:
           ansible_user: kube
-          ansible_host: 192.168.178.144
+          ansible_host: 192.168.4.10
         neon:
           ansible_user: kube
-          ansible_host: 192.168.178.76
+          ansible_host: 192.168.4.11
         xenon:
           ansible_user: kube
-          ansible_host: 192.168.178.72
+          ansible_host: 192.168.4.12
