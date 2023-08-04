@@ -32,7 +32,7 @@ spec:
       AUTHENTIK_COOKIE_DOMAIN: "${SECRET_DOMAIN}"
     envFrom:
       - secretKeyRef:
-          name: authentik
+          name: authentik-secret
     envValueFrom:
       AUTHENTIK_POSTGRESQL__HOST:
         secretKeyRef:
