@@ -45,10 +45,13 @@ spec:
         enabled: true
         ingressClassName: nginx
         hosts:
-          - host: "esphome.${SECRET_DOMAIN}"
+          - host: &host "esphome.${SECRET_DOMAIN}"
             paths:
               - path: /
                 pathType: Prefix
+        tls:
+          - hosts:
+              - *host
     persistence:
       config:
         enabled: true
