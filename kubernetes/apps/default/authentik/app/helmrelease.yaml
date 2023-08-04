@@ -26,8 +26,6 @@ spec:
     keepHistory: false
   values:
     env:
-      AUTHENTIK_REDIS__HOST: redis.database.svc.cluster.local
-      AUTHENTIK_REDIS__DB: 2
       AUTHENTIK_POSTGRESQL__SSLMODE: disable
       AUTHENTIK_COOKIE_DOMAIN: "${SECRET_DOMAIN}"
     envFrom:
@@ -57,6 +55,15 @@ spec:
         scrapeTimeout: 3s
       rules:
         create: false
+    redis:
+      enabled: true
+      architecture: standalone
+      auth:
+        enabled: false
+      master:
+        persistence:
+          enabled: true
+          existingClaim: authentik-redis
     ingress:
       enabled: true
       ingressClassName: nginx
