@@ -31,7 +31,7 @@ spec:
       AUTHENTIK_POSTGRESQL__SSLMODE: disable
       AUTHENTIK_COOKIE_DOMAIN: "${SECRET_DOMAIN}"
     envFrom:
-      - secretKeyRef:
+      - secretRef:
           name: authentik-secret
     envValueFrom:
       AUTHENTIK_POSTGRESQL__HOST:
