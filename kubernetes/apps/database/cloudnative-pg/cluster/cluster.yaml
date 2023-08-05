@@ -29,7 +29,7 @@ spec:
         maxParallel: 2
       destinationPath: "s3://${SECRET_CNPG_BUCKET_NAME}/"
       endpointURL: https://s3.eu-central-003.backblazeb2.com
-      serverName: postgres-v1
+      serverName: postgres-v2
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-s3
