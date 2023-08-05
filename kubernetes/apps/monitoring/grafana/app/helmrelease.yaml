@@ -153,11 +153,11 @@ spec:
           gnetId: 15038 # https://grafana.com/grafana/dashboards/15038?tab=revisions
           revision: 1
           datasource: Prometheus
-        # minio:
-        #   gnetId: 13502 # https://grafana.com/grafana/dashboards/13502?tab=revisions
-        #   revision: 23
-        #   datasource:
-        #     - { name: DS_PROMETHEUS, value: Prometheus }
+        minio:
+          gnetId: 13502 # https://grafana.com/grafana/dashboards/13502?tab=revisions
+          revision: 23
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         node-exporter-full:
           gnetId: 1860 # https://grafana.com/grafana/dashboards/1860?tab=revisions
           revision: 31
