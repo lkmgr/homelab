@@ -25,9 +25,9 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  dependsOn:
-    - name: local-path-provisioner
-      namespace: kube-system
+  # dependsOn:
+  #   - name: local-path-provisioner
+  #     namespace: kube-system
   values:
     image:
       registry: quay.io
@@ -60,20 +60,20 @@ spec:
       extraFlags:
         - --compact.concurrency=2
         - --delete-delay=30m
-      retentionResolutionRaw: 30d
-      retentionResolution5m: 60d
-      retentionResolution1h: 90d
+      retentionResolutionRaw: 14d
+      retentionResolution5m: 30d
+      retentionResolution1h: 60d
       persistence:
-        enabled: true
-        storageClass: local-path
-        size: 20Gi
+        enabled: false
+        # storageClass: local-path
+        # size: 20Gi
     storegateway:
       enabled: true
       replicaCount: 1
       persistence:
-        enabled: true
-        storageClass: local-path
-        size: 20Gi
+        enabled: false
+        # storageClass: local-path
+        # size: 20Gi
     ruler:
       enabled: true
       replicaCount: 1
@@ -92,9 +92,9 @@ spec:
                 labels:
                   severity: critical
       persistence:
-        enabled: true
-        storageClass: local-path
-        size: 20Gi
+        enabled: false
+        # storageClass: local-path
+        # size: 20Gi
     metrics:
       enabled: true
       serviceMonitor:

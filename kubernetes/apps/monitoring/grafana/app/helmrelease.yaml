@@ -45,6 +45,18 @@ spec:
         secretKeyRef:
           name: pg-grafana
           key: DATABASE_NAME
+      GF_SECURITY_ADMIN_USER:
+        secretKeyRef:
+          name: grafana
+          key: ADMIN_USER
+      GF_SECURITY_ADMIN_PASSWORD:
+        secretKeyRef:
+          name: grafana
+          key: ADMIN_PASSWORD
+      GF_SECURITY_ADMIN_EMAIL:
+        secretKeyRef:
+          name: grafana
+          key: ADMIN_EMAIL
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
@@ -52,24 +64,21 @@ spec:
         check_for_updates: false
         check_for_plugin_updates: false
         reporting_enabled: false
-      auth:
-        disable_signout_menu: true
+      # auth:
+      #   disable_signout_menu: true
       auth.proxy:
-        enabled: true
-        header_name: Remote-User
-        header_property: username
-        headers: "Name:Remote-Name Email:Remote-Email"
-      auth.basic:
         enabled: false
+        # header_name: Remote-User
+        # header_property: username
+        # headers: "Name:Remote-Name Email:Remote-Email"
+      auth.basic:
+        enabled: true
       auth.anonymous:
         enabled: false
       users:
         allow_sign_up: false
-        auto_assign_org: true
-        auto_assign_org_id: 1
-        auto_assign_org_role: Admin
       security:
-        disable_initial_admin_creation: true
+        disable_initial_admin_creation: false
       database:
         type: postgres
         ssl_mode: disable
@@ -273,16 +282,16 @@ spec:
       ingressClassName: nginx
       annotations:
         external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
-        nginx.ingress.kubernetes.io/auth-method: GET
-        nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
-        nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}?rm=$request_method
-        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-        nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
+        # nginx.ingress.kubernetes.io/auth-method: GET
+        # nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
+        # nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}?rm=$request_method
+        # nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        # nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
       hosts:
-        - "grafana.${SECRET_DOMAIN}"
+        - &host "grafana.${SECRET_DOMAIN}"
       tls:
         - hosts:
-            - "grafana.${SECRET_DOMAIN}"
+            - *host
     persistence:
       enabled: false
     testFramework:
