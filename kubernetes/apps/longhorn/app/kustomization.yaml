@@ -5,3 +5,4 @@ namespace: longhorn-system
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./recurringjobs.yaml
