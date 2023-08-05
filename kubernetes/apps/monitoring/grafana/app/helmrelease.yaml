@@ -47,15 +47,15 @@ spec:
           key: DATABASE_NAME
       GF_SECURITY_ADMIN_USER:
         secretKeyRef:
-          name: grafana
+          name: grafana-ext
           key: ADMIN_USER
       GF_SECURITY_ADMIN_PASSWORD:
         secretKeyRef:
-          name: grafana
+          name: grafana-ext
           key: ADMIN_PASSWORD
       GF_SECURITY_ADMIN_EMAIL:
         secretKeyRef:
-          name: grafana
+          name: grafana-ext
           key: ADMIN_EMAIL
     grafana.ini:
       server:
