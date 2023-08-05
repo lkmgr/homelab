@@ -200,6 +200,10 @@ spec:
         scrapeConfigSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
+        resources:
+          requests:
+            cpu: 150m
+            memory: 2000Mi
         enableFeatures:
           - auto-gomaxprocs
           - memory-snapshot-on-shutdown
