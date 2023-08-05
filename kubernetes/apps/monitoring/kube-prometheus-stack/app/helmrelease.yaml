@@ -218,4 +218,11 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
+        additionalScrapeConfigs:
+          - job_name: minio
+            metrics_path: /minio/v2/metrics/cluster
+            static_configs:
+              - targets:
+                  - "${NAS_ADDR}:9000"
+                  - "${NAS_ADDR}:9001"
 
