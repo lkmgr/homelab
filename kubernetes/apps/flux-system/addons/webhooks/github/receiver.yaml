@@ -24,3 +24,15 @@ spec:
       kind: Kustomization
       name: cluster-apps
       namespace: flux-system
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: GitRepository
+      name: home-kubernetes-extra
+      namespace: flux-system
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      name: cluster-extra
+      namespace: flux-system
+    - apiVersion: kustomize.toolkit.fluxcd.io/v1
+      kind: Kustomization
+      name: cluster-extra-apps
+      namespace: flux-system
