@@ -27,9 +27,9 @@ spec:
       wal:
         compression: bzip2
         maxParallel: 2
-      destinationPath: "s3://${SECRET_CNPG_BUCKET_NAME}/"
-      endpointURL: https://s3.eu-central-003.backblazeb2.com
-      serverName: postgres-v2
+      destinationPath: "s3://cloudnativepg/"
+      endpointURL: "http://${NAS_ADDR_MINIO}"
+      serverName: postgres-v3
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-s3
