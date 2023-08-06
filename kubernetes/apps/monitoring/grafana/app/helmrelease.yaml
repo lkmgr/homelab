@@ -61,15 +61,15 @@ spec:
         check_for_plugin_updates: false
         reporting_enabled: false
       auth:
-        signout_redirect_url: https://authentik.${SECRET_DOMAIN}/application/o/grafana/end-session/
+        signout_redirect_url: https://auth.${SECRET_DOMAIN}/application/o/grafana/end-session/
         oauth_auto_login: true
       auth.generic_oauth:
         enabled: true
         name: authentik
         scopes: openid email profile
-        auth_url: https://authentik.${SECRET_DOMAIN}/application/o/authorize/
-        token_url: https://authentik.${SECRET_DOMAIN}/application/o/token/
-        api_url: https://authentik.${SECRET_DOMAIN}/application/o/userinfo/
+        auth_url: https://auth.${SECRET_DOMAIN}/application/o/authorize/
+        token_url: https://auth.${SECRET_DOMAIN}/application/o/token/
+        api_url: https://auth.${SECRET_DOMAIN}/application/o/userinfo/
         role_attribute_path: contains(groups[*], 'admins') && 'Admin' || 'Viewer'
       auth.proxy:
         enabled: false
