@@ -30,6 +30,8 @@ spec:
       AUTHENTIK_COOKIE_DOMAIN: "${SECRET_DOMAIN}"
       AUTHENTIK_REDIS__HOST: redis-master.database.svc.cluster.local
       AUTHENTIK_REDIS__DB: "${REDIS_DB_AUTHENTIK}"
+      AUTHENTIK_EMAIL__PORT: "587"
+      AUTHENTIK_EMAIL__USE_TLS: "true"
     envFrom:
       - secretRef:
           name: authentik-secret
