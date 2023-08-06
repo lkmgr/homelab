@@ -26,24 +26,23 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    enabled: true
+    architecture: standalone
     auth:
-      sentinel: true
-      existingSecret: redis
+      enabled: true
+      existingSecret: redis-ext
       existingSecretPasswordKey: password
     master:
       persistence:
-        enabled: false
-    replica:
-      persistence:
-        enabled: false
-    sentinel:
-      enabled: true
-      masterSet: redis-master
-      getMasterTimeout: 30
-      startupProbe:
-        failureThreshold: 3
-      persistence:
-        enabled: false
+        enabled: true
+        existingClaim: redis-data
+    commonConfiguration: |-
+      # Enable AOF https://redis.io/topics/persistence#append-only-file
+      appendonly yes
+      # Disable RDB persistence, AOF persistence already enabled.
+      save ""
+      # Increase databases count
+      databases 32
     metrics:
       enabled: true
       serviceMonitor:
