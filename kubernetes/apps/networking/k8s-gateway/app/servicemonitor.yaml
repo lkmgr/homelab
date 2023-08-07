@@ -1,0 +1,19 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: k8s-gateway
+  namespace: networking
+  labels:
+    app.kubernetes.io/name: k8s-gateway
+    app.kubernetes.io/instance: k8s-gateway
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: k8s-gateway
+      app.kubernetes.io/instance: k8s-gateway
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 1m
+
