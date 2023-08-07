@@ -28,6 +28,8 @@ spec:
     fullnameOverride: k8s-gateway
     domain: "${SECRET_DOMAIN}"
     ttl: 1
+    fallthrough:
+      enabled: true
     service:
       type: LoadBalancer
       port: 53
