@@ -48,6 +48,8 @@ spec:
         ports:
           http:
             port: 8123
+          homekit:
+            port: 21063
     ingress:
       main:
         enabled: true
