@@ -44,8 +44,8 @@ spec:
                 - /bin/sh
                 - -c
                 - >-
-                  rclone sync --config /config/rclone.conf minio:$(MINIO_CNPG_BUCKET) backblaze-crypt:$(B2_CNPG_BUCKET) &&
-                  rclone sync --config /config/rclone.conf minio:$(MINIO_LONGHORN_BUCKET) backblaze-crypt:$(B2_LONGHORN_BUCKET)
+                  rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_CNPG_BUCKET) backblaze-crypt:$(B2_CNPG_BUCKET) &&
+                  rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_LONGHORN_BUCKET) backblaze-crypt:$(B2_LONGHORN_BUCKET)
               volumeMounts:
                 - name: conf
                   mountPath: /config
