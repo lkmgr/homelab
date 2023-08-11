@@ -31,5 +31,5 @@ spec:
                 - |
                   mc alias set minio http://$(MINIO_HOST)/ $(MINIO_CNPG_USER) $(MINIO_CNPG_PASS)
                   mc alias set backblaze https://$(B2_ENDPOINT)/ $(B2_CNPG_USER) $(B2_CNPG_PASS)
-                  mc mirror --fake minio/$(MINIO_CNPG_BUCKET) backblaze/$(B2_CNPG_BUCKET)
+                  mc mirror minio/$(MINIO_CNPG_BUCKET) backblaze/$(B2_CNPG_BUCKET)
 
