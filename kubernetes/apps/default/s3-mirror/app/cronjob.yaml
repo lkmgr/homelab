@@ -14,22 +14,45 @@ spec:
     spec:
       ttlSecondsAfterFinished: 43200
       template:
-        metadata:
-          annotations:
-            kustomize.toolkit.fluxcd.io/substitute: disabled
         spec:
           restartPolicy: OnFailure
           containers:
-            - name: cnpg
-              image: bitnami/minio-client:2023.8.8
-              envFrom:
-                - secretRef:
-                    name: s3-mirror-secret
-              command: ["/bin/bash", "-c"]
-              # args: [ "while true; do sleep 30; done;" ]
-              args:
-                - |
-                  mc alias set minio http://$(MINIO_HOST)/ $(MINIO_CNPG_USER) $(MINIO_CNPG_PASS)
-                  mc alias set backblaze https://$(B2_ENDPOINT)/ $(B2_CNPG_USER) $(B2_CNPG_PASS)
-                  mc mirror minio/$(MINIO_CNPG_BUCKET) backblaze/$(B2_CNPG_BUCKET)
+            - name: rclone
+              image: rclone/rclone:1.63.1
+              env:
+                - name: MINIO_CNPG_BUCKET
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-mirror-secret
+                      key: MINIO_CNPG_BUCKET
+                - name: B2_CNPG_BUCKET
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-mirror-secret
+                      key: B2_CNPG_BUCKET
+                - name: MINIO_LONGHORN_BUCKET
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-mirror-secret
+                      key: MINIO_LONGHORN_BUCKET
+                - name: B2_LONGHORN_BUCKET
+                  valueFrom:
+                    secretKeyRef:
+                      name: s3-mirror-secret
+                      key: B2_LONGHORN_BUCKET
+              command: [ "/bin/bash", "-c", "--" ]
+              args: [ "while true; do sleep 30; done;" ]
+              # args:
+              #   - |
+              #     rclone sync --dry-run --config /config/rclone.conf minio:$(MINIO_CNPG_BUCKET) backblaze-crypt:$(B2_CNPG_BUCKET)
+              volumeMounts:
+                - name: conf
+                  mountPath: /config
+                  readOnly: true
+          volumes:
+            - name: conf
+              secret:
+                secretName: s3-mirror-secret
+                items:
+                  - key: rclone.conf
 
