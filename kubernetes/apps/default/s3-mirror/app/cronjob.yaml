@@ -19,27 +19,9 @@ spec:
           containers:
             - name: rclone
               image: rclone/rclone:1.63.1
-              env:
-                - name: MINIO_CNPG_BUCKET
-                  valueFrom:
-                    secretKeyRef:
-                      name: s3-mirror-secret
-                      key: MINIO_CNPG_BUCKET
-                - name: B2_CNPG_BUCKET
-                  valueFrom:
-                    secretKeyRef:
-                      name: s3-mirror-secret
-                      key: B2_CNPG_BUCKET
-                - name: MINIO_LONGHORN_BUCKET
-                  valueFrom:
-                    secretKeyRef:
-                      name: s3-mirror-secret
-                      key: MINIO_LONGHORN_BUCKET
-                - name: B2_LONGHORN_BUCKET
-                  valueFrom:
-                    secretKeyRef:
-                      name: s3-mirror-secret
-                      key: B2_LONGHORN_BUCKET
+              envFrom:
+                - secretRef:
+                    name: s3-mirror-secret
               command:
                 - /bin/sh
                 - -c
