@@ -40,7 +40,7 @@ spec:
                     secretKeyRef:
                       name: s3-mirror-secret
                       key: B2_LONGHORN_BUCKET
-              command: [ "/bin/bash", "-c", "--" ]
+              command: [ "/bin/sh", "-c", "--" ]
               args: [ "while true; do sleep 30; done;" ]
               # args:
               #   - |
