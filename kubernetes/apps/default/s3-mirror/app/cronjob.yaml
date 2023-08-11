@@ -42,9 +42,9 @@ spec:
                       key: B2_LONGHORN_BUCKET
               # command: [ "/bin/sh", "-c", "--" ]
               # args: [ "while true; do sleep 30; done;" ]
-              args:
+              command:
                 - |
-                  rclone sync --dry-run --config /config/rclone.conf minio:$(MINIO_CNPG_BUCKET) backblaze-crypt:$(B2_CNPG_BUCKET) &&
+                  rclone sync --dry-run --config /config/rclone.conf minio:$(MINIO_CNPG_BUCKET) backblaze-crypt:$(B2_CNPG_BUCKET)
                   rclone sync --dry-run --config /config/rclone.conf minio:$(MINIO_LONGHORN_BUCKET) backblaze-crypt:$(B2_LONGHORN_BUCKET)
               volumeMounts:
                 - name: conf
