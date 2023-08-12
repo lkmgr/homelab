@@ -36,32 +36,11 @@ spec:
       enabled: true
     defaultRules:
       create: true
-      # rules:
-      #   kubelet: false
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
       enabled: true
-      config:
-        global:
-          resolve_timeout: 5m
-        receivers:
-          - name: "null"
-        route:
-          group_by: ["alertname", "job"]
-          group_wait: 1m
-          group_interval: 10m
-          repeat_interval: 12h
-          receiver: "null"
-          routes:
-          - receiver: "null"
-            matchers:
-              - alertname =~ "InfoInhibitor|Watchdog"
-        inhibit_rules:
-          - source_matchers:
-              - severity = "critical"
-            target_matchers:
-              - severity = "warning"
-            equal: ["alertname", "namespace"]
+      useExistingSecret: true
+      configSecret: alertmanager-secret
       ingress:
         enabled: true
         pathType: Prefix
