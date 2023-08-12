@@ -39,8 +39,6 @@ spec:
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
       enabled: true
-      useExistingSecret: true
-      configSecret: alertmanager-secret
       ingress:
         enabled: true
         pathType: Prefix
@@ -52,6 +50,8 @@ spec:
               - "alertmanager.${SECRET_DOMAIN}"
       alertmanagerSpec:
         replicas: 1
+        useExistingSecret: true
+        configSecret: alertmanager-secret
         storage:
           volumeClaimTemplate:
             spec:
