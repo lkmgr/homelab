@@ -26,10 +26,10 @@ spec:
                 - /bin/sh
                 - -c
                 - >-
-                  curl -fsS -m 10 --retry 5 -o /dev/null https://hc-ping.com/$(HC_UUID)/start ;
+                  wget -q -t 5 -T 10 -O /dev/null https://hc-ping.com/$(HC_UUID)/start ;
                   rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_CNPG_BUCKET) backblaze-crypt:$(B2_CNPG_BUCKET) &&
                   rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_LONGHORN_BUCKET) backblaze-crypt:$(B2_LONGHORN_BUCKET) &&
-                  curl -fsS -m 10 --retry 5 -o /dev/null https://hc-ping.com/$(HC_UUID)
+                  wget -q -t 5 -T 10 -O /dev/null https://hc-ping.com/$(HC_UUID)
               volumeMounts:
                 - name: conf
                   mountPath: /config
