@@ -37,6 +37,7 @@ go-task
 helm
 kubectl
 kustomize
+pulumi
 python
 sops
 stern

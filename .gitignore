@@ -10,3 +10,6 @@ kubeconfig
 *.key
 # Ansible
 .venv*
+
+bin
+node_modules

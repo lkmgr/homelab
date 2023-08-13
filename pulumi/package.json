@@ -1,0 +1,12 @@
+{
+  "name": "homelab",
+  "main": "index.ts",
+  "devDependencies": {
+    "@types/node": "^18.17.5"
+  },
+  "dependencies": {
+    "@pulumi/docker": "^4.3.1",
+    "@pulumi/kubernetes": "^4.0.3",
+    "@pulumi/pulumi": "^3.78.1"
+  }
+}

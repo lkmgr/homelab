@@ -1,0 +1,7 @@
+config:
+  docker:host:
+    secure: AAABAGFSBGPWMr7juq7JU9mgXeU2CRfbLHnbu0r90O5flbI6Y5GtHoAXT+Hygb0RZixHWZaMcBJOeMRN
+  homelab:minioRootPass:
+    secure: AAABAF4f4GfPDoA9IZ6I+l7KdnHzLaATveV53bTjw/fQ9AztXNokG1qYwsYikanOLAR1Ll7TfQo=
+  homelab:minioRootUser:
+    secure: AAABALkIWs+zvwQaxkUgm/5z1OmRa/0YJ7/PlHSfYC1jE2sbxkQiNmCU+K91ZbIy
