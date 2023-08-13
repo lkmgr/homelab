@@ -1,46 +1,46 @@
-import * as docker from "@pulumi/docker";
+import * as docker from '@pulumi/docker';
 
-import { image, rootUser, rootPass } from "./config";
+import { image, rootUser, rootPass } from './config';
 
-const minioImage = new docker.RemoteImage("minio", {
+const minioImage = new docker.RemoteImage('minio', {
   name: image,
 });
 
-const minioContainer = new docker.Container("minio", {
+const minioContainer = new docker.Container('minio', {
   image: minioImage.imageId,
-  command: ["server", "--console-address", ":9090"],
+  command: ['server', '--console-address', ':9090'],
   envs: [
     `MINIO_ROOT_USER=${rootUser}`,
     `MINIO_ROOT_PASSWORD=${rootPass}`,
-    "MINIO_VOLUMES=/data",
-    "MINIO_PROMETHEUS_AUTH_TYPE=public",
+    'MINIO_VOLUMES=/data',
+    'MINIO_PROMETHEUS_AUTH_TYPE=public',
   ],
-  name: "pulumi-minio",
-  restart: "unless-stopped",
+  name: 'pulumi-minio',
+  restart: 'unless-stopped',
   ports: [
     { internal: 9000, external: 9001 },
     { internal: 9090, external: 9091 },
   ],
-  volumes: [{ hostPath: "/volume1/docker/minio", containerPath: "/data" }],
+  volumes: [{ hostPath: '/volume1/docker/minio', containerPath: '/data' }],
 });
 
-const minioSSDContainer = new docker.Container("minio-ssd", {
+const minioSSDContainer = new docker.Container('minio-ssd', {
   image: minioImage.imageId,
-  command: ["server", "--console-address", ":9090"],
+  command: ['server', '--console-address', ':9090'],
   envs: [
     `MINIO_ROOT_USER=${rootUser}`,
     `MINIO_ROOT_PASSWORD=${rootPass}`,
-    "MINIO_VOLUMES=/data",
-    "MINIO_PROMETHEUS_AUTH_TYPE=public",
+    'MINIO_VOLUMES=/data',
+    'MINIO_PROMETHEUS_AUTH_TYPE=public',
   ],
-  name: "pulumi-minio-ssd",
-  restart: "unless-stopped",
+  name: 'pulumi-minio-ssd',
+  restart: 'unless-stopped',
   ports: [
     { internal: 9000, external: 9000 },
     { internal: 9090, external: 9090 },
   ],
   volumes: [
-    { hostPath: "/volumeUSB1/usbshare/docker/minio", containerPath: "/data" },
+    { hostPath: '/volumeUSB1/usbshare/docker/minio', containerPath: '/data' },
   ],
 });
 
