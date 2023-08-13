@@ -7,7 +7,7 @@
       "automergeSchedule": "after 2am and before 5am",
       "automergeType": "branch",
       "description": "Auto merge patches and digests",
-      "excludePackagePatterns": [".*home-assistant.*"],
+      "excludePackagePatterns": [".*home-assistant.*", ".*minio.*"],
       "matchCurrentVersion": "!/^0/",
       "matchUpdateTypes": ["patch", "pin", "digest"]
     },
