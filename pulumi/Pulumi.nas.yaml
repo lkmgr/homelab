@@ -1,7 +1,7 @@
 config:
   docker:host:
     secure: AAABAGFSBGPWMr7juq7JU9mgXeU2CRfbLHnbu0r90O5flbI6Y5GtHoAXT+Hygb0RZixHWZaMcBJOeMRN
-  minio:image: minio/minio:RELEASE.2023-08-04T17-40-21Z
+  minio:image: minio/minio:RELEASE.2023-08-09T23-30-22Z
   minio:root-pass:
     secure: AAABANcT6kPTQ1+eq6KdaQ/CVT7eOj8yOv8K9pshGv6LRxcg8EQ7jwZCA8gSBh3HkVaXAADUQbU=
   minio:root-user:
