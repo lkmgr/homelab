@@ -1,1 +1,1 @@
-import "./nas/minio";
+import './nas/minio';

@@ -23,4 +23,3 @@ On Synology:
 - `env | grep PATH | tee .ssh/environment`
 
 Credit: https://qmacro.org/blog/posts/2021/06/12/remote-access-to-docker-on-my-synology-nas/
-
