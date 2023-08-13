@@ -27,4 +27,4 @@ resources:
   - ./prometheus-community.yaml
   - ./stakater.yaml
   - ./synology-csi.yaml
-  - ./weave-gitops.yaml
+  - ./weaveworks.yaml
