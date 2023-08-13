@@ -1,7 +1,8 @@
 config:
   docker:host:
     secure: AAABAGFSBGPWMr7juq7JU9mgXeU2CRfbLHnbu0r90O5flbI6Y5GtHoAXT+Hygb0RZixHWZaMcBJOeMRN
-  homelab:minioRootPass:
-    secure: AAABAF4f4GfPDoA9IZ6I+l7KdnHzLaATveV53bTjw/fQ9AztXNokG1qYwsYikanOLAR1Ll7TfQo=
-  homelab:minioRootUser:
-    secure: AAABALkIWs+zvwQaxkUgm/5z1OmRa/0YJ7/PlHSfYC1jE2sbxkQiNmCU+K91ZbIy
+  minio:image: minio/minio:RELEASE.2023-08-04T17-40-21Z.hotfix.5a2b71e54
+  minio:root-pass:
+    secure: AAABANcT6kPTQ1+eq6KdaQ/CVT7eOj8yOv8K9pshGv6LRxcg8EQ7jwZCA8gSBh3HkVaXAADUQbU=
+  minio:root-user:
+    secure: AAABALAOHLLB/bXs2lgSZmn3g/ryS1wA+F9rwd4TztfoqP/lWLOa9b28VdLo942L
