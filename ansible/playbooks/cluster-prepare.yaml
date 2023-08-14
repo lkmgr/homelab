@@ -113,6 +113,8 @@
               fs.inotify.max_user_watches: 524288
               fs.inotify.max_user_instances: 8192
 
+    # TODO: noatime for mount?
+
   handlers:
     - name: Reboot
       ansible.builtin.reboot:
