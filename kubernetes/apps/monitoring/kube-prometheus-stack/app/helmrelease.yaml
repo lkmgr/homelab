@@ -209,4 +209,9 @@ spec:
               - targets:
                   - "${NAS_ADDR_MINIO_SSD}"
                   - "${NAS_ADDR_MINIO}"
+          - job_name: node-exporter
+            metrics_path: /metrics
+            static_configs:
+              - targets:
+                  - "${NAS_ADDR}:9100"
 
