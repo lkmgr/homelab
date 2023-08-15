@@ -20,11 +20,29 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: cluster-apps-pulumi-repositories
+  namespace: flux-system
+spec:
+  path: ./kubernetes/apps/infra/pulumi-kubernetes-operator/repositories
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  wait: false
+  interval: 30m
+  retryInterval: 1m
+  timeout: 5m
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: cluster-apps-pulumi-stacks
   namespace: flux-system
 spec:
   dependsOn:
     - name: cluster-apps-pulumi-kubernetes-operator
+    - name: cluster-apps-pulumi-repositories
   path: ./kubernetes/apps/infra/pulumi-kubernetes-operator/stacks
   prune: true
   sourceRef:
