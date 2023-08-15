@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/source.toolkit.fluxcd.io/gitrepository_v1.json
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: home-pulumi
+  namespace: flux-system
+spec:
+  interval: 30m
+  ref:
+    branch: main
+  url: "https://github.com/lkmgr/homelab.git"
+  ignore: |
+    # exclude all
+    /*
+    # include pulumi directory
+    !/pulumi

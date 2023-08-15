@@ -6,3 +6,4 @@ resources:
   - ./cluster-extra.yaml
   - ./cluster.yaml
   - ./flux.yaml
+  - ./pulumi.yaml
