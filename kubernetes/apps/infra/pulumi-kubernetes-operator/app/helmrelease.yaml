@@ -31,3 +31,6 @@ spec:
     image:
       repository: pulumi/pulumi-kubernetes-operator
       tag: 1.13.0
+    serviceAccount:
+      create: true
+      name: pulumi-kubernetes-operator

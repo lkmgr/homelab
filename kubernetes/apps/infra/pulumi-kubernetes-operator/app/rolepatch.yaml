@@ -1,0 +1,11 @@
+- op: add
+  path: /rules/0
+  value:
+    apiGroups:
+      - source.toolkit.fluxcd.io
+    resources:
+      - gitrepositories
+    verbs:
+      - get
+      - list
+      - watch
