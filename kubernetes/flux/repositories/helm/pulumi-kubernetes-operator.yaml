@@ -5,6 +5,5 @@ metadata:
   name: pulumi-kubernetes-operator
   namespace: flux-system
 spec:
-  type: oci
   interval: 5m
-  url: oci://ghcr.io/pulumi/helm-charts/pulumi-kubernetes-operator
+  url: https://pulumi.github.io/pulumi-kubernetes-operator/
