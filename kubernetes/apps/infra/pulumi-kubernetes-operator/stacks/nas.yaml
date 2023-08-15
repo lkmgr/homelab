@@ -15,6 +15,7 @@ spec:
         key: token
   fluxSource:
     sourceRef:
+      apiVersion: source.toolkit.fluxcd.io/v1
       kind: GitRepository
       name: home-pulumi
   repoDir: pulumi
