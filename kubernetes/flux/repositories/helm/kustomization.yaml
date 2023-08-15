@@ -25,6 +25,7 @@ resources:
   - ./piraeus.yaml
   - ./postgres-operator.yaml
   - ./prometheus-community.yaml
+  - ./pulumi-kubernetes-operator.yaml
   - ./stakater.yaml
   - ./synology-csi.yaml
   - ./weaveworks.yaml
