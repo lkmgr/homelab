@@ -2,8 +2,9 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: pulumi-kubernetes-operator
+  name: pulumi
   namespace: flux-system
 spec:
+  type: oci
   interval: 5m
-  url: https://pulumi.github.io/pulumi-kubernetes-operator/
+  url: oci://ghcr.io/pulumi/helm-charts
