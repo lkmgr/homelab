@@ -42,4 +42,4 @@ spec:
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: GitRepository
       name: home-pulumi
-      namespace: flux-system
+      namespace: infra
