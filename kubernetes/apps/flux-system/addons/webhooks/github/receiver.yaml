@@ -12,6 +12,7 @@ spec:
   secretRef:
     name: github-webhook-token-secret
   resources:
+    # cluster
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: GitRepository
       name: home-kubernetes
@@ -24,6 +25,7 @@ spec:
       kind: Kustomization
       name: cluster-apps
       namespace: flux-system
+    # cluster-extra
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: GitRepository
       name: home-kubernetes-extra
@@ -35,4 +37,9 @@ spec:
     - apiVersion: kustomize.toolkit.fluxcd.io/v1
       kind: Kustomization
       name: cluster-extra-apps
+      namespace: flux-system
+    # pulumi
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: GitRepository
+      name: home-pulumi
       namespace: flux-system
