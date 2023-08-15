@@ -34,3 +34,23 @@ spec:
     serviceAccount:
       create: true
       name: pulumi-kubernetes-operator
+  postRenderers:
+    - kustomize:
+        patchesJson6902:
+          - target:
+              group: rbac.authorization.k8s.io
+              version: v1
+              kind: Role
+              name: pulumi-kubernetes-operator
+            patch:
+              - op: add
+                path: /rules/0
+                value:
+                  apiGroups:
+                    - source.toolkit.fluxcd.io
+                  resources:
+                    - gitrepositories
+                  verbs:
+                    - get
+                    - list
+                    - watch
