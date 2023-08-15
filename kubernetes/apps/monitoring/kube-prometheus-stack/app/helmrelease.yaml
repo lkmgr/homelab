@@ -207,8 +207,12 @@ spec:
             metrics_path: /minio/v2/metrics/cluster
             static_configs:
               - targets:
-                  - "${NAS_ADDR_MINIO_SSD}"
                   - "${NAS_ADDR_MINIO}"
+          - job_name: minio-ssd
+            metrics_path: /minio/v2/metrics/cluster
+            static_configs:
+              - targets:
+                  - "${NAS_ADDR_MINIO_SSD}"
           - job_name: node-exporter
             metrics_path: /metrics
             static_configs:
