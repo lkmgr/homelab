@@ -27,7 +27,7 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  values:
-    image:
-      repository: pulumi/pulumi-kubernetes-operator
-      tag: v1.13.0
+  # values:
+  #   image:
+  #     repository: pulumi/pulumi-kubernetes-operator
+  #     tag: v1.13.0
