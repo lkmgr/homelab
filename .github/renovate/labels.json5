@@ -26,6 +26,10 @@
       "addLabels": ["renovate/helm"]
     },
     {
+      "matchDatasources": ["helm"],
+      "addLabels": ["renovate/npm"]
+    },
+    {
       "matchDatasources": ["galaxy", "galaxy-collection"],
       "addLabels": ["renovate/ansible"]
     },
