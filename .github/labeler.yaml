@@ -5,3 +5,5 @@ area/github:
   - ".github/**/*"
 area/kubernetes:
   - "kubernetes/**/*"
+area/pulumi:
+  - "pulumi/**/*"
