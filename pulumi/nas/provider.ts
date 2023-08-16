@@ -3,6 +3,7 @@ import * as docker from '@pulumi/docker';
 import * as fs from 'fs';
 import * as os from 'os';
 import * as path from 'path';
+import { exec } from 'child_process';
 
 let provider: docker.Provider | null = null;
 
@@ -44,9 +45,17 @@ const connectDocker = (): docker.Provider => {
     mode: 0o600,
   });
 
+  exec('eval $(ssh-agent -s)');
+  exec('ssh-add /tmp/pulumi_nas_key', (err, stdout) => {
+    if (err) {
+      throw err;
+    }
+    console.log(stdout);
+  });
+
   const provider = new docker.Provider('nas', {
     host,
-    sshOpts: ['-i', '/tmp/pulumi_nas_key'],
+    // sshOpts: ['-i', '/tmp/pulumi_nas_key'],
   });
 
   return provider;
