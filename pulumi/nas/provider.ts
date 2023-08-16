@@ -9,7 +9,10 @@ const connectDocker = (): docker.Provider => {
   const host = config.require('ssh-host');
   const privateKey = config.require('ssh-key');
 
-  fs.writeFileSync('/tmp/sshkey', privateKey, 'utf-8');
+  fs.writeFileSync('/tmp/sshkey', privateKey, {
+    encoding: 'utf8',
+    mode: 0o600,
+  });
 
   const provider = new docker.Provider('nas', {
     host,
