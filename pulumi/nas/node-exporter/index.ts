@@ -31,6 +31,7 @@ const nodeExporterContainer = new docker.Container(
       { hostPath: '/proc', containerPath: '/host/proc', readOnly: true },
       { hostPath: '/sys', containerPath: '/host/sys', readOnly: true },
     ],
+    destroyGraceSeconds: 30,
   },
   { provider },
 );

@@ -31,6 +31,7 @@ const minioContainer = new docker.Container(
       { internal: 9090, external: 9091 },
     ],
     volumes: [{ hostPath: '/volume1/docker/minio', containerPath: '/data' }],
+    destroyGraceSeconds: 30,
   },
   { provider },
 );
@@ -55,6 +56,7 @@ const minioSSDContainer = new docker.Container(
     volumes: [
       { hostPath: '/volumeUSB1/usbshare/docker/minio', containerPath: '/data' },
     ],
+    destroyGraceSeconds: 30,
   },
   { provider },
 );
