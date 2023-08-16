@@ -47,6 +47,9 @@
       "(^|/)kustomization\\.ya?ml(\\.j2)?$"
     ]
   },
+  "npm": {
+    "rangeStrategy": "bump"
+  },
   "regexManagers": [
     {
       "description": "Process various other dependencies",
