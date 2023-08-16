@@ -10,4 +10,4 @@ config:
     secure: AAABANcT6kPTQ1+eq6KdaQ/CVT7eOj8yOv8K9pshGv6LRxcg8EQ7jwZCA8gSBh3HkVaXAADUQbU=
   minio:root-user:
     secure: AAABALAOHLLB/bXs2lgSZmn3g/ryS1wA+F9rwd4TztfoqP/lWLOa9b28VdLo942L
-  node-exporter:image: prom/node-exporter:v1.6.1
+  node-exporter:image: prom/node-exporter:v1.6.0
