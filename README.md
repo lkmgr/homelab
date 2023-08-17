@@ -47,7 +47,7 @@ yq
 ### Setup Python Virtual Environment
 
 ```
-task deps
+task setup-venv
 ```
 
 ## License

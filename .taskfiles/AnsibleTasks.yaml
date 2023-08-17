@@ -3,53 +3,29 @@
 version: "3"
 
 vars:
-  ANSIBLE_PLAYBOOK_DIR: "{{.ANSIBLE_DIR}}/playbooks"
-  ANSIBLE_INVENTORY_DIR: "{{.ANSIBLE_DIR}}/inventory"
+  ANSIBLE_KUBERNETES_DIR: "{{.ANSIBLE_DIR}}/kubernetes"
+  ANSIBLE_KLIPPER_DIR: "{{.ANSIBLE_DIR}}/kubernetes"
 
 tasks:
 
-  prepare:
-    desc: Prepare all the k8s nodes for running k3s
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-prepare.yaml
+  kubernetes:
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
+    requires:
+      vars: ["playbook"]
+    prompt: Run kubernetes playbook {{.playbook}}.yaml?
+    cmd: ansible-playbook -i inventory/hosts.yaml playbooks/{{.playbook}}.yaml
 
-  install:
-    desc: Install Kubernetes on the nodes
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-installation.yaml
+  kubernetes:command:
+    dir: "{{.ANSIBLE_KUBERNETES_DIR}}"
+    requires:
+      vars: ["command"]
+    prompt: Run command '{{.command}}' on all kubernetes hosts?
+    cmd: ansible all -i inventory/hosts.yaml --one-line -a '{{.command}}'
 
-  rollout-update:
-    desc: Preform operating system updates and rollout restart the cluster
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-rollout-update.yaml
 
-  nuke:
-    desc: Uninstall Kubernetes on the nodes
-    dir: "{{.ANSIBLE_DIR}}"
-    interactive: true
-    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-nuke.yaml
-
-  reboot:
-    desc: Reboot all the k8s nodes
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible-playbook -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml {{.ANSIBLE_PLAYBOOK_DIR}}/cluster-reboot.yaml
-
-  poweroff:
-    desc: Shutdown all the k8s nodes
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible kubernetes -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml -a '/usr/bin/systemctl poweroff' --become
-
-  list:
-    desc: List all the hosts
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml --list-hosts
-
-  ping:
-    desc: Ping all the hosts
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml --one-line -m 'ping'
-
-  uptime:
-    desc: Uptime of all the hosts
-    dir: "{{.ANSIBLE_DIR}}"
-    cmd: ansible all -i {{.ANSIBLE_INVENTORY_DIR}}/hosts.yaml --one-line -a 'uptime'
+  klipper:
+    dir: "{{.ANSIBLE_KLIPPER_DIR}}"
+    requires:
+      vars: ["playbook"]
+    prompt: Run klipper playbook {{.playbook}}.yaml?
+    cmd: ansible-playbook -i inventory.yaml {{.playbook}}.yaml

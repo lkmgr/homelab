@@ -4,7 +4,6 @@ version: "3"
 
 vars:
   PYTHON_BIN: python3
-  BOOTSTRAP_DIR: "{{.ROOT_DIR}}/bootstrap"
   ANSIBLE_DIR: "{{.ROOT_DIR}}/ansible"
   KUBERNETES_DIR: "{{.ROOT_DIR}}/kubernetes"
 
@@ -20,13 +19,13 @@ env:
 
 includes:
   ansible: .taskfiles/AnsibleTasks.yaml
-  cluster: .taskfiles/ClusterTasks.yaml
+  flux: .taskfiles/FluxTasks.yaml
 
 tasks:
 
   default: task -l
 
-  deps:
+  setup-venv:
     desc: Create a Python virtual env and install required packages
     cmds:
       - "{{.PYTHON_BIN}} -m venv {{.ROOT_DIR}}/.venv"
@@ -34,27 +33,54 @@ tasks:
       - .venv/bin/python3 -m pip install --upgrade --requirement "{{.ROOT_DIR}}/requirements.txt"
       - .venv/bin/ansible-galaxy install --role-file "{{.ROOT_DIR}}/requirements.yaml" --force
 
-  init:
-    desc: Initialize configuration files
-    dir: "{{.BOOTSTRAP_DIR}}"
-    cmds:
-      - cp -n vars/addons.sample.yaml vars/addons.yaml
-      - cp -n vars/config.sample.yaml vars/config.yaml
-      - cmd: echo "=== Configuration files copied ==="
-        silent: true
-      - cmd: echo "Proceed with updating the configuration files..."
-        silent: true
-      - cmd: echo "{{.BOOTSTRAP_DIR}}/vars/config.yaml"
-        silent: true
-      - cmd: echo "{{.BOOTSTRAP_DIR}}/vars/addons.yaml"
-        silent: true
-    status:
-      - test -f "{{.BOOTSTRAP_DIR}}/vars/addons.yaml"
-      - test -f "{{.BOOTSTRAP_DIR}}/vars/config.yaml"
+  sync-secret:
+    desc: Sync an external-secret
+    requires:
+      vars: ["secret"]
+    vars:
+      namespace: '{{.namespace | default "default"}}'
+    cmd: kubectl -n {{.namespace}} annotate externalsecret.external-secrets.io {{.secret}} force-sync=$(date +%s) --overwrite
+    preconditions:
+      - kubectl -n {{.namespace}} get externalsecret {{.secret}}
 
-  configure:
-    desc: Configure repository from Ansible vars
-    dir: "{{.BOOTSTRAP_DIR}}"
-    cmd: ansible-playbook configure.yaml
-    env:
-      ANSIBLE_DISPLAY_SKIPPED_HOSTS: "false"
+  mount-volume:
+    desc: Mount a PersistentVolumeClaim to a temporary pod
+    interactive: true
+    requires:
+      vars: ["claim"]
+    vars:
+      namespace: '{{.namespace | default "default"}}'
+    cmd: |
+      kubectl run -n {{.namespace}} debug-{{.claim}} -i --tty --rm --image=null --privileged --overrides='
+        {
+          "apiVersion": "v1",
+          "spec": {
+            "containers": [
+              {
+                "name": "debug",
+                "image": "ghcr.io/onedr0p/alpine:rolling",
+                "command": ["/bin/bash"],
+                "stdin": true,
+                "stdinOnce": true,
+                "tty": true,
+                "volumeMounts": [
+                  {
+                    "name": "config",
+                    "mountPath": "/config"
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+              {
+                "name": "config",
+                "persistentVolumeClaim": {
+                  "claimName": "{{.claim}}"
+                }
+              }
+            ],
+            "restartPolicy": "Never"
+          }
+        }'
+    preconditions:
+      - kubectl -n {{.namespace}} get pvc {{.claim}}
