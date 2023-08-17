@@ -1,0 +1,123 @@
+---
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ os_timezone }}"
+
+- name: Set hostname to inventory hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
+  when:
+    - ansible_hostname != inventory_hostname
+
+- name: Disable APT recommends
+  ansible.builtin.blockinfile:
+    path: /etc/apt/apt.conf.d/02norecommends
+    mode: 0644
+    create: true
+    block: |
+      APT::Install-Recommends "false";
+      APT::Install-Suggests "false";
+      APT::Get::Install-Recommends "false";
+      APT::Get::Install-Suggests "false";
+
+- name: Disable unattended upgrades
+  ansible.builtin.systemd:
+    name: unattended-upgrades.service
+    enabled: false
+    state: stopped
+
+- name: Upgrade all system packages
+  ansible.builtin.apt:
+    upgrade: full
+    update_cache: true
+    cache_valid_time: 3600
+    autoclean: true
+    autoremove: true
+  register: apt_upgrade
+  retries: 5
+  until: apt_upgrade is success
+
+- name: Install common packages
+  ansible.builtin.apt:
+    name: "{{ os_packages_install | default([]) }}"
+    install_recommends: false
+  register: apt_install_common
+  retries: 5
+  until: apt_install_common is success
+
+- name: Gather installed packages
+  ansible.builtin.package_facts:
+    manager: auto
+
+- name: Remove snapd
+  block:
+    - name: Check if snap is installed
+      ansible.builtin.debug:
+        msg: "snapd is installed"
+      register: snapd_check
+    - name: Remove snap packages
+      ansible.builtin.command: snap remove {{ item }}
+      loop:
+        - lxd
+        - core18
+        - core20
+        - snapd
+      when:
+        - snapd_check.failed is defined
+    - name: Remove files
+      ansible.builtin.file:
+        state: absent
+        path: "{{ item }}"
+      loop:
+        - "/home/{{ ansible_user }}/.snap"
+        - "/snap"
+        - "/var/snap"
+        - "/var/lib/snapd"
+        - "/var/cache/snapd"
+        - "/usr/lib/snapd"
+        - "/root/snap"
+  when:
+    - "'snapd' in os_packages_remove"
+    - "'snapd' in ansible_facts.packages"
+
+- name: Remove packages
+  ansible.builtin.apt:
+    name: "{{ os_packages_remove | default([]) }}"
+    state: absent
+    autoremove: true
+
+- name: Update /etc/hosts to include hostname
+  ansible.builtin.blockinfile:
+    path: /etc/hosts
+    mode: 0644
+    create: true
+    block: |
+      127.0.1.1 {{ inventory_hostname }}
+
+- name: Increase max_user_watches
+  ansible.posix.sysctl:
+    name: fs.inotify.max_user_watches
+    value: "524288"
+    state: present
+    sysctl_file: /etc/sysctl.d/99-max_user_watches.conf
+
+- name: Increase max_user_instances
+  ansible.posix.sysctl:
+    name: fs.inotify.max_user_instances
+    value: "512"
+    state: present
+    sysctl_file: /etc/sysctl.d/99-max_user_instances.conf
+
+- name: Check if hushlogin exists
+  ansible.builtin.stat:
+    path: "/home/{{ ansible_user }}/.hushlogin"
+  register: hushlogin_status
+
+- name: Silence the login prompt
+  ansible.builtin.file:
+    dest: "/home/{{ ansible_user }}/.hushlogin"
+    state: touch
+    owner: "{{ ansible_user }}"
+    mode: "0775"
+  when:
+    - not hushlogin_status.stat.exists

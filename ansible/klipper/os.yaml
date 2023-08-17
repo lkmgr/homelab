@@ -1,0 +1,12 @@
+---
+- hosts:
+    - solar
+  become: true
+  # become_user: ubuntu
+  gather_facts: true
+  any_errors_fatal: true
+  roles:
+    - role: os
+      tags: os
+    - role: setup
+      tags: setup
