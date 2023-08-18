@@ -22,9 +22,9 @@
     {
       "automerge": true,
       "automergeType": "branch",
-      "description": "Auto merge NPM minor and patch",
+      "description": "Auto merge npm/ansible/pip",
       "ignoreTests": true,
-      "matchManagers": ["npm"],
+      "matchManagers": ["npm", "ansible-galaxy", "pip_requirements"],
       "matchUpdateTypes": ["minor", "patch"]
     },
     {
