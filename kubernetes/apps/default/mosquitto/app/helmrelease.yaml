@@ -47,7 +47,8 @@ spec:
             protocol: TCP
         externalTrafficPolicy: Cluster
         annotations:
-          # external-dns.alpha.kubernetes.io/hostname: "mosquitto.${SECRET_DOMAIN}"
+          external.home.arpa/enabled: "true"
+          external-dns.alpha.kubernetes.io/hostname: "mosquitto.${SECRET_DOMAIN}"
           io.cilium/lb-ipam-ips: "${VIP_MOSQUITTO}"
     persistence:
       data:
