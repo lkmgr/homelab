@@ -20,6 +20,14 @@
       "matchUpdateTypes": ["minor", "patch", "digest"]
     },
     {
+      "automerge": true,
+      "automergeType": "branch",
+      "description": "Auto merge NPM minor and patch",
+      "ignoreTests": true,
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
       "addLabels": ["renovate/automerge"],
       "automerge": true,
       "automergeSchedule": "after 2am and before 5am",
