@@ -35,12 +35,11 @@ spec:
             name: external-dns
             key: api-token
     extraArgs:
-      - --annotation-filter=external-dns.alpha.kubernetes.io/target
+      - --annotation-filter=external.home.arpa/enabled in (true)
       - --cloudflare-proxied
-      # - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
-      # - --crd-source-kind=DNSEndpoint
+      - --service-type-filter=LoadBalancer
     policy: sync
-    sources: ["ingress"]
+    sources: ["ingress", "service"]
     txtPrefix: k8s.
     txtOwnerId: default
     domainFilters: ["${SECRET_DOMAIN}"]
