@@ -22,10 +22,17 @@
     {
       "automerge": true,
       "automergeType": "branch",
-      "description": "Auto merge npm/ansible/pip",
+      "description": "Auto merge npm/ansible",
       "ignoreTests": true,
-      "matchManagers": ["npm", "ansible-galaxy", "pip_requirements"],
+      "matchManagers": ["npm", "ansible-galaxy"],
       "matchUpdateTypes": ["minor", "patch"]
+    },
+    {
+      "automerge": true,
+      "automergeType": "branch",
+      "description": "Auto merge pip",
+      "ignoreTests": true,
+      "matchManagers": ["pip_requirements"]
     },
     {
       "addLabels": ["renovate/automerge"],
