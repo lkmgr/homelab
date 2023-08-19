@@ -7,6 +7,7 @@ resources:
   - ./cilium/ks.yaml
   - ./coredns/ks.yaml
   - ./external-secrets/ks.yaml
+  - ./intel-device-plugin/ks.yaml
   - ./local-path-provisioner/ks.yaml
   - ./metrics-server/ks.yaml
   - ./node-feature-discovery/ks.yaml
