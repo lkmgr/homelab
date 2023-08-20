@@ -113,5 +113,3 @@ spec:
               {{`{{ kubernetes.pod_namespace }}`}}
             node: >-
               {{`{{ kubernetes.pod_node_name }}`}}
-            container: >-
-              {{`{{ kubernetes.container_name }}`}}
