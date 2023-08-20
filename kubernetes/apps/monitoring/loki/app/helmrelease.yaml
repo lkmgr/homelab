@@ -90,11 +90,6 @@ spec:
               s3: null
               s3forcepathstyle: true
               insecure: true
-              # set in valuesFrom
-              endpoint: ""
-              bucketnames: ""
-              access_key_id: ""
-              secret_access_key: ""
           ring:
             kvstore:
               store: memberlist
