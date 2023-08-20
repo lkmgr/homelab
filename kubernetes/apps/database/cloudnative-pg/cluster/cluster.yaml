@@ -22,7 +22,7 @@ spec:
   monitoring:
     enablePodMonitor: true
   backup:
-    retentionPolicy: 30d
+    retentionPolicy: 14d
     barmanObjectStore:
       wal:
         compression: bzip2
