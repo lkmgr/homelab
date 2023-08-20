@@ -9,5 +9,4 @@ resources:
   - ./home-assistant/ks.yaml
   - ./mosquitto/ks.yaml
   - ./s3-mirror/ks.yaml
-  - ./tasmoadmin/ks.yaml
   - ./zigbee2mqtt/ks.yaml
