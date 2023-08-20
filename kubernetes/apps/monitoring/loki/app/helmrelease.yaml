@@ -139,9 +139,8 @@ spec:
           mountPath: /tmp/scratch
       extraVolumes:
         - name: rules
-          emptyDir: {}
-          # configMap:
-          #   name: loki-alerting-rules
+          configMap:
+            name: loki-alerting-rules
         - name: scratch
           emptyDir: {}
     gateway:
