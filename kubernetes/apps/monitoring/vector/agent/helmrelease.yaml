@@ -10,11 +10,11 @@ spec:
   timeout: 15m
   chart:
     spec:
-      chart: loki
-      version: 5.14.1
+      chart: vector
+      version: 0.24.0
       sourceRef:
         kind: HelmRepository
-        name: grafana
+        name: vector
         namespace: flux-system
   maxHistory: 2
   install:

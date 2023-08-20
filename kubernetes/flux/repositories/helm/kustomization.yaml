@@ -29,4 +29,5 @@ resources:
   - ./pulumi.yaml
   - ./stakater.yaml
   - ./synology-csi.yaml
+  - ./vector.yaml
   - ./weaveworks.yaml
