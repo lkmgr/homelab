@@ -1,0 +1,117 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vector-agent
+  namespace: monitoring
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: loki
+      version: 5.14.1
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: loki
+      namespace: monitoring
+  values:
+    role: Agent
+    image:
+      repository: timberio/vector
+      tag: 0.32.0-debian
+    service:
+      enabled: false
+    securityContext:
+      privileged: true
+    customConfig:
+      data_dir: /vector-data-dir
+      api:
+        enabled: true
+        address: 127.0.0.1:8686
+        playground: false
+      sources:
+        sr_journald:
+          type: journald
+          journal_directory: /var/log/journal
+        sr_kubernetes:
+          type: kubernetes_logs
+          use_apiserver_cache: true
+          pod_annotation_fields:
+            container_image: container_image
+            container_name: container_name
+            pod_labels: pod_labels
+            pod_name: pod_name
+            pod_annotations: ""
+          namespace_annotation_fields:
+            namespace_labels: ""
+          node_annotation_fields:
+            node_labels: ""
+      transforms:
+        tr_kubernetes_remap:
+          type: remap
+          inputs:
+            - sr_kubernetes
+          source: |
+            # Standardize 'app' index
+            .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
+        tr_kubernetes_route_app:
+          type: route
+          inputs:
+            - tr_kubernetes_logs_remap
+          route:
+            nginx: .custom_app_name == "ingress-nginx"
+        tr_kubernetes_route_app_parsed_json:
+          type: remap
+          inputs:
+            - tr_route_app.nginx
+          source: |
+            .message = parse_json!(.message)
+      sinks:
+        si_loki_journald:
+          type: loki
+          inputs:
+            - sr_journald
+          endpoint: http://loki-gateway.monitoring.svc.cluster.local
+          encoding:
+            codec: json
+          out_of_order_action: accept
+          remove_label_fields: true
+          remove_timestamp: true
+          labels:
+            hostname: >-
+              {{`{{ host }}`}}
+        si_loki_kubernetes:
+          type: loki
+          inputs:
+            - tr_kubernetes_route_app._unmatched
+            - tr_kubernetes_route_app_parsed_json
+          endpoint: http://loki-gateway.monitoring.svc.cluster.local
+          encoding:
+            codec: json
+          out_of_order_action: accept
+          remove_label_fields: true
+          remove_timestamp: true
+          labels:
+            app: >-
+              {{`{{ custom_app_name }}`}}
+            namespace: >-
+              {{`{{ kubernetes.pod_namespace }}`}}
+            node: >-
+              {{`{{ kubernetes.pod_node_name }}`}}
+            container: >-
+              {{`{{ kubernetes.container_name }}`}}
