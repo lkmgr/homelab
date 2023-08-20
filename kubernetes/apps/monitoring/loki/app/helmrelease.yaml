@@ -1,0 +1,182 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: loki
+  namespace: monitoring
+spec:
+  interval: 30m
+  timeout: 15m
+  chart:
+    spec:
+      chart: loki
+      version: 5.14.1
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  dependsOn:
+    - name: local-path-provisioner
+      namespace: kube-system
+    - name: longhorn
+      namespace: longhorn-system
+  values:
+    loki:
+      structuredConfig:
+        auth_enabled: false
+        server:
+          log_level: info
+          http_listen_port: 3100
+          grpc_listen_port: 9095
+        distributor:
+          ring:
+            kvstore:
+              store: memberlist
+        querier:
+          max_concurrent: 16
+        query_scheduler:
+          max_outstanding_requests_per_tenant: 32768
+        ruler:
+          storage:
+            type: local
+            local:
+              directory: /rules
+          rule_path: /tmp/scratch
+          alertmanager_url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
+          enable_alertmanager_v2: true
+          ring:
+            kvstore:
+              store: memberlist
+        ingester:
+          lifecycler:
+            ring:
+              kvstore:
+                store: memberlist
+        schema_config:
+          configs:
+            - from: "2023-08-19"
+              store: tsdb
+              object_store: s3
+              schema: v12
+              index:
+                prefix: loki_index_
+                period: 24h
+        compactor:
+          working_directory: /var/loki/tsdb-compactor
+          shared_store: s3
+          retention_enabled: true
+        limits_config:
+          enforce_metric_name: false
+          max_cache_freshness_per_query: 10m
+          retention_period: 90d
+        analytics:
+          reporting_enabled: false
+        common:
+          path_prefix: /var/loki
+          replication_factor: 1
+          storage:
+            s3:
+              s3: null
+              s3forcepathstyle: true
+              insecure: true
+              # set in valuesFrom
+              endpoint: ""
+              bucketnames: ""
+              access_key_id: ""
+              secret_access_key: ""
+          ring:
+            kvstore:
+              store: memberlist
+        memberlist:
+          join_members: ["loki-memberlist"]
+    test:
+      enabled: false
+    monitoring:
+      dashboards:
+        annotations:
+          grafana_folder: Loki
+      serviceMonitor:
+        enabled: false
+        metricsInstance:
+          enabled: false
+      selfMonitoring:
+        enabled: false
+        grafanaAgent:
+          installOperator: false
+      lokiCanary:
+        enabled: false
+    write:
+      replicas: 1
+      persistence:
+        storageClass: longhorn
+        size: 10Gi
+    read:
+      replicas: 1
+      persistence:
+        storageClass: longhorn
+        size: 10Gi
+      extraVolumeMounts:
+        - name: rules
+          mountPath: /rules
+      extraVolumes:
+        - name: rules
+          emptyDir: {}
+    backend:
+      replicas: 1
+      persistence:
+        storageClass: longhorn
+        size: 10Gi
+      extraVolumeMounts:
+        - name: rules
+          mountPath: /rules/fake
+        - name: scratch
+          mountPath: /tmp/scratch
+      extraVolumes:
+        - name: rules
+          configMap:
+            name: loki-alerting-rules
+        - name: scratch
+          emptyDir: {}
+    gateway:
+      replicas: 1
+      ingress:
+        enabled: true
+        ingressClassName: nginx
+        annotations:
+          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+        hosts:
+          - host: &host "loki.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                pathType: Prefix
+        tls:
+          - hosts:
+              - *host
+  valuesFrom:
+    - targetPath: loki.structuredConfig.common.storage.s3.endpoint
+      kind: Secret
+      name: loki-secret
+      valuesKey: S3_ENDPOINT
+    - targetPath: loki.structuredConfig.common.storage.s3.bucketnames
+      kind: Secret
+      name: loki-secret
+      valuesKey: S3_BUCKET
+    - targetPath: loki.structuredConfig.common.storage.s3.access_key_id
+      kind: Secret
+      name: loki-secret
+      valuesKey: S3_ACCESS_KEY
+    - targetPath: loki.structuredConfig.common.storage.s3.secret_access_key
+      kind: Secret
+      name: loki-secret
+      valuesKey: S3_SECRET_KEY
