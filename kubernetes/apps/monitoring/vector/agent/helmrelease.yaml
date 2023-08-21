@@ -80,7 +80,7 @@ spec:
           inputs:
             - tr_kubernetes_route_app.nginx
           source: |
-            .message = parse_json!(.message) ?? {}
+            .message = parse_json!(.message)
       sinks:
         si_loki_journald:
           type: loki
