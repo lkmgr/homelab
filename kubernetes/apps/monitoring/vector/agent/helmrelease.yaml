@@ -98,7 +98,7 @@ spec:
         si_loki_kubernetes:
           type: loki
           inputs:
-            - sr_kubernetes
+            - tr_kubernetes_remap
             # - tr_kubernetes_route_app._unmatched
             # - tr_kubernetes_route_app_parsed_json
           endpoint: http://loki-gateway.monitoring.svc.cluster.local
