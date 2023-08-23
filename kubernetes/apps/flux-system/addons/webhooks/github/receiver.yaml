@@ -39,7 +39,7 @@ spec:
       name: cluster-extra-apps
       namespace: flux-system
     # pulumi
-    # - apiVersion: source.toolkit.fluxcd.io/v1
-    #   kind: GitRepository
-    #   name: home-pulumi
-    #   namespace: infra
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: GitRepository
+      name: home-pulumi
+      namespace: infra
