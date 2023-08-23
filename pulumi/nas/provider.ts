@@ -4,9 +4,7 @@ import * as fs from 'fs';
 
 let provider: docker.Provider | null = null;
 
-// Bug: SSH options can't be set
-// Wait until https://github.com/pulumi/pulumi-docker/issues/702 is resolved
-/* const connectDocker = (): docker.Provider => {
+const connectDocker = (): docker.Provider => {
   const config = new pulumi.Config();
   const host = config.require('ssh-host');
   const privateKey = config.require('ssh-key');
@@ -29,14 +27,14 @@ let provider: docker.Provider | null = null;
   });
 
   return provider;
-}; */
+};
 
-const connectDocker = () => {
+/* const connectDocker = () => {
   const config = new pulumi.Config();
   const host = config.require('ssh-host');
 
   return new docker.Provider('nas', { host });
-};
+}; */
 
 const getProvider = () => {
   if (!provider) {
