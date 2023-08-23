@@ -5,7 +5,7 @@ config:
     secure: AAABACwadfg9SNyJNCUEW3GD/I6xeMXqnuQf7minXe+cod78WFwecmVeAuo06UQDb0fUvb1hX14LBv+/fIJv8hMVizwM3SdhlmFTi417tLdrby1YHZwMTx38LqbzjktI/Md9oqYV7tt2j4g8jczeAZHijpqUUbG7sFeC/fM=
   homelab:ssh-key:
     secure: AAABAKaZ9F+SdAEA9ztYUv/DmxtH0EiMJ5sQZ/5XFKvFqZ8r+YX7SII0OQd4iZtFSJf9Cmw+3jtaqbo2+RrRTIKYxFbF/lLkcMZGpzg7dsE9QqjVqsXM3eNn0yX2EnytPh4wmGMfxdmQ6iS4JAYNURohW+b7jAzCB5JN+2OHKgx4NWv4TCW7Jg5z0l+lidyodyDjJX09O/vDLnEL6etm74/dyQ7v6hvFuwW91govkmDkq6YxYi/4FmwQrF3Gv2l+nplv5veAMiSpe9XB9arBXAK2hmw+WRNIVgkdwhwV7Y5B4Fhx+eiWCsuZazHKnvBosiK81fupxvt+pJSHxxQs8lYPfIJzOigb4iiVQbceUIRQMemNK4OiiQI+eskQo9PUHtj+LdzQv5LqJLs00uDnJ6n0RilcJssIKG6zMMR6erNUrtD8Gckwsyfgfe9Is+4wxK395wLSCF2HUp3goPc+1XK3IcFQksZVXME4sUR4gn3NYGDVj63O+A2/uJIKEMWVPO5jau4IxKzBHAdmk7OucGAwL5iGiYrWtQAe/bK0Nz5bujepT1yEAH4BJUWyXQg5U0CPZcM+bO9Vao+M26cDImHC
-  minio:image: quay.io/minio/minio:RELEASE.2023-08-16T20-17-30Z
+  minio:image: quay.io/minio/minio:RELEASE.2023-08-23T10-07-06Z
   minio:root-pass:
     secure: AAABANcT6kPTQ1+eq6KdaQ/CVT7eOj8yOv8K9pshGv6LRxcg8EQ7jwZCA8gSBh3HkVaXAADUQbU=
   minio:root-user:
