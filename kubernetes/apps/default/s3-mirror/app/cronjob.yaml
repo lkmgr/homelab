@@ -29,6 +29,7 @@ spec:
                   wget -qO- -t 5 -T 10 https://hc-ping.com/$(HC_UUID)/start ;
                   rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_CNPG_BUCKET) backblaze-crypt:$(B2_CNPG_BUCKET) &&
                   rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_LONGHORN_BUCKET) backblaze-crypt:$(B2_LONGHORN_BUCKET) &&
+                  rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_KOPIA_BUCKET) backblaze:$(B2_KOPIA_BUCKET) &&
                   wget -qO- -t 5 -T 10 https://hc-ping.com/$(HC_UUID)
               volumeMounts:
                 - name: conf
