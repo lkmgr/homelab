@@ -36,7 +36,7 @@ spec:
     args: ["--config", "/config/configuration.yaml"]
     env:
       TZ: "${TIMEZONE}"
-      AUTHELIA_LOG_KEEP_STDOUT: "true"
+      AUTHELIA_LOG_LEVEL: debug
       AUTHELIA_STORAGE_POSTGRES_HOST:
         valueFrom:
           secretKeyRef:
