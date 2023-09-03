@@ -36,6 +36,7 @@ spec:
     args: ["--config", "/config/configuration.yaml"]
     env:
       TZ: "${TIMEZONE}"
+      AUTHELIA_SERVER_PORT: &port 80
       AUTHELIA_STORAGE_POSTGRES_HOST:
         valueFrom:
           secretKeyRef:
@@ -69,7 +70,7 @@ spec:
       main:
         ports:
           http:
-            port: 9091
+            port: *port
     ingress:
       main:
         enabled: true
@@ -92,7 +93,7 @@ spec:
         spec:
           httpGet:
             path: /api/health
-            port: 9091
+            port: *port
           initialDelaySeconds: 0
           periodSeconds: 10
           timeoutSeconds: 1
