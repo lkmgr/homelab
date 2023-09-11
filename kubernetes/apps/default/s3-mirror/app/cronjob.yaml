@@ -18,7 +18,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: rclone
-              image: rclone/rclone:1.63.1
+              image: rclone/rclone:1.64.0
               envFrom:
                 - secretRef:
                     name: s3-mirror-secret
