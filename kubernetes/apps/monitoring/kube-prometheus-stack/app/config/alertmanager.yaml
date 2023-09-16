@@ -32,8 +32,8 @@ receivers:
           {{ "{{" }} if eq .Status "firing" {{ "}}" }}1{{ "{{" }} else {{ "}}" }}0{{ "{{" }} end {{ "}}" }}
         send_resolved: true
         title: >-
-          {{ "{{" }} .CommonLabels.alertname {{ "}}" }}
           [{{ "{{" }} .Status | toUpper {{ "}}" }}{{ "{{" }} if eq .Status "firing" {{ "}}" }}:{{ "{{" }} .Alerts.Firing | len {{ "}}" }}{{ "{{" }} end {{ "}}" }}]
+          {{ "{{" }} .CommonLabels.alertname {{ "}}" }}
         token: "{{ .PUSHOVER_ALERTMANAGER_TOKEN }}"
         url_title: View in Alertmanager
         user_key: "{{ .PUSHOVER_USER_KEY }}"
