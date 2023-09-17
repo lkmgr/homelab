@@ -8,5 +8,4 @@ resources:
   - ./esphome/ks.yaml
   - ./home-assistant/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./s3-mirror/ks.yaml
   - ./zigbee2mqtt/ks.yaml
