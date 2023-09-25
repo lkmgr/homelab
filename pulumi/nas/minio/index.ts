@@ -1,7 +1,21 @@
 import * as docker from '@pulumi/docker';
+// import * as doppler from '@pulumiverse/doppler';
+// import * as pulumi from '@pulumi/pulumi';
 
 import { image, rootUser, rootPass } from './config';
 import getProvider from '../provider';
+
+// const config = new pulumi.Config('doppler');
+// const dopplerProvider = new doppler.Provider('doppler', {
+//   dopplerToken: config.require('apiKey'),
+// });
+// const secrets = doppler.secretsOutput(
+//   { config: 'main', project: 'pulumi' },
+//   { provider: dopplerProvider },
+// );
+//
+// const user = secrets.apply((x) => x.map['MINIO_ROOT_USER']);
+// console.log('USER', user);
 
 const provider = getProvider();
 
