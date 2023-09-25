@@ -21,9 +21,7 @@ const provider = getProvider();
 
 const minioImage = new docker.RemoteImage(
   'minio',
-  {
-    name: image,
-  },
+  { name: image },
   { provider },
 );
 

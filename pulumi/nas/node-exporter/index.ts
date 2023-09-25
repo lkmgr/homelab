@@ -7,9 +7,7 @@ const provider = getProvider();
 
 const nodeExporterImage = new docker.RemoteImage(
   'node-exporter',
-  {
-    name: image,
-  },
+  { name: image },
   { provider },
 );
 
