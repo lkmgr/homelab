@@ -27,7 +27,6 @@ const dnsproxyContainer = new docker.Container(
       '--bootstrap=1.1.1.1:53',
       '--bootstrap=8.8.8.8:53',
       '--cache',
-      '--cache-optimistic',
     ],
     ports: [
       { internal: 53, external: 53, protocol: 'tcp' },
