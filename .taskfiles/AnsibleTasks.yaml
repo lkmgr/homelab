@@ -4,7 +4,7 @@ version: "3"
 
 vars:
   ANSIBLE_KUBERNETES_DIR: "{{.ANSIBLE_DIR}}/kubernetes"
-  ANSIBLE_KLIPPER_DIR: "{{.ANSIBLE_DIR}}/kubernetes"
+  ANSIBLE_KLIPPER_DIR: "{{.ANSIBLE_DIR}}/klipper"
 
 tasks:
 
