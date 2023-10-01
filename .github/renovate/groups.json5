@@ -21,6 +21,16 @@
         "commitMessageTopic": "{{{groupName}}} group"
       },
       "separateMinorPatch": true
+    },
+    {
+      "description": "Vector Group",
+      "groupName": "Vector",
+      "matchPackagePatterns": ["vector"],
+      "matchDatasources": ["helm", "docker"],
+      "versioning": "semver",
+      "group": {
+        "commitMessageTopic": "{{{groupName}}} group"
+      }
     }
   ]
 }
