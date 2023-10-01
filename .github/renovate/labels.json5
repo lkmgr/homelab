@@ -26,7 +26,7 @@
       "addLabels": ["renovate/helm"]
     },
     {
-      "matchDatasources": ["helm"],
+      "matchDatasources": ["npm"],
       "addLabels": ["renovate/npm"]
     },
     {
