@@ -31,9 +31,9 @@ spec:
       namespace: monitoring
   values:
     role: Agent
-    image:
-      repository: timberio/vector
-      tag: 0.32.2-debian
+    # image:
+    #   repository: timberio/vector
+    #   tag: 0.32.2-debian
     service:
       enabled: false
     securityContext:
