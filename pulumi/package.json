@@ -14,7 +14,7 @@
     "prettier": "^3.0.3"
   },
   "dependencies": {
-    "@pulumi/docker": "^4.4.1",
+    "@pulumi/docker": "^4.4.2",
     "@pulumi/kubernetes": "^4.3.0",
     "@pulumi/pulumi": "^3.86.0"
   }
