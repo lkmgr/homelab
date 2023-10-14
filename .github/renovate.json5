@@ -50,8 +50,9 @@
   "npm": {
     "rangeStrategy": "bump"
   },
-  "regexManagers": [
+  "customManagers": [
     {
+      "customType": "regex",
       "description": "Process various other dependencies",
       "fileMatch": [
         "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
@@ -69,6 +70,7 @@
       "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
     {
+      "customType": "regex",
       "description": "Process CloudnativePG Postgresql version",
       "fileMatch": [
         "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
@@ -80,6 +82,7 @@
       "versioningTemplate": "redhat"
     },
     {
+      "customType": "regex",
       "description": "Process Pulumi docker image versions in config file",
       "fileMatch": [
         "(^|/)Pulumi.*\\.ya?ml$"
