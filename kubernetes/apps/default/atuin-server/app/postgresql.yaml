@@ -1,0 +1,20 @@
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: Postgres
+metadata:
+  name: atuin-server
+  namespace: default
+spec:
+  database: atuin-server
+  dropOnDelete: false
+---
+apiVersion: db.movetokube.com/v1alpha1
+kind: PostgresUser
+metadata:
+  name: atuin-server
+  namespace: default
+spec:
+  role: atuin-server
+  database: atuin-server
+  secretName: pg
+  privileges: OWNER
