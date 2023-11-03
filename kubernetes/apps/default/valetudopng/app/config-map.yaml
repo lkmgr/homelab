@@ -1,0 +1,49 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: valetudopng-config
+  namespace: default
+data:
+  config.yaml: |
+    mqtt:
+      connection:
+        host: 192.168.4.245
+        port: 1883
+        client_id_prefix: valetudopng
+        # username:
+        # password:
+
+      topics:
+        valetudo_prefix: valetudo
+        valetudo_identifier: L10SUltra
+        ha_autoconf_prefix: homeassistant
+
+      image_as_base64: false
+
+    http:
+      enabled: true
+      bind: 0.0.0.0:3000
+
+    map:
+      min_refresh_int: 5000ms
+
+      # 0 - Best speed
+      # 1 - Best compression
+      # 2 - Default compression
+      # 3 - No compression
+      png_compression: 0
+
+      scale: 4
+
+      # 0 - no rotation
+      # 1 - 90 clockwise
+      # 2 - 180 clockwise
+      # 3 - 270 clockwise
+      rotate: 0
+
+      custom_limits:
+        start_x:
+        start_y:
+        end_x:
+        end_y:
