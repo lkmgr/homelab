@@ -5,7 +5,7 @@ metadata:
   name: valetudopng-config
   namespace: default
 data:
-  config.yaml: |
+  config.yml: |
     mqtt:
       connection:
         host: 192.168.4.245

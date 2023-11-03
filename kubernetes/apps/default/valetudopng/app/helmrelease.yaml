@@ -46,8 +46,8 @@ spec:
     persistence:
       config:
         enabled: true
-        mountPath: /config.yaml
-        subPath: config.yaml
+        mountPath: /config.yml
+        subPath: config.yml
         type: custom
         volumeSpec:
           configMap:
