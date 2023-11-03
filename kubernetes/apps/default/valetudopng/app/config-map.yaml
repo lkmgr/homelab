@@ -26,7 +26,7 @@ data:
       bind: 0.0.0.0:3000
 
     map:
-      min_refresh_int: 3000ms
+      min_refresh_int: 2000ms
 
       # 0 - Best speed
       # 1 - Best compression
@@ -34,7 +34,7 @@ data:
       # 3 - No compression
       png_compression: 0
 
-      scale: 4
+      scale: 6
 
       # 0 - no rotation
       # 1 - 90 clockwise
