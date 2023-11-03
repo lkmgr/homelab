@@ -26,7 +26,7 @@ data:
       bind: 0.0.0.0:3000
 
     map:
-      min_refresh_int: 5000ms
+      min_refresh_int: 3000ms
 
       # 0 - Best speed
       # 1 - Best compression
@@ -43,7 +43,7 @@ data:
       rotate: 0
 
       custom_limits:
-        start_x:
-        start_y:
-        end_x:
-        end_y:
+        start_x: 2550
+        start_y: 3080
+        end_x: 3820
+        end_y: 3875
