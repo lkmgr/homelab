@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.0.3
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,20 +26,28 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    image:
-      repository: ghcr.io/atuinsh/atuin
-      tag: 17.0.1
-    args: ["server", "start"]
-    env:
-      TZ: "${TIMEZONE}"
-      ATUIN_HOST: 0.0.0.0
-      ATUIN_PORT: &port "8888"
-      ATUIN_OPEN_REGISTRATION: "true"
-      ATUIN_DB_URI:
-        valueFrom:
-          secretKeyRef:
-            name: pg-atuin-server
-            key: POSTGRES_URL
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/atuinsh/atuin
+              tag: 17.0.1
+            args: ["server", "start"]
+            env:
+              TZ: "${TIMEZONE}"
+              ATUIN_HOST: 0.0.0.0
+              ATUIN_PORT: &port "8888"
+              ATUIN_OPEN_REGISTRATION: "true"
+              ATUIN_DB_URI:
+                valueFrom:
+                  secretKeyRef:
+                    name: pg-atuin-server
+                    key: POSTGRES_URL
+            resources:
+              requests:
+                cpu: 10m
+                memory: 30Mi
     service:
       main:
         ports:
@@ -48,7 +56,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           external.home.arpa/enabled: "true"
           external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
@@ -60,18 +68,3 @@ spec:
         tls:
           - hosts:
               - "atuin.${SECRET_DOMAIN}"
-    # probes:
-    #   liveness: &probe
-    #     enabled: true
-    #     custom: true
-    #     spec:
-    #       httpGet:
-    #         path: /api/health
-    #         port: *port
-    #       initialDelaySeconds: 0
-    #       periodSeconds: 10
-    #       timeoutSeconds: 1
-    #       failureThreshold: 3
-    #   readiness: *probe
-    #   startup:
-    #     enabled: false
