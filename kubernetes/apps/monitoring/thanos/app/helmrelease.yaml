@@ -48,6 +48,8 @@ spec:
               - "thanos-query-frontend.${SECRET_DOMAIN}"
     query:
       enabled: true
+      extraFlags:
+        - --query.auto-downsampling
       replicaCount: 1
       replicaLabel: ["__replica__"]
       dnsDiscovery:
