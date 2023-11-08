@@ -61,20 +61,20 @@ spec:
       extraFlags:
         - --compact.concurrency=2
         - --delete-delay=30m
-      retentionResolutionRaw: 14d
-      retentionResolution5m: 30d
-      retentionResolution1h: 60d
+      retentionResolutionRaw: 30d
+      retentionResolution5m: 60d
+      retentionResolution1h: 90d
       persistence:
-        enabled: false
-        # storageClass: local-path
-        # size: 20Gi
+        enabled: true
+        storageClass: local-path
+        size: 10Gi
     storegateway:
       enabled: true
       replicaCount: 1
       persistence:
-        enabled: false
-        # storageClass: local-path
-        # size: 20Gi
+        enabled: true
+        storageClass: local-path
+        size: 10Gi
     ruler:
       enabled: true
       replicaCount: 1
@@ -93,11 +93,10 @@ spec:
                 labels:
                   severity: critical
       persistence:
-        enabled: false
-        # storageClass: local-path
-        # size: 20Gi
+        enabled: true
+        storageClass: local-path
+        size: 10Gi
     metrics:
       enabled: true
       serviceMonitor:
         enabled: true
-
