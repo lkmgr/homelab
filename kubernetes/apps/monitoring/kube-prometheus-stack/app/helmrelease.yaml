@@ -191,8 +191,9 @@ spec:
         thanos:
           image: quay.io/thanos/thanos:v0.32.5
           objectStorageConfig:
-            name: thanos-objstore
-            key: objstore.yml
+            existingSecret:
+              name: thanos-objstore
+              key: objstore.yml
         retention: 2d
         retentionSize: 15GB
         storageSpec:
@@ -218,4 +219,3 @@ spec:
             static_configs:
               - targets:
                   - "${NAS_ADDR}:9100"
-
