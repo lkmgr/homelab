@@ -97,7 +97,6 @@ spec:
       config:
         enabled: true
         existingClaim: home-assistant-config
-        globalMounts:
         advancedMounts:
           main:
             main:
