@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 2.3.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -29,22 +29,47 @@ spec:
     - name: longhorn
       namespace: longhorn-system
   values:
-    image:
-      repository: ghcr.io/home-assistant/home-assistant
-      tag: 2023.11.2
-    env:
-      TZ: "${TIMEZONE}"
-    envFrom:
-      - secretRef:
-          name: pg-home-assistant-user
-    hostNetwork: true
-    dnsPolicy: ClusterFirstWithHostNet
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              repository: ghcr.io/home-assistant/home-assistant
+              tag: 2023.11.2
+            env:
+              TZ: "${TIMEZONE}"
+            envFrom:
+              - secretRef:
+                  name: pg-home-assistant-user
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+            resources:
+              requests:
+                memory: 750Mi
+                cpu: 200m
+              limits:
+                memory: 2500Mi
+          appdaemon:
+            image:
+              repository: docker.io/acockburn/appdaemon
+              tag: 4.4.2
+            env:
+              TZ: "${TIMEZONE}"
+        pod:
+          nodeSelector:
+            feature.node.kubernetes.io/custom-sonoff-zigbee: "true"
+          hostNetwork: true
+          dnsPolicy: ClusterFirstWithHostNet
     service:
       main:
         type: LoadBalancer
         externalTrafficPolicy: Cluster
         annotations:
-          # external-dns.alpha.kubernetes.io/hostname: "ha.${SECRET_DOMAIN}"
           io.cilium/lb-ipam-ips: "${VIP_HOME_ASSISTANT}"
         ports:
           http:
@@ -62,43 +87,30 @@ spec:
           - host: &host "ha.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - *host
-    # TODO: maybe enable probes
-    probes:
-      liveness:
-        enabled: false
-      readiness:
-        enabled: false
-      startup:
-        enabled: false
-    nodeSelector:
-      kubernetes.io/hostname: helios
     persistence:
       config:
         enabled: true
-        mountPath: /config
         existingClaim: home-assistant-config
+        globalMounts:
+        advancedMounts:
+          main:
+            main:
+              - path: /config
+            appdaemon:
+              - path: /conf
+                subPath: appdaemon
       dbus:
         enabled: true
         type: hostPath
-        hostPath: /run/dbus
+        advancedMounts:
+          main:
+            main:
+              - path: /run/dbus
     additionalContainers:
       appdaemon:
-        name: appdaemon
-        image: docker.io/acockburn/appdaemon:4.4.2
-        env:
-          - name: TZ
-            value: "${TIMEZONE}"
-        volumeMounts:
-          - name: config
-            subPath: appdaemon
-            mountPath: /conf
-    resources:
-      requests:
-        memory: 750Mi
-        cpu: 200m
-      limits:
-        memory: 2500Mi
