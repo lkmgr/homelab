@@ -107,6 +107,7 @@ spec:
       dbus:
         enabled: true
         type: hostPath
+        hostPath: /run/dbus
         advancedMounts:
           main:
             main:
