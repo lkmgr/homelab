@@ -112,5 +112,3 @@ spec:
           main:
             main:
               - path: /run/dbus
-    additionalContainers:
-      appdaemon:
