@@ -55,6 +55,16 @@ spec:
               limits:
                 memory: 1Gi
         pod:
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - labelSelector:
+                    matchExpressions:
+                      - key: "app.kubernetes.io/name"
+                        operator: In
+                        values:
+                          - esphome
+                  topologyKey: "kubernetes.io/hostname"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
