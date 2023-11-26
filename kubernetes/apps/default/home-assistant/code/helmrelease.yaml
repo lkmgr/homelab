@@ -55,6 +55,8 @@ spec:
               limits:
                 memory: 1Gi
         pod:
+          nodeSelector:
+            kubernetes.io/hostname: helios
           securityContext:
             runAsUser: 568
             runAsGroup: 568
