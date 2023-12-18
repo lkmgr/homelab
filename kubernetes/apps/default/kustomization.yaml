@@ -10,5 +10,6 @@ resources:
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./mosquitto/ks.yaml
+  - ./stirling-pdf/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
