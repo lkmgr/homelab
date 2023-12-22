@@ -8,6 +8,8 @@
     - name: Pausing for 5 seconds...
       ansible.builtin.pause:
         seconds: 5
+    - name: Populate service facts
+      ansible.builtin.service_facts:
   tasks:
     - name: Locale
       block:
@@ -41,16 +43,16 @@
             modification_time: preserve
             access_time: preserve
 
-    - name: apt Configuration
-      # notify: Reboot
-      block:
-        - name: apt Configuration | unattended-upgrades
-          ansible.builtin.copy:
-            content: |
-              APT::Periodic::Update-Package-Lists "1";
-              APT::Periodic::Unattended-Upgrade "1";
-            dest: /etc/apt/apt.conf.d/20auto-upgrades
-            mode: '0644'
+    # - name: apt Configuration
+    #   # notify: Reboot
+    #   block:
+    #     - name: apt Configuration | unattended-upgrades
+    #       ansible.builtin.copy:
+    #         content: |
+    #           APT::Periodic::Update-Package-Lists "1";
+    #           APT::Periodic::Unattended-Upgrade "1";
+    #         dest: /etc/apt/apt.conf.d/20auto-upgrades
+    #         mode: '0644'
 
     - name: Network Configuration
       notify: Reboot
@@ -69,17 +71,24 @@
               ff02::2 ip6-allrouters
             dest: /etc/hosts
             mode: preserve
-        # https://github.com/cilium/cilium/issues/18706
-        - name: Network Configuration | Cilium (1)
-          ansible.builtin.lineinfile:
-            dest: /etc/systemd/networkd.conf
-            regexp: ManageForeignRoutingPolicyRules
-            line: ManageForeignRoutingPolicyRules=no
-        - name: Network Configuration | Cilium (2)
-          ansible.builtin.lineinfile:
-            dest: /etc/systemd/networkd.conf
-            regexp: ManageForeignRoutes
-            line: ManageForeignRoutes=no
+        # https://github.com/onedr0p/flux-cluster-template/discussions/635
+        - name: Network Configuration | Remove immutable flag from /etc/resolv.conf
+          ansible.builtin.file:
+            attributes: -i
+            path: /etc/resolv.conf
+        - name: Network Configuration | Remove /etc/resolv.conf
+          ansible.builtin.file:
+            attributes: -i
+            path: /etc/resolv.conf
+            state: absent
+        - name: Network Configuration | Add custom /etc/resolv.conf
+          ansible.builtin.copy:
+            attributes: +i
+            mode: '0644'
+            dest: /etc/resolv.conf
+            content: |
+              search .
+              nameserver 1.1.1.1
 
     - name: System Configuration
       notify: Reboot
@@ -90,6 +99,7 @@
             mode: "0755"
             content: neofetch --config none
         - name: System Configuration | Disable apparmor
+          when: ansible_facts.services['apparmor.service'] is defined
           ansible.builtin.systemd:
             name: apparmor
             state: stopped
@@ -100,17 +110,18 @@
             fstype: swap
             state: absent
           loop: ["none", "swap"]
-        - name: System Configuration | Kernel modules (1)
-          community.general.modprobe:
-            name: "{{ item }}"
-            state: present
-          loop: ["br_netfilter", "ceph", "ip_vs", "ip_vs_rr", "nbd", "overlay", "rbd"]
-        - name: System Configuration | Kernel modules (2)
+        - name: System Configuration | Create Kernel modules
           ansible.builtin.copy:
             dest: "/etc/modules-load.d/{{ item }}.conf"
             mode: "0644"
             content: "{{ item }}"
           loop: ["br_netfilter", "ceph", "ip_vs", "ip_vs_rr", "nbd", "overlay", "rbd"]
+          register: modules_status
+        - name: System Configuration | Reload Kernel modules # noqa: no-changed-when no-handler
+          when: modules_status.changed
+          ansible.builtin.systemd:
+            name: systemd-modules-load
+            state: restarted
         - name: System Configuration | Sysctl
           ansible.posix.sysctl:
             name: "{{ item.key }}"
@@ -123,8 +134,6 @@
               fs.inotify.max_queued_events: 65536
               fs.inotify.max_user_watches: 524288
               fs.inotify.max_user_instances: 8192
-
-    # TODO: noatime for mount?
 
   handlers:
     - name: Reboot
