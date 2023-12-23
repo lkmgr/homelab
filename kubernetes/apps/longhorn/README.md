@@ -6,11 +6,11 @@
 kubectl label nodes <name> node.longhorn.io/create-default-disk=true
 ```
 
-## Custom path (`/mnt/longhorn`)
+## Custom path (`/mnt/nvme/longhorn`)
 
 ```sh
 kubectl label nodes <name> node.longhorn.io/create-default-disk=config
-kubectl annotate nodes <name> node.longhorn.io/default-disks-config='[{"path":"/mnt/longhorn"}]'
+kubectl annotate nodes <name> node.longhorn.io/default-disks-config='[{"path":"/mnt/nvme/longhorn"}]'
 ```
 
 ## Checks
