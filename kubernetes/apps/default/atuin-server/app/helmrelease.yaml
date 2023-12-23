@@ -64,7 +64,9 @@ spec:
           - host: "atuin.${SECRET_DOMAIN}"
             paths:
               - path: /
-                pathType: Prefix
+                service:
+                  name: main
+                  port: http
         tls:
           - hosts:
               - "atuin.${SECRET_DOMAIN}"
