@@ -39,11 +39,12 @@ spec:
       defaultDataPath: /var/lib/longhorn/
       defaultDataLocality: best-effort
       storageOverProvisioningPercentage: 200
-      storageMinimalAvailablePercentage: 20
+      storageMinimalAvailablePercentage: 15
       storageReservedPercentageForDefaultDisk: 15
       defaultReplicaCount: 2
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
+      restoreVolumeRecurringJobs: true
     ingress:
       enabled: true
       ingressClassName: nginx
