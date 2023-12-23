@@ -37,3 +37,12 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-s3
           key: ACCESS_SECRET_KEY
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 50
+          preference:
+            matchExpressions:
+              - key: custom/has-nvme
+                operator: In
+                values: ["true"]
