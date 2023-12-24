@@ -64,3 +64,6 @@ spec:
               capabilities:
                 add:
                   - NET_ADMIN
+    service:
+      main:
+        enabled: false
