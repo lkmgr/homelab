@@ -7,7 +7,7 @@ metadata:
   annotations:
     kyverno.io/ignore: "true"
 spec:
-  instances: 2
+  instances: 3
   imageName: ghcr.io/cloudnative-pg/postgresql:15.5-8
   primaryUpdateStrategy: unsupervised
   storage:
@@ -15,15 +15,24 @@ spec:
     storageClass: local-path
   superuserSecret:
     name: cloudnative-pg
+  enableSuperuserAccess: true
   postgresql:
     parameters:
       max_connections: "600"
       shared_buffers: 512MB
+  resources:
+    requests:
+      memory: 600Mi
+      cpu: 200m
+    limits:
+      memory: 4Gi
   monitoring:
     enablePodMonitor: true
   backup:
     retentionPolicy: 14d
     barmanObjectStore:
+      data:
+        compression: bzip2
       wal:
         compression: bzip2
         maxParallel: 2
