@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  name: tailscale
+  namespace: networking
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 2.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  maxHistory: 2
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  # dependsOn:
+  values:
+    controllers:
+      main:
+        replicas: 1
+        initContainers:
+          01-sysctler:
+            image:
+              repository: ghcr.io/tailscale/tailscale
+              tag: latest
+            securityContext:
+              privileged: true
+            command: ["/bin/sh"]
+            args:
+              - -c
+              - sysctl -w net.ipv4.ip_forward=1 net.ipv6.conf.all.forwarding=1
+            resources:
+              requests:
+                cpu: 1m
+                memory: 1Mi
+        containers:
+          main:
+            image:
+              repository: ghcr.io/tailscale/tailscale
+              tag: latest
+            env:
+              TS_KUBE_SECRET: tailscale-state
+              TS_USERSPACE: "false"
+              TS_DEST_IP: 10.43.100.100
+              TS_AUTHKEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: tailscale-auth
+                    key: TS_AUTHKEY
+            securityContext:
+              capabilities:
+                add:
+                  - NET_ADMIN
