@@ -29,7 +29,7 @@ spec:
       https: 443
     mountedSecrets:
       - volumeName: production-tls
-        secretName: "networking/${SECRET_DOMAIN/./-}-production-tls"
+        secretName: "${SECRET_DOMAIN/./-}-production-tls"
         mountPath: /ssl/production
     extraVolumes:
       - name: tls
