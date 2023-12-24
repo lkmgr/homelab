@@ -1,0 +1,89 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/helm.toolkit.fluxcd.io/helmrelease_v2beta1.json
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: external-proxy-ingress
+  namespace: networking
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: haproxy
+      version: 1.19.3
+      sourceRef:
+        name: haproxytech
+        kind: HelmRepository
+        namespace: flux-system
+  values:
+    image:
+      repository: haproxytech/haproxy-debian
+      tag: 2.9.0
+      pullPolicy: IfNotPresent
+    # kind: DaemonSet
+    service:
+      type: ClusterIP
+      clusterIP: 10.43.100.100
+    containerPorts:
+      http: 80
+      https: 443
+    mountedSecrets:
+      - volumeName: production-tls
+        secretName: "networking/${SECRET_DOMAIN/./-}-production-tls"
+        mountPath: /ssl/production
+    extraVolumes:
+      - name: tls
+        emptyDir:
+          medium: Memory
+    extraVolumeMounts:
+      - name: tls
+        mountPath: /tls
+    initContainers:
+      - name: 01-init-tls-cert-key-combine
+        command:
+          - /bin/sh
+          - -c
+          - "cat /ssl/production/tls.crt /ssl/production/tls.key > /tls/production.pem"
+        image: public.ecr.aws/docker/library/busybox:1.36.1
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+          - name: tls
+            mountPath: /tls
+          - name: production-tls
+            mountPath: /ssl/production
+    config: |
+      global
+        log stdout format raw local0 debug
+        ssl-default-bind-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+        ssl-default-bind-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+        ssl-default-bind-options prefer-client-ciphers no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets
+        ssl-default-server-ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384
+        ssl-default-server-ciphersuites TLS_AES_128_GCM_SHA256:TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256
+        ssl-default-server-options no-sslv3 no-tlsv10 no-tlsv11 no-tls-tickets
+
+      defaults
+        mode tcp
+        log global
+        option tcplog
+        timeout client 30s
+        timeout connect 4s
+        timeout server 30s
+        retries 3
+
+      frontend https
+        mode http
+        bind :443 accept-proxy ssl crt /tls/production.pem alpn h2,http/1.1
+        bind :80 accept-proxy
+        redirect scheme https code 301 if !{ ssl_fc } # http to https redirect
+        option forwardfor
+        use_backend ingress-nginx
+
+      backend ingress-nginx
+        mode http
+        server nginx ingress-nginx-controller.networking.svc.cluster.local:443 ssl verify none sni str(%[ssl_fc_sni]) check check-sni str(external-proxy-ingress.${SECRET_DOMAIN})
+    resources:
+      requests:
+        cpu: 50m
+        memory: 128Mi
+      limits:
+        memory: 512Mi
