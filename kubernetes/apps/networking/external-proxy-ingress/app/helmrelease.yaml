@@ -20,7 +20,8 @@ spec:
       repository: haproxytech/haproxy-debian
       tag: 2.9.0
       pullPolicy: IfNotPresent
-    # kind: DaemonSet
+    kind: Deployment
+    replicaCount: 2
     service:
       type: ClusterIP
       clusterIP: 10.43.100.100
@@ -88,7 +89,7 @@ spec:
         server nginx ingress-nginx-controller.networking.svc.cluster.local:443 ssl verify none sni str(%[ssl_fc_sni]) check check-sni str(external-proxy-ingress.${SECRET_DOMAIN})
     resources:
       requests:
-        cpu: 50m
-        memory: 128Mi
+        cpu: 40m
+        memory: 150Mi
       limits:
-        memory: 512Mi
+        memory: 500Mi
