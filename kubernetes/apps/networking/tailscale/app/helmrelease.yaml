@@ -55,6 +55,7 @@ spec:
               TS_USERSPACE: "false"
               TS_DEST_IP: 10.43.100.100
               # TS_DEST_IP: 10.43.221.115
+              TS_ROUTES: "${CLUSTER_CIDR},${SERVICE_CIDR}"
               TS_EXTRA_ARGS: --advertise-tags=tag:k8s-operator
               TS_AUTHKEY:
                 valueFrom:
