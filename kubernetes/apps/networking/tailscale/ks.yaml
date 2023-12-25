@@ -6,7 +6,8 @@ metadata:
   name: cluster-apps-tailscale
   namespace: flux-system
 spec:
-  # dependsOn:
+  dependsOn:
+    - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/networking/tailscale/app
   prune: true
   sourceRef:
