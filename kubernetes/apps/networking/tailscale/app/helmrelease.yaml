@@ -30,21 +30,21 @@ spec:
     controllers:
       main:
         replicas: 1
-        initContainers:
-          01-sysctler:
-            image:
-              repository: ghcr.io/tailscale/tailscale
-              tag: latest
-            securityContext:
-              privileged: true
-            command: ["/bin/sh"]
-            args:
-              - -c
-              - sysctl -w net.ipv4.ip_forward=1 net.ipv6.conf.all.forwarding=1
-            resources:
-              requests:
-                cpu: 1m
-                memory: 1Mi
+        # initContainers:
+        #   01-sysctler:
+        #     image:
+        #       repository: ghcr.io/tailscale/tailscale
+        #       tag: latest
+        #     securityContext:
+        #       privileged: true
+        #     command: ["/bin/sh"]
+        #     args:
+        #       - -c
+        #       - sysctl -w net.ipv4.ip_forward=1 net.ipv6.conf.all.forwarding=1
+        #     resources:
+        #       requests:
+        #         cpu: 1m
+        #         memory: 1Mi
         containers:
           main:
             image:
@@ -52,11 +52,11 @@ spec:
               tag: latest
             env:
               TS_KUBE_SECRET: tailscale-state
-              TS_USERSPACE: "false"
-              TS_DEST_IP: 10.43.100.100
-              # TS_DEST_IP: 10.43.221.115
+              TS_USERSPACE: "true"
+              # TS_DEST_IP: 10.43.100.100
               TS_ROUTES: "${CLUSTER_CIDR},${SERVICE_CIDR}"
-              TS_EXTRA_ARGS: --advertise-tags=tag:k8s-operator
+              # TS_EXTRA_ARGS: --advertise-tags=tag:k8s-operator
+              TS_HOSTNAME: k8s-gateway-tailscale
               TS_AUTHKEY:
                 valueFrom:
                   secretKeyRef:
