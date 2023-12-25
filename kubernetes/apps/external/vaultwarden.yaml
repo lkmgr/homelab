@@ -28,7 +28,8 @@ metadata:
   namespace: external
   annotations:
     external.home.arpa/enabled: "true"
-    external-dns.alpha.kubernetes.io/target: "ingress.${SECRET_DOMAIN}"
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
+    external-dns.alpha.kubernetes.io/target: "dex.${SECRET_DOMAIN}"
 spec:
   ingressClassName: nginx
   rules:
