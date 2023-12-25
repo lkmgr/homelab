@@ -1,0 +1,11 @@
+---
+- hosts:
+    - dex
+  become: true
+  gather_facts: true
+  any_errors_fatal: true
+  roles:
+    - role: os
+      tags: os
+    - role: haproxy
+      tags: haproxy
