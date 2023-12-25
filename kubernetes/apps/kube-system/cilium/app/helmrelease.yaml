@@ -28,6 +28,7 @@ spec:
   values:
     autoDirectNodeRoutes: true
     bpf:
+      lbExternalClusterIP: true
       masquerade: true
     bgp:
       enabled: false
