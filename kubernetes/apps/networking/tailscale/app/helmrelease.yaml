@@ -29,44 +29,52 @@ spec:
   values:
     controllers:
       main:
-        replicas: 1
-        # initContainers:
-        #   01-sysctler:
-        #     image:
-        #       repository: ghcr.io/tailscale/tailscale
-        #       tag: latest
-        #     securityContext:
-        #       privileged: true
-        #     command: ["/bin/sh"]
-        #     args:
-        #       - -c
-        #       - sysctl -w net.ipv4.ip_forward=1 net.ipv6.conf.all.forwarding=1
-        #     resources:
-        #       requests:
-        #         cpu: 1m
-        #         memory: 1Mi
         containers:
           main:
             image:
               repository: ghcr.io/tailscale/tailscale
               tag: v1.56.1
             env:
-              TS_KUBE_SECRET: tailscale-state
-              TS_USERSPACE: "true"
-              # TS_DEST_IP: 10.43.100.100
+              TS_KUBE_SECRET: tailscale-state-1
+              TS_USERSPACE: &TS_USERSPACE "true"
               # TS_ROUTES: "${CLUSTER_CIDR},${SERVICE_CIDR}"
-              TS_ROUTES: "10.43.100.100/32" # external proxy ingress service
-              TS_EXTRA_ARGS: --advertise-tags=tag:k8s-operator
-              TS_HOSTNAME: k8s-gateway-tailscale
+              TS_ROUTES: &TS_ROUTES "10.43.100.100/32" # external proxy ingress service
+              TS_EXTRA_ARGS: &TS_EXTRA_ARGS --advertise-tags=tag:k8s-operator
+              # TS_HOSTNAME: k8s-gateway-tailscale
               TS_AUTHKEY:
                 valueFrom:
                   secretKeyRef:
-                    name: tailscale-auth
+                    name: tailscale-auth-1
                     key: TS_AUTHKEY
-            # securityContext:
-            #   capabilities:
-            #     add:
-            #       - NET_ADMIN
+      # second pod for failover
+      # https://tailscale.com/kb/1115/high-availability#failover
+      secondary:
+        enabled: true
+        containers:
+          main:
+            image:
+              repository: ghcr.io/tailscale/tailscale
+              tag: v1.56.1
+            env:
+              TS_KUBE_SECRET: tailscale-state-2
+              TS_USERSPACE: *TS_USERSPACE
+              TS_ROUTES: *TS_ROUTES
+              TS_EXTRA_ARGS: *TS_EXTRA_ARGS
+              TS_AUTHKEY:
+                valueFrom:
+                  secretKeyRef:
+                    name: tailscale-auth-2
+                    key: TS_AUTHKEY
+    defaultPodOptions:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values: ["tailscale"]
+              topologyKey: kubernetes.io/hostname
     service:
       main:
         enabled: false
