@@ -29,7 +29,7 @@ spec:
   values:
     controllers:
       main:
-        replicas: 2
+        replicas: 1
         # initContainers:
         #   01-sysctler:
         #     image:
