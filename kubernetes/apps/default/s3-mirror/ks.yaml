@@ -7,6 +7,8 @@ metadata:
   namespace: flux-system
 spec:
   path: ./kubernetes/apps/default/s3-mirror/app
+  dependsOn:
+    - name: cluster-apps-external-secrets-stores
   prune: true
   sourceRef:
     kind: GitRepository
