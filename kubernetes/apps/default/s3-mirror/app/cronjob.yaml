@@ -19,6 +19,13 @@ spec:
           containers:
             - name: rclone
               image: rclone/rclone:1.64.0
+              env:
+                - name: RCLONE_LOG_LEVEL
+                  value: ERROR
+                - name: RCLONE_PROGRESS
+                  value: "true"
+                - name: RCLONE_CONFIG
+                  value: "/config/rclone.conf"
               envFrom:
                 - secretRef:
                     name: s3-mirror-secret
@@ -27,7 +34,7 @@ spec:
                 - -c
                 - >-
                   wget -qO- -t 5 -T 10 https://hc-ping.com/$(HC_UUID)/start ;
-                  rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:longhorn backblaze-crypt-longhorn: &&
+                  rclone sync minio:longhorn backblaze-crypt-longhorn: &&
                   wget -qO- -t 5 -T 10 https://hc-ping.com/$(HC_UUID)
               # rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_CNPG_BUCKET) backblaze-crypt:$(B2_CNPG_BUCKET) &&
               # rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_KOPIA_BUCKET) backblaze:$(B2_KOPIA_BUCKET) &&
