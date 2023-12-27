@@ -18,14 +18,14 @@ spec:
   enableSuperuserAccess: true
   postgresql:
     parameters:
-      max_connections: "200"
-      shared_buffers: 256MB
+      max_connections: "150"
+      shared_buffers: 192MB
   resources:
     requests:
-      memory: 600Mi
-      cpu: 200m
+      memory: 768Mi # shared_buffers * 4
+      cpu: 100m
     limits:
-      memory: 4Gi
+      memory: 3Gi
   monitoring:
     enablePodMonitor: true
   backup:
