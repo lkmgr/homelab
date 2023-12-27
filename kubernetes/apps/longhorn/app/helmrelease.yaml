@@ -44,7 +44,7 @@ spec:
       defaultReplicaCount: 2
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
-      restoreVolumeRecurringJobs: true
+      restoreVolumeRecurringJobs: false
     ingress:
       enabled: true
       ingressClassName: nginx
