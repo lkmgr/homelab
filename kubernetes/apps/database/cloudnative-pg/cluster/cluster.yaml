@@ -18,8 +18,8 @@ spec:
   enableSuperuserAccess: true
   postgresql:
     parameters:
-      max_connections: "600"
-      shared_buffers: 512MB
+      max_connections: "200"
+      shared_buffers: 256MB
   resources:
     requests:
       memory: 600Mi
