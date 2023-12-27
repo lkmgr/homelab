@@ -23,7 +23,7 @@ spec:
                 - name: RCLONE_LOG_LEVEL
                   value: ERROR
                 - name: RCLONE_PROGRESS
-                  value: "true"
+                  value: "false"
                 - name: RCLONE_CONFIG
                   value: "/config/rclone.conf"
               envFrom:
