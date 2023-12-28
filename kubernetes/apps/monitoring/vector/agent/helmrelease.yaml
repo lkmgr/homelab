@@ -69,6 +69,8 @@ spec:
           source: |
             # Standardize 'app' index
             .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
+            # Drop pod_labels
+            del(.pod_labels)
         # tr_kubernetes_route_app:
         #   type: route
         #   inputs:
