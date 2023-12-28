@@ -21,7 +21,7 @@ spec:
               image: rclone/rclone:1.64.0
               env:
                 - name: RCLONE_LOG_LEVEL
-                  value: ERROR
+                  value: NOTICE
                 - name: RCLONE_PROGRESS
                   value: "false"
                 - name: RCLONE_CONFIG
@@ -35,9 +35,8 @@ spec:
                 - >-
                   wget -qO- -t 5 -T 10 https://hc-ping.com/$(HC_UUID)/start ;
                   rclone sync minio:longhorn backblaze-crypt-longhorn: &&
+                  rclone sync minio:cloudnativepg backblaze-crypt-cnpg: &&
                   wget -qO- -t 5 -T 10 https://hc-ping.com/$(HC_UUID)
-              # rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_CNPG_BUCKET) backblaze-crypt:$(B2_CNPG_BUCKET) &&
-              # rclone sync --log-level ERROR --progress --config /config/rclone.conf minio:$(MINIO_KOPIA_BUCKET) backblaze:$(B2_KOPIA_BUCKET) &&
               volumeMounts:
                 - name: conf
                   mountPath: /config
