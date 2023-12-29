@@ -6,5 +6,6 @@ namespace: longhorn-system
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./prometheusrule.yaml
   - ./recurringjobs.yaml
   - ./servicemonitor.yaml
