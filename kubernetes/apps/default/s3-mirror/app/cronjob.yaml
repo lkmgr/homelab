@@ -24,12 +24,12 @@ spec:
                   value: NOTICE
                 - name: RCLONE_PROGRESS
                   value: "true"
-                - name: RCLONE_STATS_ONE_LINE
-                  value: "true"
+                # - name: RCLONE_STATS_ONE_LINE
+                #   value: "true"
                 - name: RCLONE_STATS
                   value: 30s
-                # - name: RCLONE_FAST_LIST
-                #   value: "true"
+                - name: RCLONE_FAST_LIST
+                  value: "true"
                 - name: RCLONE_CONFIG
                   value: "/config/rclone.conf"
               envFrom:
