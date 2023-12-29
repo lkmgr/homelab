@@ -185,6 +185,10 @@ spec:
           gnetId: 763 # https://grafana.com/grafana/dashboards/763?tab=revisions
           revision: 5
           datasource: Prometheus
+        longhorn:
+          gnetId: 16888 # https://grafana.com/grafana/dashboards/16888?tab=revisions
+          revision: 8
+          datasource: Prometheus
         cloudnative-pg:
           url: https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/docs/src/samples/monitoring/grafana-dashboard.json
           datasource: Prometheus
@@ -320,4 +324,3 @@ spec:
       kind: Secret
       name: grafana-ext
       valuesKey: ADMIN_EMAIL
-
