@@ -45,6 +45,7 @@ spec:
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
       restoreVolumeRecurringJobs: false
+      removeSnapshotsDuringFilesystemTrim: true
     ingress:
       enabled: true
       ingressClassName: nginx

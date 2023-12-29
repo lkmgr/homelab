@@ -11,19 +11,19 @@ spec:
     - default
   retain: 10
   concurrency: 2
----
-apiVersion: longhorn.io/v1beta1
-kind: RecurringJob
-metadata:
-  name: default-snapshot
-  namespace: longhorn-system
-spec:
-  cron: "47 14 * * *"
-  task: "snapshot"
-  groups:
-    - default
-  retain: 10
-  concurrency: 2
+# ---
+# apiVersion: longhorn.io/v1beta1
+# kind: RecurringJob
+# metadata:
+#   name: default-snapshot
+#   namespace: longhorn-system
+# spec:
+#   cron: "47 14 * * *"
+#   task: "snapshot"
+#   groups:
+#     - default
+#   retain: 10
+#   concurrency: 2
 ---
 apiVersion: longhorn.io/v1beta1
 kind: RecurringJob
