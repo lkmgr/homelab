@@ -71,18 +71,18 @@ spec:
             .custom_app_name = .pod_labels."app.kubernetes.io/name" || .pod_labels.app || .pod_labels."k8s-app" || "unknown"
             # Drop pod_labels
             del(.pod_labels)
-        # tr_kubernetes_route_app:
-        #   type: route
-        #   inputs:
-        #     - tr_kubernetes_remap
-        #   route:
-        #     nginx: .custom_app_name == "ingress-nginx"
-        # tr_kubernetes_route_app_parsed_json:
-        #   type: remap
-        #   inputs:
-        #     - tr_kubernetes_route_app.nginx
-        #   source: |
-        #     .message = parse_json!(.message)
+        tr_kubernetes_route_app:
+          type: route
+          inputs:
+            - tr_kubernetes_remap
+          route:
+            nginx: .custom_app_name == "ingress-nginx"
+        tr_kubernetes_route_app_parsed_json:
+          type: remap
+          inputs:
+            - tr_kubernetes_route_app.nginx
+          source: |
+            .message = parse_json!(.message) || ""
       sinks:
         si_loki_journald:
           type: loki
@@ -100,9 +100,9 @@ spec:
         si_loki_kubernetes:
           type: loki
           inputs:
-            - tr_kubernetes_remap
-            # - tr_kubernetes_route_app._unmatched
-            # - tr_kubernetes_route_app_parsed_json
+            # - tr_kubernetes_remap
+            - tr_kubernetes_route_app._unmatched
+            - tr_kubernetes_route_app_parsed_json
           endpoint: http://loki-gateway.monitoring.svc.cluster.local
           encoding:
             codec: json
