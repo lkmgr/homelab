@@ -42,9 +42,9 @@ spec:
                   wget -qO- -t 5 -T 10 https://hc-ping.com/$(HC_UUID)/start ;
                   rclone sync minio:longhorn backblaze-crypt-longhorn: &&
                   rclone sync minio:cloudnativepg backblaze-crypt-cnpg: &&
-                  rclone sync minio:longhorn r2-crypt-longhorn: &&
-                  rclone sync minio:cloudnativepg r2-crypt-cnpg: &&
                   wget -qO- -t 5 -T 10 https://hc-ping.com/$(HC_UUID)
+                # rclone sync minio:longhorn r2-crypt-longhorn: &&
+                # rclone sync minio:cloudnativepg r2-crypt-cnpg: &&
               volumeMounts:
                 - name: conf
                   mountPath: /config
