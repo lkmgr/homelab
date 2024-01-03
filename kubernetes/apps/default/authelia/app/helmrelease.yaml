@@ -46,6 +46,10 @@ spec:
             env:
               TZ: "${TIMEZONE}"
               AUTHELIA_SERVER_PORT: &port 80
+              # prevents 431 request header too large
+              # https://www.authelia.com/reference/guides/log-messages/#request-header-too-large
+              AUTHELIA_SERVER_BUFFERS_READ: 16384
+              AUTHELIA_SERVER_BUFFERS_WRITE: 16384
               AUTHELIA_STORAGE_POSTGRES_HOST:
                 valueFrom:
                   secretKeyRef:
