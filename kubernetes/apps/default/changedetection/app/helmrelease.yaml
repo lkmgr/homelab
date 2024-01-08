@@ -40,6 +40,7 @@ spec:
               TZ: "${TIMEZONE}"
               PORT: "5000"
               USE_X_SETTINGS: "1"
+              BASE_URL: "changedetection.${SECRET_DOMAIN}"
     service:
       main:
         ports:
