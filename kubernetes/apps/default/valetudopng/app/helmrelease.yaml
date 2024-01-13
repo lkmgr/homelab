@@ -31,7 +31,7 @@ spec:
   values:
     image:
       repository: ghcr.io/erkexzcx/valetudopng
-      tag: v1.0.15
+      tag: v1.0.16
     env:
       TZ: Europe/Berlin
     service:
