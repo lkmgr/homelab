@@ -65,6 +65,11 @@ spec:
             feature.node.kubernetes.io/custom-sonoff-zigbee: "true"
           hostNetwork: true
           dnsPolicy: ClusterFirstWithHostNet
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         type: LoadBalancer
