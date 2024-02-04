@@ -57,6 +57,11 @@ spec:
         pod:
           nodeSelector:
             feature.node.kubernetes.io/custom-sonoff-zigbee: "true"
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+            fsGroup: 0
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
