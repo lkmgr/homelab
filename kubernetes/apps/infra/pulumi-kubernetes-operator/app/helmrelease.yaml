@@ -15,7 +15,6 @@ spec:
         kind: HelmRepository
         name: pulumi
         namespace: flux-system
-  maxHistory: 2
   install:
     crds: CreateReplace
     remediation:

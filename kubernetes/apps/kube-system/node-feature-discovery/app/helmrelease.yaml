@@ -15,7 +15,6 @@ spec:
         kind: HelmRepository
         name: node-feature-discovery
         namespace: flux-system
-  maxHistory: 2
   install:
     crds: CreateReplace
     remediation:
