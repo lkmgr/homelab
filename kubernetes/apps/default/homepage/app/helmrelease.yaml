@@ -100,7 +100,6 @@ spec:
           - hosts: [*codehost]
     persistence:
       data:
-        type: persistentVolumeClaim
         existingClaim: homepage-data
         advancedMounts:
           homepage:
