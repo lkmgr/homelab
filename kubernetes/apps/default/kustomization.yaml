@@ -12,7 +12,6 @@ resources:
   - ./go2rtc/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
-  - ./mediamtx/ks.yaml
   - ./mosquitto/ks.yaml
   - ./s3-mirror/ks.yaml
   - ./stirling-pdf/ks.yaml
