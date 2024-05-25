@@ -9,6 +9,7 @@ resources:
   - ./authelia/ks.yaml
   - ./changedetection/ks.yaml
   - ./esphome/ks.yaml
+  - ./go2rtc/ks.yaml
   - ./home-assistant/ks.yaml
   - ./homepage/ks.yaml
   - ./mediamtx/ks.yaml
