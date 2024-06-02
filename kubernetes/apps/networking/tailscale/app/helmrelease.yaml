@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: ghcr.io/tailscale/tailscale
-              tag: v1.66.3
+              tag: v1.66.4
             env:
               TS_KUBE_SECRET: tailscale-state-1
               TS_USERSPACE: &TS_USERSPACE "true"
@@ -50,7 +50,7 @@ spec:
           main:
             image:
               repository: ghcr.io/tailscale/tailscale
-              tag: v1.66.3
+              tag: v1.66.4
             env:
               TS_KUBE_SECRET: tailscale-state-2
               TS_USERSPACE: *TS_USERSPACE
