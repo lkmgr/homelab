@@ -1,5 +1,5 @@
 ansible==9.10.0
-ansible-lint==24.7.0
+ansible-lint==24.9.0
 bcrypt==4.2.0
 netaddr==0.10.1
 openshift==0.13.2
