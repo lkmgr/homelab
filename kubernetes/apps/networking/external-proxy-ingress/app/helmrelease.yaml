@@ -45,7 +45,7 @@ spec:
           - /bin/sh
           - -c
           - "cat /ssl/production/tls.crt /ssl/production/tls.key > /tls/production.pem"
-        image: public.ecr.aws/docker/library/busybox:1.36.1
+        image: public.ecr.aws/docker/library/busybox:1.37.0
         imagePullPolicy: IfNotPresent
         volumeMounts:
           - name: tls
