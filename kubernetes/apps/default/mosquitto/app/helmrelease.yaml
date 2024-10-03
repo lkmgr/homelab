@@ -28,7 +28,7 @@ spec:
   values:
     image:
       repository: docker.io/eclipse-mosquitto
-      tag: 2.0.18
+      tag: 2.0.19
     env:
       TZ: "Europe/Berlin"
     service:
