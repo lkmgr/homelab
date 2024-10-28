@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: libretranslate/libretranslate
-              tag: v1.6.1
+              tag: v1.6.2
             env:
               LT_UPDATE_MODELS: "true"
               LT_LOAD_ONLY: "en,de"
