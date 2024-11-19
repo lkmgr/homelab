@@ -16,6 +16,6 @@
   "dependencies": {
     "@pulumi/docker": "^4.5.7",
     "@pulumi/kubernetes": "^4.18.3",
-    "@pulumi/pulumi": "^3.139.0"
+    "@pulumi/pulumi": "^3.140.0"
   }
 }
