@@ -11,7 +11,7 @@
     "@typescript-eslint/parser": "^7.18.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.4.1"
+    "prettier": "^3.4.2"
   },
   "dependencies": {
     "@pulumi/docker": "^4.5.7",
