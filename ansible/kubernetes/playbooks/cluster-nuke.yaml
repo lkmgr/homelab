@@ -50,7 +50,7 @@
             flush: true
             ip_version: ipv6
           loop: ["filter", "nat", "mangle", "raw"]
-        - name: Networking | Delete CNI directory
+        - name: Networking | Delete CNI conf link
           ansible.builtin.file:
             path: /etc/cni/net.d
             state: absent
@@ -61,11 +61,6 @@
         public: true
       vars:
         k3s_state: uninstalled
-
-    - name: Stale Containers
-      ansible.builtin.include_tasks: tasks/stale_containers.yaml
-      vars:
-        stale_containers_state: disabled
 
     - name: Reboot
       ansible.builtin.reboot:
