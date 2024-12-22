@@ -1,0 +1,6 @@
+ansible==9.13.0
+ansible-lint==24.12.2
+bcrypt==4.2.1
+netaddr==0.10.1
+openshift==0.13.2
+passlib==1.7.4
