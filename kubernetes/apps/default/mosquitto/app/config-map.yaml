@@ -9,6 +9,6 @@ data:
     per_listener_settings false
     listener 1883
     allow_anonymous true
-    persistence true
+    persistence false
     persistence_location /mosquitto/data
     autosave_interval 1800
