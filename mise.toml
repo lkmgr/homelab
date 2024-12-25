@@ -1,0 +1,33 @@
+[env]
+_.python.venv = { path = ".venv", create = true }
+
+KUBECONFIG = "{{config_root}}/kubeconfig"
+SOPS_AGE_KEY_FILE = "{{config_root}}/age.key"
+
+VIRTUAL_ENV="{{config_root}}/.venv"
+ANSIBLE_COLLECTIONS_PATH="{{config_root}}/.venv/galaxy"
+ANSIBLE_ROLES_PATH="{{config_root}}/.venv/galaxy/ansible_roles"
+ANSIBLE_VARS_ENABLED="host_group_vars,community.sops.sops"
+K8S_AUTH_KUBECONFIG="{{config_root}}/kubeconfig"
+
+[tools]
+python = "3.13"
+
+age = "latest"
+flux2 = "latest"
+helm = "latest"
+helmfile = "latest"
+jq = "latest"
+kubectl = "latest"
+kustomize = "latest"
+pulumi = "latest"
+sops = "latest"
+stern = "latest"
+task = "latest"
+uv = "latest"
+yq = "latest"
+
+[tasks.install]
+description = "Install dependencies"
+alias = "i"
+run = "uv pip install -r requirements.txt"

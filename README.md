@@ -30,25 +30,13 @@
 
 ## Requirements
 
-```
-age
-cilium-cli
-flux2
-go-task
-helm
-kubectl
-kustomize
-pulumi
-python
-sops
-stern
-yq
-```
+* `mise`
 
-### Setup Python Virtual Environment
+## Set up tools
 
 ```
-task setup-venv
+mise install
+mise tasks run install
 ```
 
 ## License
