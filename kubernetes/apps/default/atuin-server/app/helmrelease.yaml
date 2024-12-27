@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: ghcr.io/atuinsh/atuin
-              tag: 18.0.1
+              tag: 18.4.0
             args: ["server", "start"]
             env:
               TZ: "${TIMEZONE}"
