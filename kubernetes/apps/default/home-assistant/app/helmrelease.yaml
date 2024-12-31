@@ -110,3 +110,12 @@ spec:
           main:
             main:
               - path: /run/dbus
+      # Workaround for https://github.com/home-assistant/core/issues/133537
+      temp:
+        enabled: true
+        type: emptyDir
+        advancedMounts:
+          main:
+            main:
+              - path: /.dockerenv
+                subPath: .dockerenv
