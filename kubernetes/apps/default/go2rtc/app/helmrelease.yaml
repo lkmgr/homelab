@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: alexxit/go2rtc
-              tag: 1.9.7
+              tag: 1.9.8
             probes:
               liveness:
                 enabled: false
