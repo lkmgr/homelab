@@ -27,10 +27,10 @@ spec:
   #   - name: local-path-provisioner
   #     namespace: kube-system
   values:
-    image:
-      registry: quay.io
-      repository: thanos/thanos
-      tag: v0.37.2
+    # image:
+    #   registry: quay.io
+    #   repository: thanos/thanos
+    #   tag: v0.37.2
     existingObjstoreSecret: thanos-objstore
     queryFrontend:
       enabled: true
