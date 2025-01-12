@@ -47,6 +47,10 @@ spec:
         secretKeyRef:
           name: grafana-ext
           key: OAUTH_CLIENT_SECRET
+    admin:
+      existingSecret: grafana-ext
+      userKey: ADMIN_USER
+      passwordKey: ADMIN_PASSWORD
     grafana.ini:
       server:
         root_url: "https://grafana.${SECRET_DOMAIN}"
@@ -308,16 +312,3 @@ spec:
         labelSelector:
           matchLabels:
             app.kubernetes.io/name: grafana
-  valuesFrom:
-    - targetPath: grafana\.ini.security.admin_user
-      kind: Secret
-      name: grafana-ext
-      valuesKey: ADMIN_USER
-    - targetPath: grafana\.ini.security.admin_password
-      kind: Secret
-      name: grafana-ext
-      valuesKey: ADMIN_PASSWORD
-    - targetPath: grafana\.ini.security.admin_email
-      kind: Secret
-      name: grafana-ext
-      valuesKey: ADMIN_EMAIL
