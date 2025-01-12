@@ -76,10 +76,9 @@ spec:
               period: 24h
       compactor:
         working_directory: /var/loki/tsdb-compactor
-        shared_store: s3
+        delete_request_store: s3
         retention_enabled: true
       limits_config:
-        enforce_metric_name: false
         max_cache_freshness_per_query: 10m
         retention_period: 90d
         ingestion_rate_mb: 50
