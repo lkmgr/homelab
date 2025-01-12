@@ -74,6 +74,13 @@ spec:
             index:
               prefix: loki_index_
               period: 24h
+          - from: "2025-01-13"
+            store: tsdb
+            object_store: s3
+            schema: v13
+            index:
+              prefix: loki_index_
+              period: 24h
       compactor:
         working_directory: /var/loki/tsdb-compactor
         delete_request_store: s3
