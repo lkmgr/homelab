@@ -57,8 +57,8 @@ spec:
       replicaCount: 1
     compactor:
       enabled: true
+      concurrency: 2
       extraFlags:
-        - --compact.concurrency=2
         - --delete-delay=30m
       retentionResolutionRaw: 14d
       retentionResolution5m: 60d
