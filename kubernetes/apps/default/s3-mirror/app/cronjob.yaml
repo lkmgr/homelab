@@ -18,7 +18,7 @@ spec:
           restartPolicy: OnFailure
           containers:
             - name: rclone
-              image: rclone/rclone:1.68.2
+              image: rclone/rclone:1.69.0
               env:
                 - name: RCLONE_LOG_LEVEL
                   value: NOTICE
