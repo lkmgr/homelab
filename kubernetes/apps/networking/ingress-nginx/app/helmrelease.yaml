@@ -39,6 +39,7 @@ spec:
         default: true
       allowSnippetAnnotations: true
       config:
+        annotations-risk-level: Critical # needed for `nginx.ingress.kubernetes.io/auth-snippet` annotation
         client-header-timeout: 120
         client-body-buffer-size: 100M
         client-body-timeout: 120
