@@ -36,6 +36,8 @@ spec:
         s3:
           s3ForcePathStyle: true
           insecure: true
+        bucketNames:
+          chunks: loki
       auth_enabled: false
       server:
         log_level: info
@@ -176,7 +178,3 @@ spec:
       kind: Secret
       name: loki-secret
       valuesKey: S3_SECRET_KEY
-    - targetPath: loki.storage.bucketNames.chunks
-      kind: Secret
-      name: loki-secret
-      valuesKey: S3_BUCKET
