@@ -24,67 +24,44 @@ spec:
     remediation:
       retries: 3
   dependsOn:
-    - name: local-path-provisioner
-      namespace: kube-system
+    - name: longhorn
+      namespace: longhorn-system
   values:
     deploymentMode: SingleBinary
     loki:
+      auth_enabled: false
+      analytics:
+        reporting_enabled: false
       commonConfig:
         replication_factor: 1
+      server:
+        log_level: info
+      compactor:
+        working_directory: /var/loki/compactor/retention
+        delete_request_store: filesystem
+        retention_enabled: true
+      ingester:
+        chunk_encoding: snappy
+      storage:
+        type: filesystem
       schemaConfig:
         configs:
-          - from: "2023-08-19"
+          - from: "2025-01-18"
             store: tsdb
-            object_store: s3
-            schema: v12
-            index:
-              prefix: loki_index_
-              period: 24h
-          - from: "2025-01-13"
-            store: tsdb
-            object_store: s3
+            object_store: filesystem
             schema: v13
             index:
               prefix: loki_index_
               period: 24h
-      ingester:
-        chunk_encoding: snappy
       querier:
         max_concurrent: 2
-      analytics:
-        reporting_enabled: false
-      auth_enabled: false
-      compactor:
-        working_directory: /var/loki/tsdb-compactor
-        delete_request_store: s3
-        retention_enabled: true
       limits_config:
-        retention_period: 90d
-      ruler:
-        storage:
-          type: local
-          local:
-            directory: /rules
-        rule_path: /tmp/scratch
-        alertmanager_url: http://alertmanager-operated.monitoring.svc.cluster.local:9093
-        enable_api: true
-        enable_alertmanager_v2: true
-      server:
-        log_level: info
-        http_listen_port: 3100
-        grpc_listen_port: 9095
-      storage:
-        type: s3
-        s3:
-          s3ForcePathStyle: true
-          insecure: true
-        bucketNames:
-          chunks: loki
+        retention_period: 14d
     singleBinary:
-      replicas: 2
+      replicas: 1
       persistence:
-        size: 10Gi
-        storageClass: local-path
+        size: 20Gi
+        storageClass: longhorn
     chunksCache:
       enabled: false
     resultsCache:
@@ -131,20 +108,8 @@ spec:
         enabled: false
         grafanaAgent:
           installOperator: false
-  valuesFrom:
-    - targetPath: loki.storage.s3.endpoint
-      kind: Secret
-      name: loki-secret
-      valuesKey: S3_ENDPOINT
-    - targetPath: loki.storage.s3.accessKeyId
-      kind: Secret
-      name: loki-secret
-      valuesKey: S3_ACCESS_KEY
-    - targetPath: loki.storage.s3.secretAccessKey
-      kind: Secret
-      name: loki-secret
-      valuesKey: S3_SECRET_KEY
-    - targetPath: loki.storage.bucketNames.chunks
-      kind: Secret
-      name: loki-secret
-      valuesKey: S3_BUCKET
+    sidecar:
+      image:
+        repository: ghcr.io/kiwigrid/k8s-sidecar
+      rules:
+        searchNamespace: ALL
