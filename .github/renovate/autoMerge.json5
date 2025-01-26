@@ -4,7 +4,7 @@
     {
       "addLabels": ["renovate/automerge"],
       "automerge": true,
-      "automergeSchedule": "after 2am and before 5am",
+      "automergeSchedule": ["* 23,0-5 * * *"],
       "automergeType": "branch",
       "description": "Auto merge patches and digests",
       "excludePackagePatterns": [".*home-assistant.*", ".*minio.*"],
@@ -30,7 +30,7 @@
     {
       "addLabels": ["renovate/automerge"],
       "automerge": true,
-      "automergeSchedule": "after 2am and before 5am",
+      "automergeSchedule": ["* 23,0-5 * * *"],
       "automergeType": "branch",
       "description": "Auto merge container digests",
       "ignoreTests": true,
