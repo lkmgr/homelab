@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.6.1
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -24,9 +24,9 @@ spec:
       retries: 3
   values:
     controllers:
-      main:
+      atuin:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/atuinsh/atuin
               tag: 18.4.0
@@ -46,13 +46,13 @@ spec:
                 cpu: 10m
                 memory: 30Mi
     service:
-      main:
+      app:
+        controller: atuin
         ports:
           http:
             port: *port
     ingress:
-      main:
-        enabled: true
+      app:
         className: nginx
         annotations:
           external.home.arpa/enabled: "true"
@@ -63,8 +63,5 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
-        tls:
-          - hosts:
-              - "atuin.${SECRET_DOMAIN}"
