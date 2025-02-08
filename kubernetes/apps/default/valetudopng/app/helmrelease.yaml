@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 1.5.1
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -26,32 +26,34 @@ spec:
     - name: mosquitto
       namespace: default
   values:
-    image:
-      repository: ghcr.io/erkexzcx/valetudopng
-      tag: v1.0.17
-    env:
-      TZ: Europe/Berlin
+    controllers:
+      valetudopng:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/erkexzcx/valetudopng
+              tag: v1.0.17
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                memory: 40Mi
+                cpu: 15m
     service:
-      main:
+      app:
+        controller: valetudopng
         type: LoadBalancer
-        ports:
-          http:
-            port: 3000
         externalTrafficPolicy: Cluster
         annotations:
           io.cilium/lb-ipam-ips: "${VIP_VALETUDOPNG}"
+        ports:
+          http:
+            port: 3000
     persistence:
       config:
-        enabled: true
-        mountPath: /config.yml
-        subPath: config.yml
-        type: custom
-        volumeSpec:
-          configMap:
-            name: valetudopng-config
-    resources:
-      requests:
-        memory: 40Mi
-        cpu: 15m
-      # limits:
-      #   memory: 700Mi
+        type: configMap
+        name: valetudopng-config
+        globalMounts:
+          - path: /config.yml
+            subPath: config.yml
+            readOnly: true
