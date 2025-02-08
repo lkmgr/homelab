@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.0.4
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -24,9 +24,9 @@ spec:
       retries: 3
   values:
     controllers:
-      main:
+      libretranslate:
         containers:
-          main:
+          app:
             image:
               repository: libretranslate/libretranslate
               tag: v1.6.4
@@ -34,13 +34,13 @@ spec:
               LT_UPDATE_MODELS: "true"
               LT_LOAD_ONLY: "en,de"
     service:
-      main:
-        controller: main
+      app:
+        controller: libretranslate
         ports:
           http:
             port: 5000
     ingress:
-      main:
+      app:
         className: nginx
         annotations:
           external.home.arpa/enabled: "true"
@@ -52,11 +52,9 @@ spec:
           nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
           nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
         hosts:
-          - host: &host "translate.${SECRET_DOMAIN}"
+          - host: "translate.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
-                  identifier: main
+                  identifier: app
                   port: http
-        tls:
-          - hosts: [*host]
