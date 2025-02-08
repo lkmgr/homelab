@@ -22,6 +22,7 @@ const nodeExporterContainer = new docker.Container(
       '--path.sysfs=/host/sys',
       '--no-collector.diskstats',
       '--no-collector.filesystem',
+      '--no-collector.time',
     ],
     privileged: true,
     ports: [{ internal: 9100, external: 9100 }],
