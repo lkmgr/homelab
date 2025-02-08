@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2beta2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 3.0.4
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -78,26 +78,22 @@ spec:
           nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
           nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
         hosts:
-          - host: &host "homepage.${SECRET_DOMAIN}"
+          - host: "homepage.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
-        tls:
-          - hosts: [*host]
       code:
         className: nginx
         annotations: *annotations
         hosts:
-          - host: &codehost "homepage-config.${SECRET_DOMAIN}"
+          - host: "homepage-config.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: code
                   port: http
-        tls:
-          - hosts: [*codehost]
     persistence:
       data:
         existingClaim: homepage-data
