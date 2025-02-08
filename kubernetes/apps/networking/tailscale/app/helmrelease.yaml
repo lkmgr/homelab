@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/fluxcd-community/flux2-schemas/main/helmrelease-helm-v2beta2.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 2.6.0
+      version: 3.7.0
       sourceRef:
         kind: HelmRepository
         name: bjw-s
@@ -24,9 +24,9 @@ spec:
       retries: 3
   values:
     controllers:
-      main:
+      tailscale:
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/tailscale/tailscale
               tag: v1.80.0
@@ -45,9 +45,8 @@ spec:
       # second pod for failover
       # https://tailscale.com/kb/1115/high-availability#failover
       secondary:
-        enabled: true
         containers:
-          main:
+          app:
             image:
               repository: ghcr.io/tailscale/tailscale
               tag: v1.80.0
@@ -69,8 +68,5 @@ spec:
           labelSelector:
             matchLabels:
               app.kubernetes.io/name: *app
-    service:
-      main:
-        enabled: false
     serviceAccount:
       name: tailscale
