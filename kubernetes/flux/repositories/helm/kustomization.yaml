@@ -12,7 +12,6 @@ resources:
   - ./cloudnative-pg.yaml
   - ./coredns.yaml
   - ./csi-driver-nfs.yaml
-  - ./custom-charts.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
   - ./grafana.yaml
