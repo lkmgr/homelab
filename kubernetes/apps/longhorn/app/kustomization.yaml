@@ -9,3 +9,4 @@ resources:
   - ./prometheusrule.yaml
   - ./recurringjobs.yaml
   - ./servicemonitor.yaml
+  - ./storageclass.yaml
