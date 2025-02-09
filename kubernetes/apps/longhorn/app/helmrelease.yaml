@@ -43,6 +43,17 @@ spec:
       concurrentAutomaticEngineUpgradePerNodeLimit: 1
       restoreVolumeRecurringJobs: false
       removeSnapshotsDuringFilesystemTrim: true
+      v1DataEngine: true
+      v2DataEngine: false
+    # defaultBackupStore:
+    #   pollInterval: 3600
+    csi:
+      attacherReplicaCount: 1
+      provisionerReplicaCount: 1
+      resizerReplicaCount: 1
+      snapshotterReplicaCount: 1
+    longhornUI:
+      replicas: 1
     ingress:
       enabled: true
       ingressClassName: nginx
