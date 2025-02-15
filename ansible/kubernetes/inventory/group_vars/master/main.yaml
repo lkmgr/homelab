@@ -8,6 +8,7 @@ k3s_server:
   tls-san:
     - "{{ kube_vip_addr }}"
   docker: false
+  embedded-registry: true
   flannel-backend: "none"             # This needs to be in quotes
   disable:
     - coredns                         # Disable coredns                 - replaced with Coredns Helm Chart
@@ -29,3 +30,4 @@ k3s_server:
     - "bind-address=0.0.0.0"          # Required to monitor kube-scheduler with kube-prometheus-stack
   kube-apiserver-arg:
     - "anonymous-auth=true"           # Required for HAProxy health-checks
+  secrets-encryption: true
