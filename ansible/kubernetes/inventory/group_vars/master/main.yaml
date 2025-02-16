@@ -30,4 +30,6 @@ k3s_server:
     - "bind-address=0.0.0.0"          # Required to monitor kube-scheduler with kube-prometheus-stack
   kube-apiserver-arg:
     - "anonymous-auth=true"           # Required for HAProxy health-checks
+    - "feature-gates=MutatingAdmissionPolicy=true"
+    - "runtime-config=admissionregistration.k8s.io/v1alpha1=true"
   secrets-encryption: false           # Can be enabled when recreating cluster
