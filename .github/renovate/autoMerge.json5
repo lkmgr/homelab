@@ -7,7 +7,7 @@
       "automergeSchedule": ["* 23,0-5 * * *"],
       "automergeType": "branch",
       "description": "Auto merge patches and digests",
-      "excludePackagePatterns": [".*home-assistant.*", ".*minio.*"],
+      "excludePackagePatterns": [".*home-assistant.*", ".*minio.*", ".*cilium.*"],
       "matchCurrentVersion": "!/^0/",
       "matchUpdateTypes": ["patch", "pin", "digest"]
     },
