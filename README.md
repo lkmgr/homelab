@@ -37,6 +37,7 @@
 ```
 mise install
 mise tasks run install
+ansible-galaxy install -r requirements.yaml
 ```
 
 ## License
