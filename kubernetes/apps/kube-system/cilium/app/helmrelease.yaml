@@ -33,7 +33,7 @@ spec:
       id: 1
     cni:
       exclusive: false
-      binPath: /var/lib/rancher/k3s/data/current/bin
+      binPath: /var/lib/rancher/k3s/data/cni
       confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
     # containerRuntime:
     #   integration: containerd

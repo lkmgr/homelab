@@ -26,9 +26,9 @@
         path: /opt/cni
         mode: '755'
         state: directory
-    - name: Ensure that the /opt/cni/bin directory is a link to /var/lib/rancher/k3s/data/current/bin
+    - name: Ensure that the /opt/cni/bin directory is a link to /var/lib/rancher/k3s/data/cni
       ansible.builtin.file:
-        src: /var/lib/rancher/k3s/data/current/bin
+        src: /var/lib/rancher/k3s/data/cni
         dest: /opt/cni/bin
         follow: false
         force: true
