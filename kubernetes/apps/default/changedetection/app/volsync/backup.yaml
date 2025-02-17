@@ -3,24 +3,25 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: mosquitto
+  name: changedetection
 spec:
-  sourcePVC: mosquitto-data
+  sourcePVC: changedetection-data
   trigger:
     schedule: "0 * * * *"
   restic:
-    repository: mosquitto-volsync-secret
+    repository: changedetection-volsync-secret
     pruneIntervalDays: 7
     retain:
       hourly: 24
       daily: 7
       weekly: 4
     copyMethod: Snapshot
+    cacheCapacity: 1Gi
     cacheStorageClassName: longhorn-cache
     cacheAccessModes: ["ReadWriteOnce"]
     storageClassName: longhorn-cache
     volumeSnapshotClassName: longhorn-snapshot
-    moverSecurityContext:
-      runAsUser: 1000
-      runAsGroup: 1000
-      fsGroup: 1000
+    # moverSecurityContext:
+    #   runAsUser: 1000
+    #   runAsGroup: 1000
+    #   fsGroup: 1000
