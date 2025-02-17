@@ -8,5 +8,5 @@ allowVolumeExpansion: true
 reclaimPolicy: Delete
 volumeBindingMode: WaitForFirstConsumer
 parameters:
-  dataLocality: disabled
+  dataLocality: best-effort
   numberOfReplicas: "1"
