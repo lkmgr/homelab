@@ -34,6 +34,7 @@ spec:
       persistence:
         enabled: true
         existingClaim: redis-data
+      resourcesPreset: none
     commonConfiguration: |-
       # Enable AOF https://redis.io/topics/persistence#append-only-file
       appendonly yes
