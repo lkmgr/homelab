@@ -45,4 +45,4 @@ MIT
 
 ## Acknowledgments
 
-[`flux-cluster-template`](https://github.com/onedr0p/flux-cluster-template), [`onedr0p/home-ops`](https://github.com/onedr0p/home-ops) and the k8s-at-home community
+[`cluster-template`](https://github.com/onedr0p/cluster-template), [`onedr0p/home-ops`](https://github.com/onedr0p/home-ops), [`app-template` Chart](https://github.com/bjw-s/helm-charts) and the home-operations community
