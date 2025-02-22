@@ -30,4 +30,7 @@ yq = "latest"
 [tasks.install]
 description = "Install dependencies"
 alias = "i"
-run = "uv pip install -r requirements.txt"
+run = [
+  "uv pip install -r requirements.txt",
+  "ansible-galaxy install -r requirements.yaml"
+]
