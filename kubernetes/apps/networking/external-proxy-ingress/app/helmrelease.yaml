@@ -18,7 +18,7 @@ spec:
   values:
     image:
       repository: haproxytech/haproxy-debian
-      tag: 3.1.3
+      tag: 3.1.5
       pullPolicy: IfNotPresent
     kind: Deployment
     replicaCount: 2
