@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-homepage
   namespace: flux-system
 spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: homepage
   path: ./kubernetes/apps/default/homepage/app
   prune: true
   sourceRef:

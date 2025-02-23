@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-loki
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: loki
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/loki/app

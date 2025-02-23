@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-zigbee2mqtt
   namespace: flux-system
 spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: zigbee2mqtt
   path: ./kubernetes/apps/default/zigbee2mqtt/app
   prune: true
   sourceRef:

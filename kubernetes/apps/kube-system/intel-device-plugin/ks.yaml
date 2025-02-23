@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-intel-device-plugin-operator
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: intel-device-plugin-operator
   path: ./kubernetes/apps/kube-system/intel-device-plugin/operator
   prune: true
   sourceRef:
@@ -22,6 +26,10 @@ metadata:
   name: cluster-apps-intel-device-plugin-gpu
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: intel-device-plugin-gpu
   path: ./kubernetes/apps/kube-system/intel-device-plugin/gpu
   prune: true
   sourceRef:

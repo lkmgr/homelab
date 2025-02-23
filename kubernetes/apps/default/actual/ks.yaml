@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-actual
   namespace: flux-system
 spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: actual
   path: ./kubernetes/apps/default/actual/app
   prune: true
   sourceRef:

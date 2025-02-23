@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-snapshot-controller
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: snapshot-controller
   path: ./kubernetes/apps/kube-system/snapshot-controller/app
   prune: true
   sourceRef:

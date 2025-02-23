@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-cert-manager
   namespace: flux-system
 spec:
+  targetNamespace: cert-manager
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: cert-manager
   path: ./kubernetes/apps/cert-manager/cert-manager/app
   prune: true
   sourceRef:
@@ -22,6 +26,10 @@ metadata:
   name: cluster-apps-cert-manager-issuers
   namespace: flux-system
 spec:
+  targetNamespace: cert-manager
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: cert-manager-issuers
   dependsOn:
     - name: cluster-apps-cert-manager
     - name: cluster-apps-external-secrets-stores

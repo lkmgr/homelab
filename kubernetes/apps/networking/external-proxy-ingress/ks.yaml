@@ -6,7 +6,10 @@ metadata:
   name: cluster-apps-external-proxy-ingress
   namespace: flux-system
 spec:
-  # dependsOn:
+  targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: external-proxy-ingress
   path: ./kubernetes/apps/networking/external-proxy-ingress/app
   prune: true
   sourceRef:

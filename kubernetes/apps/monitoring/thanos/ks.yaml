@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-thanos
   namespace: flux-system
 spec:
+  targetNamespace: monitoring
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: thanos
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/thanos/app

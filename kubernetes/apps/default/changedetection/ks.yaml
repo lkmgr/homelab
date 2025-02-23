@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-changedetection
   namespace: flux-system
 spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: changedetection
   path: ./kubernetes/apps/default/changedetection/app
   prune: true
   sourceRef:

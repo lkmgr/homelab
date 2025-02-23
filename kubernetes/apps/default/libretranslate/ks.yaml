@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-libretranslate
   namespace: flux-system
 spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: libretranslate
   path: ./kubernetes/apps/default/libretranslate/app
   prune: true
   sourceRef:

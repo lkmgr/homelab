@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-valetudopng
   namespace: flux-system
 spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: valetudopng
   path: ./kubernetes/apps/default/valetudopng/app
   prune: true
   sourceRef:

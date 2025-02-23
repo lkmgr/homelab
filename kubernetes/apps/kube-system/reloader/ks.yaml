@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-reloader
   namespace: flux-system
 spec:
+  targetNamespace: kube-system
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: reloader
   path: ./kubernetes/apps/kube-system/reloader/app
   prune: true
   sourceRef:

@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-s3-mirror
   namespace: flux-system
 spec:
+  targetNamespace: default
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: s3-mirror
   path: ./kubernetes/apps/default/s3-mirror/app
   dependsOn:
     - name: cluster-apps-external-secrets-stores

@@ -6,6 +6,10 @@ metadata:
   name: cluster-apps-k8s-gateway
   namespace: flux-system
 spec:
+  targetNamespace: networking
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: k8s-gateway
   path: ./kubernetes/apps/networking/k8s-gateway/app
   prune: true
   sourceRef:
