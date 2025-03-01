@@ -3,13 +3,13 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: changedetection
+  name: "${APP}"
 spec:
-  sourcePVC: changedetection-data
+  sourcePVC: "${PVC_NAME}"
   trigger:
     schedule: "0 * * * *"
   restic:
-    repository: changedetection-volsync-secret
+    repository: "${APP}-volsync-secret"
     pruneIntervalDays: 7
     retain:
       hourly: 24

@@ -6,15 +6,21 @@ metadata:
   name: cluster-apps-changedetection
   namespace: flux-system
 spec:
-  targetNamespace: default
   commonMetadata:
     labels:
-      app.kubernetes.io/name: changedetection
+      app.kubernetes.io/name: &app changedetection
+  dependsOn:
+    - name: cluster-apps-volsync
+  interval: 30m
   path: ./kubernetes/apps/default/changedetection/app
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: changedetection-data
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: false
-  interval: 30m
+  targetNamespace: default
   timeout: 5m
+  wait: false
