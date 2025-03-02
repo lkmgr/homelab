@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - ./backup.yaml
   - ./externalsecret.yaml
-  - ./restore.yaml
+  # - ./restore.yaml
