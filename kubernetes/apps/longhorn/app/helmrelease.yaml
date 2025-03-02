@@ -28,7 +28,7 @@ spec:
       defaultFsType: ext4
       defaultClassReplicaCount: 2
       defaultDataLocality: best-effort
-      reclaimPolicy: Retain
+      reclaimPolicy: Delete
     defaultSettings:
       backupTarget: s3://longhorn@xyz/
       backupTargetCredentialSecret: longhorn-ext
