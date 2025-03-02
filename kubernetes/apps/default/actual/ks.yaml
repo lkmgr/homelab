@@ -6,15 +6,20 @@ metadata:
   name: cluster-apps-actual
   namespace: flux-system
 spec:
-  targetNamespace: default
   commonMetadata:
     labels:
-      app.kubernetes.io/name: actual
+      app.kubernetes.io/name: &app actual
+  interval: 30m
   path: ./kubernetes/apps/default/actual/app
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: actual-data
+      PVC_SIZE: 10Gi
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: false
-  interval: 30m
+  targetNamespace: default
   timeout: 5m
+  wait: false
