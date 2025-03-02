@@ -25,6 +25,8 @@ spec:
   values:
     controllers:
       tailscale:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
@@ -45,6 +47,8 @@ spec:
       # second pod for failover
       # https://tailscale.com/kb/1115/high-availability#failover
       secondary:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:

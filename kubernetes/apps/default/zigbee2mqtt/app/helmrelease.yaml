@@ -33,6 +33,8 @@ spec:
         feature.node.kubernetes.io/custom-sonoff-zigbee: "true"
     controllers:
       zigbee2mqtt:
+        annotations:
+          reloader.stakater.com/auto: "true"
         containers:
           app:
             image:
