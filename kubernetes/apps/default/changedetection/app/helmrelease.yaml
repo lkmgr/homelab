@@ -58,7 +58,7 @@ spec:
           nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
           nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
         hosts:
-          - host: &host "changedetection.${SECRET_DOMAIN}"
+          - host: "changedetection.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -66,6 +66,6 @@ spec:
                   port: http
     persistence:
       data:
-        existingClaim: changedetection-data
+        existingClaim: "${PVC_NAME}"
         globalMounts:
           - path: /datastore

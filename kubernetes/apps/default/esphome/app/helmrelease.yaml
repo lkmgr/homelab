@@ -70,7 +70,7 @@ spec:
                   port: http
     persistence:
       config:
-        existingClaim: esphome-config
+        existingClaim: "${PVC_NAME}"
         globalMounts:
           - path: /config
       esphome-cache:
