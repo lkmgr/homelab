@@ -9,8 +9,6 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &app esphome
-  dependsOn:
-    - name: cluster-apps-volsync
   interval: 30m
   path: ./kubernetes/apps/default/esphome/app
   postBuild:
