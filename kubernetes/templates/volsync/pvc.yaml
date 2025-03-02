@@ -7,6 +7,10 @@ spec:
   storageClassName: longhorn
   accessModes:
     - ReadWriteOnce
+  dataSourceRef:
+    kind: ReplicationDestination
+    apiGroup: volsync.backube
+    name: "${APP}-bootstrap"
   resources:
     requests:
-      storage: 5Gi
+      storage: "${PVC_SIZE}"

@@ -1,0 +1,21 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationDestination
+metadata:
+  name: "${APP}-bootstrap"
+spec:
+  trigger:
+    manual: restore-once
+  restic:
+    repository: "${APP}-volsync-secret"
+    copyMethod: Snapshot
+    cacheStorageClassName: longhorn-cache
+    cacheAccessModes: ["ReadWriteOnce"]
+    storageClassName: longhorn-cache
+    volumeSnapshotClassName: longhorn-snapshot
+    accessModes: ["ReadWriteOnce"]
+    capacity: "${PVC_SIZE}"
+    enableFileDeletion: true
+    cleanupCachePVC: true
+    cleanupTempPVC: true

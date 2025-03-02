@@ -15,6 +15,7 @@ spec:
     substitute:
       APP: *app
       PVC_NAME: changedetection-data
+      PVC_SIZE: 3Gi
   prune: true
   sourceRef:
     kind: GitRepository

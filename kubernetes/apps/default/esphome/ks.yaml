@@ -15,6 +15,7 @@ spec:
     substitute:
       APP: *app
       PVC_NAME: esphome-config
+      PVC_SIZE: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository
