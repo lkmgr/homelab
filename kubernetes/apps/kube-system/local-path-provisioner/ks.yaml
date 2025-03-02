@@ -6,7 +6,7 @@ metadata:
   name: cluster-apps-local-path-provisioner
   namespace: flux-system
   labels:
-    substitution.flux.home.arpa/disabled: "true"
+    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   targetNamespace: kube-system
   commonMetadata:
