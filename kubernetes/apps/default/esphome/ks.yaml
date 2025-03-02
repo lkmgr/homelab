@@ -6,15 +6,21 @@ metadata:
   name: cluster-apps-esphome
   namespace: flux-system
 spec:
-  targetNamespace: default
   commonMetadata:
     labels:
-      app.kubernetes.io/name: esphome
+      app.kubernetes.io/name: &app esphome
+  dependsOn:
+    - name: cluster-apps-volsync
+  interval: 30m
   path: ./kubernetes/apps/default/esphome/app
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: esphome-config
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: false
-  interval: 30m
+  targetNamespace: default
   timeout: 5m
+  wait: false

@@ -2,8 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: esphome-config
-  namespace: default
+  name: "${PVC_NAME}"
 spec:
   storageClassName: longhorn
   accessModes:
@@ -11,4 +10,3 @@ spec:
   resources:
     requests:
       storage: 5Gi
-
