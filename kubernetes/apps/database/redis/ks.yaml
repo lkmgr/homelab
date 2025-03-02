@@ -6,16 +6,20 @@ metadata:
   name: cluster-apps-redis
   namespace: flux-system
 spec:
-  targetNamespace: database
   commonMetadata:
     labels:
-      app.kubernetes.io/name: redis
+      app.kubernetes.io/name: &app redis
+  interval: 30m
   path: ./kubernetes/apps/database/redis/app
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: redis-data
+      PVC_SIZE: 5Gi
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: true
-  interval: 30m
+  targetNamespace: database
   timeout: 5m
-
+  wait: true

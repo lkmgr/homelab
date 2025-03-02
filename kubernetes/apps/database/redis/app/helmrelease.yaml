@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: redis
-  namespace: database
 spec:
   interval: 30m
   timeout: 15m
@@ -33,7 +32,7 @@ spec:
     master:
       persistence:
         enabled: true
-        existingClaim: redis-data
+        existingClaim: "${PVC_NAME}"
       resourcesPreset: none
     commonConfiguration: |-
       # Enable AOF https://redis.io/topics/persistence#append-only-file
