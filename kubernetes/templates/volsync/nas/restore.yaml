@@ -19,3 +19,7 @@ spec:
     enableFileDeletion: true
     cleanupCachePVC: true
     cleanupTempPVC: true
+    moverSecurityContext:
+      runAsUser: ${APP_UID:-1000}
+      runAsGroup: ${APP_GID:-1000}
+      fsGroup: ${APP_GID:-1000}
