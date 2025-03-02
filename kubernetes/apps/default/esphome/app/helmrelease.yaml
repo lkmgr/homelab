@@ -99,3 +99,7 @@ spec:
         existingClaim: esphome-config
         globalMounts:
           - path: /config
+      esphome-cache:
+        type: emptyDir
+        globalMounts:
+          - /config/.esphome
