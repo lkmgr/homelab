@@ -4,4 +4,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: volsync-system
 resources:
+  - ./volsync-mover-jitter.yaml
   - ./volsync-mover-nfs.yaml
