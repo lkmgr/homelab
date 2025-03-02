@@ -31,7 +31,7 @@ spec:
               repository: libretranslate/libretranslate
               tag: v1.6.4
             env:
-              LT_UPDATE_MODELS: "true"
+              # LT_UPDATE_MODELS: "true"
               LT_LOAD_ONLY: "en,de"
     service:
       app:
