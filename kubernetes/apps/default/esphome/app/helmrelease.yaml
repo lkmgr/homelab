@@ -38,50 +38,21 @@ spec:
               tag: 2024.12.4
             env:
               ESPHOME_DASHBOARD_USE_PING: "true"
-          code-server:
-            image:
-              repository: ghcr.io/coder/code-server
-              tag: 4.96.4
-            env:
-              TZ: "${TIMEZONE}"
-            args:
-              - --auth
-              - "none"
-              - --user-data-dir
-              - "/config/.vscode"
-              - --extensions-dir
-              - "/config/.vscode"
-              - "--port"
-              - "12321"
-              - /config
-            resources:
-              requests:
-                cpu: 10m
-                memory: 128Mi
-              limits:
-                memory: 1Gi
-
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+        fsGroup: 0
+        fsGroupChangePolicy: OnRootMismatch
     service:
       app:
         controller: esphome
         ports:
           http:
             port: 6052
-          code-server:
-            port: 12321
     ingress:
       app:
-        className: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
-        hosts:
-          - host: "esphome.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-      code-server:
         className: nginx
         annotations:
           nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
@@ -91,12 +62,12 @@ spec:
           nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
           nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
         hosts:
-          - host: "esphome-config.${SECRET_DOMAIN}"
+          - host: "esphome.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
                   identifier: app
-                  port: code-server
+                  port: http
     persistence:
       config:
         existingClaim: esphome-config
