@@ -6,15 +6,20 @@ metadata:
   name: cluster-apps-zigbee2mqtt
   namespace: flux-system
 spec:
-  targetNamespace: default
   commonMetadata:
     labels:
-      app.kubernetes.io/name: zigbee2mqtt
+      app.kubernetes.io/name: &app zigbee2mqtt
+  interval: 30m
   path: ./kubernetes/apps/default/zigbee2mqtt/app
+  postBuild:
+    substitute:
+      APP: *app
+      PVC_NAME: zigbee2mqtt-data
+      PVC_SIZE: 2Gi
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
-  wait: false
-  interval: 30m
+  targetNamespace: default
   timeout: 5m
+  wait: false
