@@ -30,8 +30,10 @@ spec:
       defaultDataLocality: best-effort
       reclaimPolicy: Delete
     defaultSettings:
-      backupTarget: s3://longhorn@xyz/
-      backupTargetCredentialSecret: longhorn-ext
+      # backupTarget: s3://longhorn@xyz/
+      backupTarget: null
+      # backupTargetCredentialSecret: longhorn-ext
+      backupTargetCredentialSecret: null
       createDefaultDiskLabeledNodes: true
       defaultDataPath: /var/lib/longhorn/
       defaultDataLocality: best-effort
