@@ -17,7 +17,8 @@ spec:
       weekly: 4
     copyMethod: Snapshot
     cacheCapacity: 1Gi
-    cacheStorageClassName: longhorn-cache
+    # cacheStorageClassName: longhorn-cache
+    cacheStorageClassName: local-path
     cacheAccessModes: ["ReadWriteOnce"]
     storageClassName: longhorn-cache
     volumeSnapshotClassName: longhorn-snapshot

@@ -10,7 +10,8 @@ spec:
   restic:
     repository: "${APP}-volsync-secret"
     copyMethod: Snapshot
-    cacheStorageClassName: longhorn-cache
+    # cacheStorageClassName: longhorn-cache
+    cacheStorageClassName: local-path
     cacheAccessModes: ["ReadWriteOnce"]
     storageClassName: longhorn-cache
     volumeSnapshotClassName: longhorn-snapshot
