@@ -24,16 +24,17 @@ spec:
 #     - default
 #   retain: 10
 #   concurrency: 2
----
-apiVersion: longhorn.io/v1beta1
-kind: RecurringJob
-metadata:
-  name: default-trim
-  namespace: longhorn-system
-spec:
-  cron: "12 1 * * *"
-  task: "filesystem-trim"
-  groups:
-    - default
-  retain: 0
-  concurrency: 2
+
+# ---
+# apiVersion: longhorn.io/v1beta1
+# kind: RecurringJob
+# metadata:
+#   name: default-trim
+#   namespace: longhorn-system
+# spec:
+#   cron: "12 1 * * *"
+#   task: "filesystem-trim"
+#   groups:
+#     - default
+#   retain: 0
+#   concurrency: 2

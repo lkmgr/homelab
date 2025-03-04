@@ -30,10 +30,9 @@ spec:
       defaultDataLocality: best-effort
       reclaimPolicy: Delete
     defaultSettings:
+      backupTarget: "nfs://${NAS_ADDR}:/volume1/backups/longhorn"
       # backupTarget: s3://longhorn@xyz/
-      backupTarget: null
       # backupTargetCredentialSecret: longhorn-ext
-      backupTargetCredentialSecret: null
       createDefaultDiskLabeledNodes: true
       defaultDataPath: /var/lib/longhorn/
       defaultDataLocality: best-effort
