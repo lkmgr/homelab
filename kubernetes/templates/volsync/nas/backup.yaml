@@ -16,7 +16,7 @@ spec:
       daily: 7
       weekly: 4
     copyMethod: Snapshot
-    cacheCapacity: 1Gi
+    cacheCapacity: 4Gi
     # cacheStorageClassName: longhorn-cache
     cacheStorageClassName: openebs-hostpath
     cacheAccessModes: ["ReadWriteOnce"]
