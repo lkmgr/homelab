@@ -18,8 +18,9 @@ spec:
     accessModes: ["ReadWriteOnce"]
     capacity: "${PVC_SIZE}"
     enableFileDeletion: true
-    cleanupCachePVC: true
-    cleanupTempPVC: true
+    # may lead to problems with longhorn: https://github.com/backube/volsync/issues/1504
+    # cleanupCachePVC: true
+    # cleanupTempPVC: true
     moverSecurityContext:
       runAsUser: ${APP_UID:-1000}
       runAsGroup: ${APP_GID:-1000}
