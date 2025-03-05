@@ -97,7 +97,7 @@ spec:
         type: LoadBalancer
         externalTrafficPolicy: Cluster
         annotations:
-          io.cilium/lb-ipam-ips: "${VIP_HOME_ASSISTANT}"
+          lbipam.cilium.io/ips: "${VIP_HOME_ASSISTANT}"
         ports:
           http:
             port: 8123

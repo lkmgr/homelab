@@ -47,7 +47,7 @@ spec:
         type: LoadBalancer
         externalTrafficPolicy: Cluster
         annotations:
-          io.cilium/lb-ipam-ips: "${VIP_VALETUDOPNG}"
+          lbipam.cilium.io/ips: "${VIP_VALETUDOPNG}"
         ports:
           http:
             port: 3000
