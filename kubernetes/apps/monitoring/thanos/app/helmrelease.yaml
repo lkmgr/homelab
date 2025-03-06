@@ -37,7 +37,7 @@ spec:
       replicaCount: 1
       ingress:
         enabled: true
-        ingressClassName: nginx
+        ingressClassName: internal
         hostname: "thanos-query-frontend.${SECRET_DOMAIN}"
         tls: true
         extraTls:
