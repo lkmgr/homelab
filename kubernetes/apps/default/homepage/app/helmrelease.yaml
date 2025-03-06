@@ -70,7 +70,7 @@ spec:
             port: 80
     ingress:
       app:
-        className: external
+        className: internal
         annotations: &annotations
           nginx.ingress.kubernetes.io/auth-method: GET
           nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
