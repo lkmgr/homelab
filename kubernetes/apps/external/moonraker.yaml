@@ -27,7 +27,7 @@ metadata:
   name: moonraker
   namespace: external
 spec:
-  ingressClassName: "nginx"
+  ingressClassName: internal
   rules:
     - host: "moonraker.${SECRET_DOMAIN}"
       http:

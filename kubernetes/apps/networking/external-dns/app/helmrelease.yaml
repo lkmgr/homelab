@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: &app external-dns
-  namespace: networking
 spec:
   interval: 30m
   chart:
@@ -16,10 +15,12 @@ spec:
         name: external-dns
         namespace: flux-system
   install:
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       retries: 3
   values:
@@ -32,11 +33,15 @@ spec:
             name: external-dns
             key: api-token
     extraArgs:
-      - --annotation-filter=external.home.arpa/enabled in (true)
+      - --cloudflare-dns-records-per-page=1000
       - --cloudflare-proxied
-      - --service-type-filter=LoadBalancer
+      - --crd-source-apiversion=externaldns.k8s.io/v1alpha1
+      - --crd-source-kind=DNSEndpoint
+      - --events
+      - --ignore-ingress-tls-spec
+      - --ingress-class=external
     policy: sync
-    sources: ["ingress", "service"]
+    sources: ["crd", "ingress"]
     txtPrefix: k8s.
     txtOwnerId: default
     domainFilters: ["${SECRET_DOMAIN}"]

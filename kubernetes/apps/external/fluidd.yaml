@@ -27,7 +27,7 @@ metadata:
   name: fluidd
   namespace: external
 spec:
-  ingressClassName: "nginx"
+  ingressClassName: internal
   rules:
     - host: "fluidd.${SECRET_DOMAIN}"
       http:
