@@ -19,7 +19,6 @@
   "commitBodyTable": true,
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "ignorePaths": ["archive/**", "bootstrap/**"],
   "rebaseWhen": "conflicted",
   "suppressNotifications": ["prIgnoreNotification"],
   "flux": {
