@@ -6,7 +6,7 @@ resources:
   - ./external.yaml
   - ./internal.yaml
 configMapGenerator:
-  - name: common-values
+  - name: ingress-nginx-common-values
     files:
       - values.yaml=common-values.yaml
 configurations:

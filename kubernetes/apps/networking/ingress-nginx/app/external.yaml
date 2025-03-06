@@ -23,7 +23,7 @@ spec:
       retries: 3
   valuesFrom:
     - kind: ConfigMap
-      name: common-values
+      name: ingress-nginx-common-values
   values:
     fullnameOverride: external-ingress-nginx
     controller:
