@@ -3,8 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &app authelia
-  namespace: default
+  name: authelia
 spec:
   interval: 30m
   chart:
@@ -23,14 +22,12 @@ spec:
     remediation:
       retries: 3
   dependsOn:
-    - name: ext-postgres-operator
-      namespace: database
     - name: redis
       namespace: database
   values:
     controllers:
       authelia:
-        replicas: 2
+        replicas: 1
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -47,26 +44,7 @@ spec:
               # https://www.authelia.com/reference/guides/log-messages/#request-header-too-large
               AUTHELIA_SERVER_BUFFERS_READ: 16384
               AUTHELIA_SERVER_BUFFERS_WRITE: 16384
-              AUTHELIA_STORAGE_POSTGRES_HOST:
-                valueFrom:
-                  secretKeyRef:
-                    name: pg-authelia
-                    key: HOST
-              AUTHELIA_STORAGE_POSTGRES_DATABASE:
-                valueFrom:
-                  secretKeyRef:
-                    name: pg-authelia
-                    key: DATABASE_NAME
-              AUTHELIA_STORAGE_POSTGRES_USERNAME:
-                valueFrom:
-                  secretKeyRef:
-                    name: pg-authelia
-                    key: LOGIN
-              AUTHELIA_STORAGE_POSTGRES_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: pg-authelia
-                    key: PASSWORD
+              AUTHELIA_STORAGE_LOCAL_PATH: /data/db.sqlite3
               AUTHELIA_SESSION_REDIS_HOST: redis-master.database.svc.cluster.local
               AUTHELIA_SESSION_REDIS_PORT: "6379"
               AUTHELIA_SESSION_REDIS_DATABASE_INDEX: "${REDIS_DB_AUTHELIA}"
@@ -96,14 +74,6 @@ spec:
                 memory: 50Mi
               limits:
                 memory: 200Mi
-        pod:
-          topologySpreadConstraints:
-            - maxSkew: 1
-              topologyKey: kubernetes.io/hostname
-              whenUnsatisfiable: DoNotSchedule
-              labelSelector:
-                matchLabels:
-                  app.kubernetes.io/name: *app
     service:
       app:
         controller: authelia
@@ -128,6 +98,10 @@ spec:
                   identifier: app
                   port: http
     persistence:
+      data:
+        existingClaim: "${PVC_NAME}"
+        globalMounts:
+          - path: /data
       config:
         type: secret
         name: authelia-config-secret
