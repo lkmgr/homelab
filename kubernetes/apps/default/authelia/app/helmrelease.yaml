@@ -21,9 +21,6 @@ spec:
     cleanupOnFail: true
     remediation:
       retries: 3
-  dependsOn:
-    - name: redis
-      namespace: database
   values:
     controllers:
       authelia:
@@ -45,14 +42,6 @@ spec:
               AUTHELIA_SERVER_BUFFERS_READ: 16384
               AUTHELIA_SERVER_BUFFERS_WRITE: 16384
               AUTHELIA_STORAGE_LOCAL_PATH: /data/db.sqlite3
-              AUTHELIA_SESSION_REDIS_HOST: redis-master.database.svc.cluster.local
-              AUTHELIA_SESSION_REDIS_PORT: "6379"
-              AUTHELIA_SESSION_REDIS_DATABASE_INDEX: "${REDIS_DB_AUTHELIA}"
-              AUTHELIA_SESSION_REDIS_PASSWORD:
-                valueFrom:
-                  secretKeyRef:
-                    name: authelia-ext
-                    key: REDIS_PASSWORD
             probes:
               liveness: &probe
                 enabled: true
