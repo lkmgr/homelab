@@ -30,7 +30,7 @@ spec:
       service:
         annotations:
           lbipam.cilium.io/ips: "${VIP_INTERNAL_INGRESS}"
-        externalTrafficPolicy: Cluster
+        externalTrafficPolicy: Local
       ingressClassResource:
         name: internal
         default: true
