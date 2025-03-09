@@ -14,7 +14,6 @@ resources:
   - ./homepage/ks.yaml
   - ./libretranslate/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./s3-mirror/ks.yaml
   - ./stirling-pdf/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
