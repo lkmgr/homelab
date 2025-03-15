@@ -3,6 +3,7 @@
 name: Sync Labels
 
 on:
+  workflow_call:
   workflow_dispatch:
   push:
     branches: ["main"]
@@ -18,14 +19,14 @@ jobs:
     name: Sync Labels
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          sparse-checkout: .github/labels.yaml
+      # - name: Checkout
+      #   uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      #   with:
+      #     sparse-checkout: .github/labels.yaml
 
       - name: Sync Labels
         uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2.3.3
         with:
-          config-file: .github/labels.yaml
+          config-file: https://raw.githubusercontent.com/lkmgr/homelab/main/.github/labels.yaml
           token: "${{ secrets.GITHUB_TOKEN }}"
           delete-other-labels: true
