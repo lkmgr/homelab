@@ -9,18 +9,16 @@
       "versioning": "semver",
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
-      },
-      "separateMinorPatch": true
+      }
     },
     {
-      "description": "External Snapshotter Group",
-      "groupName": "External Snapshotter",
-      "matchPackageNames": ["snapshot-controller", "snapshot-validation-webhook"],
+      "description": "Intel Device Plugins Group",
+      "groupName": "Intel-Device-Plugins",
       "matchDatasources": ["helm"],
+      "matchPackageNames": ["/intel-device-plugins-operator/", "/intel-device-plugins-gpu/"],
       "group": {
         "commitMessageTopic": "{{{groupName}}} group"
-      },
-      "separateMinorPatch": true
-    }
+      }
+    },
   ]
 }

@@ -3,24 +3,20 @@
   "extends": [
     "config:recommended",
     "docker:enableMajor",
-    ":disableRateLimiting",
-    ":dependencyDashboard",
-    ":semanticCommits",
-    ":automergeDigest",
-    ":automergeBranch",
+    "helpers:pinGitHubActionDigests",
     "github>lkmgr/homelab//.renovate/allowedVersions.json5",
-    "github>lkmgr/homelab//.renovate/autoMerge.json5",
-    "github>lkmgr/homelab//.renovate/commitMessage.json5",
+    // "github>lkmgr/homelab//.renovate/autoMerge.json5",
+    "github>lkmgr/homelab//.renovate/customManagers.json5",
     "github>lkmgr/homelab//.renovate/groups.json5",
     "github>lkmgr/homelab//.renovate/labels.json5",
     "github>lkmgr/homelab//.renovate/semanticCommits.json5",
+    ":automergeBranch",
+    ":disableRateLimiting",
+    ":semanticCommits",
+    ":timezone(Europe/Berlin)"
   ],
-  "timezone": "Europe/Berlin",
-  "commitBodyTable": true,
-  "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate Dashboard 🤖",
-  "rebaseWhen": "conflicted",
-  "suppressNotifications": ["prIgnoreNotification"],
+  "suppressNotifications": ["prEditedNotification", "prIgnoreNotification"],
   "flux": {
     "fileMatch": [
       "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
@@ -35,7 +31,6 @@
   },
   "kubernetes": {
     "fileMatch": [
-      "(^|/)\\.taskfiles/.+\\.ya?ml(\\.j2)?$",
       "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
       "(^|/)kubernetes/.+\\.ya?ml$"
     ]
@@ -46,52 +41,8 @@
     ]
   },
   "npm": {
-    "rangeStrategy": "bump"
+    "rangeStrategy": "pin"
   },
-  "customManagers": [
-    {
-      "customType": "regex",
-      "description": "Process various other dependencies",
-      "fileMatch": [
-        "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
-        "(^|/)kubernetes/.+\\.ya?ml$"
-      ],
-      "matchStrings": [
-        // Example: `k3s_release_version: "v1.27.3+k3s1"`
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?\"(?<currentValue>.*)\"\n",
-        // Example: `- https://github.com/rancher/system-upgrade-controller/releases/download/v0.11.0/crd.yaml`
-        "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\n.*?-\\s(.*?)\/(?<currentValue>[^/]+)\/[^/]+\n",
-        // Example: apiVersion=helm.cattle.io/v1 kind=HelmChart
-        "datasource=(?<datasource>\\S+)\n.*?repo: (?<registryUrl>\\S+)\n.*?chart: (?<depName>\\S+)\n.*?version: (?<currentValue>\\S+)\n"
-      ],
-      "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
-    },
-    {
-      "customType": "regex",
-      "description": "Process CloudnativePG Postgresql version",
-      "fileMatch": [
-        "(^|/)kubernetes/.+\\.ya?ml(\\.j2)?$"
-      ],
-      "matchStrings": [
-        "imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)"
-      ],
-      "datasourceTemplate": "docker",
-      "versioningTemplate": "redhat"
-    },
-    {
-      "customType": "regex",
-      "description": "Process Pulumi docker image versions in config file",
-      "fileMatch": [
-        "(^|/)Pulumi.*\\.ya?ml$"
-      ],
-      "matchStrings": [
-        // Example: `nginx:image: nginx:alpine3.17`
-        "(?<depName>[\\w.-]+):image:\\s+(?<packageName>[\\w.-\/]+):(?<currentValue>[\\w.-]+)"
-      ],
-      "datasourceTemplate": "docker"
-    }
-  ],
   "packageRules": [
     // custom versioning
     {
