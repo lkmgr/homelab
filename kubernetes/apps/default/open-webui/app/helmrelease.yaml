@@ -46,8 +46,6 @@ spec:
               REDIS_URL: "redis://localhost:6379/0"
               WEBUI_AUTH_TRUSTED_EMAIL_HEADER: "Remote-Email"
               WEBUI_AUTH_TRUSTED_NAME_HEADER: "Remote-Name"
-              DEFAULT_MODELS: "o3-mini"
-              TASK_MODEL_EXTERNAL: "gpt-4o-mini"
             envFrom:
               - secretRef:
                   name: open-webui-secret
