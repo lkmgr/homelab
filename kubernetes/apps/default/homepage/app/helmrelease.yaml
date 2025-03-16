@@ -30,14 +30,14 @@ spec:
           app:
             image:
               repository: ghcr.io/gethomepage/homepage
-              tag: v0.10.9
+              tag: v0.10.9@sha256:b6d732817572f9af99ec168b10641b8f7820f30cfa5a5cc5c68f1e291804bec8
             env:
               TZ: "${TIMEZONE}"
           code:
             dependsOn: app
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.97.2
+              tag: 4.97.2@sha256:6ff0e9cf5a553b3961ece200be75e21e8c887ed0ae28a7c28213722dccf74b0c
             env:
               TZ: "${TIMEZONE}"
             args:

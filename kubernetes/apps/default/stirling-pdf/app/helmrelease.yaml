@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/frooodle/s-pdf
-              tag: 0.18.1
+              tag: 0.18.1@sha256:8967366617998d99ce8f71af9041302e5ee6bd007d8d603456716a54e928eaf7
     service:
       app:
         controller: stirling-pdf
