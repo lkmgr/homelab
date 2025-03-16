@@ -34,7 +34,7 @@ spec:
           app:
             image:
               repository: ghcr.io/erkexzcx/valetudopng
-              tag: v1.0.17
+              tag: v1.0.17@sha256:93497e8c040902b08e94d608d20038afa83601e4f024bee7e6fec365e525e2d2
             env:
               TZ: "${TIMEZONE}"
             resources:
