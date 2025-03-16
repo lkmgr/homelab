@@ -28,7 +28,8 @@
     "fileMatch": [
       "(^|/)ansible/.+\\.ya?ml(\\.j2)?$",
       "(^|/)kubernetes/.+\\.ya?ml$"
-    ]
+    ],
+    "pinDigests": true
   },
   "kubernetes": {
     "fileMatch": [
