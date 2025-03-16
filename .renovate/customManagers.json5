@@ -30,7 +30,8 @@
         "imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)"
       ],
       "datasourceTemplate": "docker",
-      "versioningTemplate": "redhat"
+      "versioningTemplate": "redhat",
+      "pinDigests": false
     },
     {
       "customType": "regex",
@@ -42,7 +43,8 @@
         // Example: `nginx:image: nginx:alpine3.17`
         "(?<depName>[\\w.-]+):image:\\s+(?<packageName>[\\w.-\/]+):(?<currentValue>[\\w.-]+)"
       ],
-      "datasourceTemplate": "docker"
+      "datasourceTemplate": "docker",
+      "pinDigests": false
     }
   ]
 }
