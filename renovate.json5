@@ -1,14 +1,16 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:best-practices",
+    "config:recommended",
     "docker:enableMajor",
+    "helpers:pinGitHubActionDigests",
     "github>lkmgr/homelab//.renovate/allowedVersions.json5",
     // "github>lkmgr/homelab//.renovate/autoMerge.json5",
     "github>lkmgr/homelab//.renovate/customManagers.json5",
     "github>lkmgr/homelab//.renovate/groups.json5",
     "github>lkmgr/homelab//.renovate/labels.json5",
     "github>lkmgr/homelab//.renovate/semanticCommits.json5",
+    ":configMigration",
     ":automergeBranch",
     ":disableRateLimiting",
     ":semanticCommits",

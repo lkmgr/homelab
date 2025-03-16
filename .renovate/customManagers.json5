@@ -17,8 +17,7 @@
         "datasource=(?<datasource>\\S+)\n.*?repo: (?<registryUrl>\\S+)\n.*?chart: (?<depName>\\S+)\n.*?version: (?<currentValue>\\S+)\n"
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}",
-      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
-      "pinDigests": false
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
     },
     {
       "customType": "regex",
@@ -30,8 +29,7 @@
         "imageName: (?<depName>\\S+):(?<currentValue>.*\\-.*)"
       ],
       "datasourceTemplate": "docker",
-      "versioningTemplate": "redhat",
-      "pinDigests": false
+      "versioningTemplate": "redhat"
     },
     {
       "customType": "regex",
@@ -43,8 +41,7 @@
         // Example: `nginx:image: nginx:alpine3.17`
         "(?<depName>[\\w.-]+):image:\\s+(?<packageName>[\\w.-\/]+):(?<currentValue>[\\w.-]+)"
       ],
-      "datasourceTemplate": "docker",
-      "pinDigests": false
+      "datasourceTemplate": "docker"
     }
   ]
 }
