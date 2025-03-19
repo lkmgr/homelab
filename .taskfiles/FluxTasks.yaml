@@ -1,9 +1,8 @@
 ---
 # yaml-language-server: $schema=https://taskfile.dev/schema.json
-version: "3"
+version: '3'
 
 tasks:
-
   install:
     desc: Install Flux into your cluster
     cmds:
@@ -14,11 +13,14 @@ tasks:
       - sops --decrypt {{.KUBERNETES_DIR}}/bootstrap/cluster-extra-deploy-key.sops.yaml | kubectl apply -f -
       - kubectl apply --kustomize {{.KUBERNETES_DIR}}/flux/config
     preconditions:
-      - sh: test -f {{.SOPS_AGE_KEY_FILE}}
-        msg: |
-          Age key file is not found. Did you forget to create it?
+      - { msg: 'Missing kubeconfig', sh: 'test -f {{.KUBECONFIG_FILE}}' }
+      - {
+          msg: 'Flux already installed',
+          sh: 'kubectl get namespace flux-system --kubeconfig {{.KUBECONFIG_FILE}} &>/dev/null && exit 1 || exit 0',
+        }
+      - { msg: 'Missing Sops Age key file', sh: 'test -f {{.SOPS_AGE_FILE}}' }
     vars:
-      SOPS_AGE_KEY_FILE: "{{.ROOT_DIR}}/age.key"
+      SOPS_AGE_KEY_FILE: '{{.ROOT_DIR}}/age.key'
 
   reconcile:
     desc: Force update Flux to pull in changes from your Git repository
