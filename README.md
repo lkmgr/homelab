@@ -30,14 +30,24 @@
 
 ## Requirements
 
-* `mise`
+- `mise` installed
+- Age key in `age.key` file in root folder
 
-## Set up tools
+### Set up tools
 
 ```
 mise install
 mise tasks run install
 ```
+
+## Installation
+
+- Install Debian on hosts, update Ansible `hosts.yaml` and files in `host_vars/`
+- `task ansible:kubernetes playbook=cluster-prepare`
+- `task ansible:kubernetes playbook=cluster-installation`
+- Verify nodes are online
+- Run `flux check --pre`
+- `task flux:install`
 
 ## License
 
