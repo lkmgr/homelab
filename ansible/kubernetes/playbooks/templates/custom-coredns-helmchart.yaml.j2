@@ -52,6 +52,17 @@ spec:
           - name: loop
           - name: reload
           - name: loadbalance
+      # Forward *.internal to router
+      - zones:
+          - zone: internal
+            scheme: dns://
+            use_tcp: true
+        port: 53
+        plugins:
+          - name: log
+          - name: errors
+          - name: forward
+            parameters: . 192.168.1.1
     affinity:
       nodeAffinity:
         requiredDuringSchedulingIgnoredDuringExecution:
