@@ -28,12 +28,12 @@ spec:
     k8sAppLabelOverride: kube-dns
     service:
       name: kube-dns
-      clusterIP: '${COREDNS_ADDR}'
+      clusterIP: "${COREDNS_ADDR}"
     serviceAccount:
       create: true
     deployment:
       annotations:
-        reloader.stakater.com/auto: 'true'
+        reloader.stakater.com/auto: "true"
     servers:
       - zones:
           - zone: .
