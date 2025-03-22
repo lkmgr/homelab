@@ -1,23 +1,23 @@
 {
-  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
   packageRules: [
     {
-      description: 'Flux Group',
-      groupName: 'Flux',
-      matchPackagePatterns: ['flux'],
-      matchDatasources: ['docker', 'github-tags'],
-      versioning: 'semver',
+      description: "Flux Group",
+      groupName: "Flux",
+      matchPackagePatterns: ["flux"],
+      matchDatasources: ["docker", "github-tags"],
+      versioning: "semver",
       group: {
-        commitMessageTopic: '{{{groupName}}} group',
+        commitMessageTopic: "{{{groupName}}} group",
       },
     },
     {
-      description: 'Intel Device Plugins Group',
-      groupName: 'Intel-Device-Plugins',
-      matchDatasources: ['helm'],
-      matchPackageNames: ['/intel-device-plugins-operator/', '/intel-device-plugins-gpu/'],
+      description: "Intel Device Plugins Group",
+      groupName: "Intel-Device-Plugins",
+      matchDatasources: ["helm"],
+      matchPackageNames: ["/intel-device-plugins-operator/", "/intel-device-plugins-gpu/"],
       group: {
-        commitMessageTopic: '{{{groupName}}} group',
+        commitMessageTopic: "{{{groupName}}} group",
       },
     },
   ],
