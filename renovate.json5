@@ -5,7 +5,7 @@
     "docker:enableMajor",
     "helpers:pinGitHubActionDigests",
     "github>lkmgr/homelab//.renovate/allowedVersions.json5",
-    // "github>lkmgr/homelab//.renovate/autoMerge.json5",
+    "github>lkmgr/homelab//.renovate/autoMerge.json5",
     "github>lkmgr/homelab//.renovate/customManagers.json5",
     "github>lkmgr/homelab//.renovate/customVersioning.json5",
     "github>lkmgr/homelab//.renovate/groups.json5",
