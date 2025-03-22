@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cluster-apps-jellyfin
+  namespace: flux-system
+spec:
+  commonMetadata:
+    labels:
+      app.kubernetes.io/name: &app jellyfin
+  interval: 30m
+  path: ./kubernetes/apps/default/jellyfin/app
+  postBuild:
+    substitute:
+      APP: *app
+      APP_UID: "568"
+      APP_GID: "568"
+      PVC_NAME: jellyfin-config
+      PVC_SIZE: 50Gi
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: home-kubernetes
+  targetNamespace: default
+  timeout: 5m
+  wait: false

@@ -1,0 +1,114 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jellyfin
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.1
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: intel-device-plugin-gpu
+      namespace: kube-system
+    - name: longhorn
+      namespace: longhorn-system
+    - name: volsync
+      namespace: volsync-system
+  values:
+    controllers:
+      jellyfin:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/jellyfin/jellyfin
+              tag: 10.10.6@sha256:2aa67ae3eff5384ade5a5675a61ca487e9e1a510312289ac80076837ebeda8c8
+            env:
+              TZ: ${TIMEZONE}
+              # DOTNET_SYSTEM_IO_DISABLEFILELOCKING: "true"
+              # JELLYFIN_FFmpeg__probesize: 50000000
+              # JELLYFIN_FFmpeg__analyzeduration: 50000000
+              JELLYFIN_PublishedServerUrl: ${VIP_JELLYFIN}
+              JELLYFIN_CONFIG_DIR: "/config"
+              JELLYFIN_CACHE_DIR: "/config/cache"
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /health
+                    port: &port 8096
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
+            resources:
+              requests:
+                gpu.intel.com/i915: 1
+                cpu: 100m
+                memory: 512Mi
+              limits:
+                gpu.intel.com/i915: 1
+                memory: 6Gi
+    defaultPodOptions:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
+      securityContext:
+        runAsUser: ${APP_UID}
+        runAsGroup: ${APP_GID}
+        fsGroup: ${APP_GID}
+        fsGroupChangePolicy: OnRootMismatch
+        # supplementalGroups: [44, 105, 10000]
+    service:
+      app:
+        type: LoadBalancer
+        controller: jellyfin
+        annotations:
+          lbipam.cilium.io/ips: "${VIP_JELLYFIN}"
+        ports:
+          http:
+            port: *port
+    ingress:
+      app:
+        className: internal
+        hosts:
+          - host: "jellyfin.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        existingClaim: "${PVC_NAME}"
+        globalMounts:
+          - path: /config
+      transcode:
+        type: emptyDir
+        globalMounts:
+          - path: /transcode
+      media:
+        type: nfs
+        server: nas.internal
+        path: /volume1/video
+        globalMounts:
+          - path: /media
