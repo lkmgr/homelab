@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: libretranslate/libretranslate
-              tag: v1.6.4@sha256:8f8ffac5693ad77618c181f752b7b297ebc31c5ebb801e3771f036bf1e0abb6a
+              tag: v1.6.5@sha256:a3518195e4e810ba0d9dd251a851f24918059d757ef3c5cf8e0f881daf4242fc
             env:
               # LT_UPDATE_MODELS: "true"
               LT_LOAD_ONLY: "en,de"
