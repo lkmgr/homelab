@@ -40,6 +40,7 @@ spec:
       - --events
       - --ignore-ingress-tls-spec
       - --ingress-class=external
+      - --annotation-filter=external-dns.alpha.kubernetes.io/exclude notin (true)
     policy: sync
     sources: ["crd", "ingress"]
     txtPrefix: k8s.
