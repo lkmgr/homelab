@@ -27,7 +27,7 @@ spec:
   dependsOn:
     - name: kube-prometheus-stack-crds
       namespace: monitoring
-    - name: local-path-provisioner
+    - name: openebs
       namespace: kube-system
     - name: longhorn
       namespace: longhorn-system
@@ -204,7 +204,7 @@ spec:
         storageSpec:
           volumeClaimTemplate:
             spec:
-              storageClassName: local-path
+              storageClassName: openebs-hostpath
               resources:
                 requests:
                   storage: 20Gi

@@ -64,7 +64,7 @@ spec:
       retentionResolution1h: 90d
       persistence:
         enabled: true
-        storageClass: local-path
+        storageClass: openebs-hostpath
         size: 10Gi
       resources:
         requests:
@@ -78,7 +78,7 @@ spec:
       replicaCount: 1
       persistence:
         enabled: true
-        storageClass: local-path
+        storageClass: openebs-hostpath
         size: 10Gi
     ruler:
       enabled: true
@@ -99,7 +99,7 @@ spec:
                   severity: critical
       persistence:
         enabled: true
-        storageClass: local-path
+        storageClass: openebs-hostpath
         size: 10Gi
     metrics:
       enabled: true
