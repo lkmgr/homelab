@@ -23,7 +23,7 @@ spec:
     remediation:
       retries: 3
   dependsOn:
-    - name: local-path-provisioner
+    - name: openebs
       namespace: kube-system
   values:
     crds:
