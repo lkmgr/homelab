@@ -54,14 +54,14 @@ spec:
             value: "true"
           - name: vip_leaseduration
             value: "15"
+          - name: vip_nodename
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
           - name: vip_renewdeadline
             value: "10"
           - name: vip_retryperiod
             value: "2"
-          # - name: vip_nodename
-          #   valueFrom:
-          #     fieldRef:
-          #       fieldPath: spec.nodeName
         resources: {}
         securityContext:
           capabilities:

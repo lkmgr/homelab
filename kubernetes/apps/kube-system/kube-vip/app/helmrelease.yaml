@@ -45,6 +45,10 @@ spec:
               vip_ddns: "false"
               vip_leaderelection: "true"
               vip_leaseduration: "15"
+              vip_nodename:
+                valueFrom:
+                  fieldRef:
+                    fieldPath: spec.nodeName
               vip_renewdeadline: "10"
               vip_retryperiod: "2"
             securityContext:
