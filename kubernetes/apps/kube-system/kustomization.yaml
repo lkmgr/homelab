@@ -9,7 +9,6 @@ resources:
   - ./external-secrets/ks.yaml
   - ./intel-device-plugin/ks.yaml
   - ./kube-vip/ks.yaml
-  - ./local-path-provisioner/ks.yaml
   - ./metrics-server/ks.yaml
   - ./node-feature-discovery/ks.yaml
   - ./openebs/ks.yaml
