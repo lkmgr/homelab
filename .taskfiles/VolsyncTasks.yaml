@@ -5,14 +5,27 @@ version: "3"
 tasks:
   snapshot:
     desc: Snapshot an app [NS=default] [APP=required]
+    preconditions:
+      - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
+    requires:
+      vars: [APP]
+    vars:
+      NS: '{{.NS | default "default"}}'
+      JOB: volsync-src-{{.APP}}
     cmds:
       - kubectl --namespace {{.NS}} patch replicationsources {{.APP}} --type merge -p '{"spec":{"trigger":{"manual":"{{now | unixEpoch}}"}}}'
       - until kubectl --namespace {{.NS}} get job/{{.JOB}} &>/dev/null; do sleep 5; done
       - kubectl --namespace {{.NS}} wait job/{{.JOB}} --for=condition=complete --timeout=120m
+
+  snapshot-all:
+    desc: Snapshot all apps of a namespace [NS=default]
     vars:
       NS: '{{.NS | default "default"}}'
-      JOB: volsync-src-{{.APP}}
-    requires:
-      vars: [APP]
-    preconditions:
-      - kubectl --namespace {{.NS}} get replicationsources {{.APP}}
+      APP_LIST:
+        sh: kubectl --namespace {{.NS}} get replicationsources -o jsonpath='{.items[*].metadata.name}'
+    cmds:
+      - for: { var: APP_LIST, as: APP }
+        task: snapshot
+        vars:
+          APP: "{{.APP}}"
+          NS: "{{.NS}}"
