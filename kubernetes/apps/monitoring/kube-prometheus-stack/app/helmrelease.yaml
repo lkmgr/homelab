@@ -104,7 +104,7 @@ spec:
     kubeControllerManager:
       enabled: true
       endpoints: &endpoints
-        - 192.168.4.12
+        - 192.168.4.10
         - 192.168.4.13
         - 192.168.4.14
       serviceMonitor:
