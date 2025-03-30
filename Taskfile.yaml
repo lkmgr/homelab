@@ -20,9 +20,9 @@ env:
 includes:
   ansible: .taskfiles/AnsibleTasks.yaml
   flux: .taskfiles/FluxTasks.yaml
+  volsync: .taskfiles/VolsyncTasks.yaml
 
 tasks:
-
   default: task -l
 
   setup-venv:
