@@ -30,7 +30,7 @@ spec:
     enablePodMonitor: true
   backup:
     retentionPolicy: 10d
-    barmanObjectStore:
+    barmanObjectStore: &barmanObjectStore
       data:
         compression: bzip2
       wal:
@@ -38,7 +38,7 @@ spec:
         maxParallel: 2
       destinationPath: "s3://cloudnativepg/"
       endpointURL: "http://${NAS_ADDR_MINIO}"
-      serverName: postgres-v3
+      serverName: postgres-v4
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-s3
@@ -46,12 +46,11 @@ spec:
         secretAccessKey:
           name: cloudnative-pg-s3
           key: ACCESS_SECRET_KEY
-  affinity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 50
-          preference:
-            matchExpressions:
-              - key: custom/has-nvme
-                operator: In
-                values: ["true"]
+  bootstrap:
+    recovery:
+      source: &previousCluster postgres-v3
+  externalClusters:
+    - name: *previousCluster
+      barmanObjectStore:
+        <<: *barmanObjectStore
+        serverName: *previousCluster
