@@ -3,17 +3,11 @@ kubernetes:
   vars:
     ansible_user: kube
   children:
-    master:
+    controllers:
       hosts:
-        # neon:
-        #   ansible_host: 192.168.4.11
+        helios:
+          ansible_host: 192.168.4.10
         volt:
           ansible_host: 192.168.4.13
         arc:
           ansible_host: 192.168.4.14
-        xenon:
-          ansible_host: 192.168.4.12
-    workers:
-      hosts:
-        helios:
-          ansible_host: 192.168.4.10
