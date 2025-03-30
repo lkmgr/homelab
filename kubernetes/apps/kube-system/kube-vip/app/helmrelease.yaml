@@ -38,7 +38,7 @@ spec:
               cp_namespace: "kube-system"
               lb_enable: "true"
               port: "6443"
-              prometheus_server: :2112
+              # prometheus_server: :2112
               svc_enable: "false"
               vip_arp: "true"
               vip_cidr: "32"
@@ -79,19 +79,19 @@ spec:
           operator: Exists
     serviceAccount:
       create: true
-    service:
-      metrics:
-        nameOverride: metrics
-        controller: kube-vip
-        ports:
-          http:
-            port: 2112
-    serviceMonitor:
-      metrics:
-        serviceName: kube-vip-metrics
-        endpoints:
-          - port: http
-            scheme: http
-            path: /metrics
-            interval: 1m
-            scrapeTimeout: 10s
+    # service:
+    #   metrics:
+    #     nameOverride: metrics
+    #     controller: kube-vip
+    #     ports:
+    #       http:
+    #         port: 2112
+    # serviceMonitor:
+    #   metrics:
+    #     serviceName: kube-vip-metrics
+    #     endpoints:
+    #       - port: http
+    #         scheme: http
+    #         path: /metrics
+    #         interval: 1m
+    #         scrapeTimeout: 10s
