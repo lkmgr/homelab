@@ -34,7 +34,7 @@ spec:
       # backupTarget: s3://longhorn@xyz/
       # backupTargetCredentialSecret: longhorn-ext
       createDefaultDiskLabeledNodes: true
-      defaultDataPath: /var/lib/longhorn/
+      defaultDataPath: /mnt/nvme/longhorn
       defaultDataLocality: best-effort
       storageOverProvisioningPercentage: 200
       storageMinimalAvailablePercentage: 15
