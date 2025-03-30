@@ -43,10 +43,6 @@ spec:
         secretKeyRef:
           name: pg-grafana
           key: DATABASE_NAME
-      GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
-        secretKeyRef:
-          name: grafana-ext
-          key: OAUTH_CLIENT_SECRET
     admin:
       existingSecret: grafana-ext
       userKey: ADMIN_USER
@@ -58,25 +54,14 @@ spec:
         check_for_updates: false
         check_for_plugin_updates: false
         reporting_enabled: false
-      auth:
-        oauth_auto_login: true
       auth.generic_oauth:
-        enabled: true
-        name: Authelia
-        client_id: grafana
-        icon: signin
-        scopes: openid profile email groups
-        empty_scopes: false
-        auth_url: https://auth.${SECRET_DOMAIN}/api/oidc/authorization
-        token_url: https://auth.${SECRET_DOMAIN}/api/oidc/token
-        api_url: https://auth.${SECRET_DOMAIN}/api/oidc/userinfo
-        role_attribute_path: contains(groups[*], 'admins') && 'Admin' || 'Viewer'
-        login_attribute_path: preferred_username
-        groups_attribute_path: groups
-        name_attribute_path: name
-        use_pkce: true
-      auth.proxy:
         enabled: false
+      auth.proxy:
+        enabled: true
+        header_name: Remote-User
+        header_property: username
+        auto_sign_up: true
+        headers: Name:Remote-Name Email:Remote-Email
       auth.basic:
         enabled: false
       auth.anonymous:
@@ -292,6 +277,12 @@ spec:
     ingress:
       enabled: true
       ingressClassName: internal
+      annotations:
+        nginx.ingress.kubernetes.io/auth-method: GET
+        nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
+        nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}?rm=$request_method
+        nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+        nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
       hosts:
         - &host "grafana.${SECRET_DOMAIN}"
       tls:
