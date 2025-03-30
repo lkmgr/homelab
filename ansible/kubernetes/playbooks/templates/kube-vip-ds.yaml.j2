@@ -25,45 +25,43 @@ spec:
               - key: node-role.kubernetes.io/control-plane
                 operator: Exists
       containers:
-      - args: ["manager"]
-        env:
-        - name: vip_arp
-          value: "true"
-        - name: port
-          value: "6443"
-        - name: vip_nodename
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        # - name: vip_interface
-        #   value: enp4s0
-        - name: vip_cidr
-          value: "32"
-        - name: dns_mode
-          value: first
-        - name: cp_enable
-          value: "true"
-        - name: cp_namespace
-          value: kube-system
-        - name: svc_enable
-          value: "false"
-        - name: vip_leaderelection
-          value: "true"
-        - name: vip_leasename
-          value: plndr-cp-lock
-        - name: vip_leaseduration
-          value: "15"
-        - name: vip_renewdeadline
-          value: "10"
-        - name: vip_retryperiod
-          value: "2"
-        - name: address
-          value: "{{ kube_vip_addr }}"
-        - name: prometheus_server
-          value: :2112
+      - name: kube-vip
         image: ghcr.io/kube-vip/kube-vip:v0.8.9@sha256:717b8bef2758c10042d64ae7949201ef7f243d928fce265b04e488e844bf9528
         imagePullPolicy: IfNotPresent
-        name: kube-vip
+        args: ["manager"]
+        env:
+          - name: address
+            value: "{{ kube_vip_addr }}"
+          - name: cp_enable
+            value: "true"
+          - name: cp_namespace
+            value: kube-system
+          - name: lb_enable
+            value: "true"
+          - name: port
+            value: "6443"
+          - name: prometheus_server
+            value: :2112
+          - name: svc_enable
+            value: "false"
+          - name: vip_arp
+            value: "true"
+          - name: vip_cidr
+            value: "32"
+          - name: vip_ddns
+            value: "false"
+          - name: vip_leaderelection
+            value: "true"
+          - name: vip_leaseduration
+            value: "15"
+          - name: vip_renewdeadline
+            value: "10"
+          - name: vip_retryperiod
+            value: "2"
+          # - name: vip_nodename
+          #   valueFrom:
+          #     fieldRef:
+          #       fieldPath: spec.nodeName
         resources: {}
         securityContext:
           capabilities:
