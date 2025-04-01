@@ -50,8 +50,11 @@ spec:
               - "alertmanager.${SECRET_DOMAIN}"
       alertmanagerSpec:
         replicas: 1
-        useExistingSecret: true
-        configSecret: alertmanager-secret
+        alertmanagerConfiguration:
+          name: alertmanager
+          global:
+            resolveTimeout: 5m
+        externalUrl: "https://alertmanager.${SECRET_DOMAIN}"
         storage:
           volumeClaimTemplate:
             spec:
@@ -208,19 +211,14 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
-        additionalScrapeConfigs:
-          - job_name: minio
-            metrics_path: /minio/v2/metrics/cluster
-            static_configs:
-              - targets:
-                  - "${NAS_ADDR_MINIO}"
-          - job_name: minio-ssd
-            metrics_path: /minio/v2/metrics/cluster
-            static_configs:
-              - targets:
-                  - "${NAS_ADDR_MINIO_SSD}"
-          - job_name: node-exporter
-            metrics_path: /metrics
-            static_configs:
-              - targets:
-                  - "${NAS_ADDR}:9100"
+    additionalPrometheusRulesMap:
+      oom-rules:
+        groups:
+          - name: oom
+            rules:
+              - alert: OomKilled
+                annotations:
+                  summary: Container {{ $labels.container }} in pod {{ $labels.namespace }}/{{ $labels.pod }} has been OOMKilled {{ $value }} times in the last 10 minutes.
+                expr: (kube_pod_container_status_restarts_total - kube_pod_container_status_restarts_total offset 10m >= 1) and ignoring (reason) min_over_time(kube_pod_container_status_last_terminated_reason{reason="OOMKilled"}[10m]) == 1
+                labels:
+                  severity: critical
