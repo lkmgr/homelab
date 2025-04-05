@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: orcaslicer
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.2
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  values:
+    controllers:
+      orcaslicer:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: lscr.io/linuxserver/orcaslicer
+              tag: 2.3.0
+            env:
+              TZ: "${TIMEZONE}"
+              PUID: "1000"
+              PGID: "1000"
+            resources:
+              requests:
+                gpu.intel.com/i915: 1
+              limits:
+                gpu.intel.com/i915: 1
+    defaultPodOptions:
+      nodeSelector:
+        intel.feature.node.kubernetes.io/gpu: "true"
+    service:
+      app:
+        controller: orcaslicer
+        ports:
+          http:
+            port: 3000
+    ingress:
+      app:
+        className: internal
+        annotations:
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+          nginx.ingress.kubernetes.io/auth-method: GET
+          nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
+          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}?rm=$request_method
+          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
+          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
+        hosts:
+          - host: "orcaslicer.${SECRET_DOMAIN}"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+    persistence:
+      config:
+        existingClaim: "${PVC_NAME}"
+        globalMounts:
+          - path: /config
