@@ -35,6 +35,7 @@ spec:
               TZ: "${TIMEZONE}"
               PUID: "1000"
               PGID: "1000"
+              DRINODE: /dev/dri/renderD128
             resources:
               requests:
                 gpu.intel.com/i915: 1
@@ -71,3 +72,15 @@ spec:
         existingClaim: "${PVC_NAME}"
         globalMounts:
           - path: /config
+    networkpolicies:
+      main:
+        controller: orcaslicer
+        policyTypes:
+          - Ingress
+        rules:
+          ingress:
+            - from:
+                - namespaceSelector: {}
+                  podSelector:
+                    matchLabels:
+                      app.kubernetes.io/name: ingress-nginx
