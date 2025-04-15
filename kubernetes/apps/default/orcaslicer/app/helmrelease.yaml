@@ -30,7 +30,7 @@ spec:
           app:
             image:
               repository: lscr.io/linuxserver/orcaslicer
-              tag: 2.3.0
+              tag: 2.3.0@sha256:f21607a80e62b32a00ef8bd237d51341a8a5af288b12389db6d855b94eab2df4
             env:
               TZ: "${TIMEZONE}"
               PUID: "1000"
