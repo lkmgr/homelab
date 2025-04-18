@@ -6,4 +6,3 @@ namespace: default
 resources:
   - ../../../../templates/volsync
   - ./helmrelease.yaml
-  - ./postgresql.yaml
