@@ -19,7 +19,7 @@ spec:
     substitute:
       APP: *app
       PVC_NAME: home-assistant-config
-      PVC_SIZE: 5Gi
+      PVC_SIZE: 20Gi
   prune: true
   sourceRef:
     kind: GitRepository
