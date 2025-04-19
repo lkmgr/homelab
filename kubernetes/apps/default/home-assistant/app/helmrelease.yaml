@@ -47,9 +47,6 @@ spec:
               tag: 2025.4.2@sha256:205fbf9450ebb5570eb0e4e53e64b1af040bf5725056b14293c659ca4dcd8a05
             env:
               TZ: "${TIMEZONE}"
-            envFrom:
-              - secretRef:
-                  name: pg-home-assistant-user
             # probes:
             #   liveness:
             #     enabled: false
