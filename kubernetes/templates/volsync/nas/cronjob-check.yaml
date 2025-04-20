@@ -5,6 +5,9 @@ metadata:
   name: "${APP}-restic-check"
 spec:
   schedule: "0 2 * * 3"
+  timeZone: "Etc/UTC"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
