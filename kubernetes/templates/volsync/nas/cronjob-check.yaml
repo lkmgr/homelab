@@ -4,7 +4,7 @@ kind: CronJob
 metadata:
   name: "${APP}-restic-check"
 spec:
-  schedule: "0 2 * * *"
+  schedule: "0 2 * * 3"
   jobTemplate:
     spec:
       template:
@@ -17,7 +17,7 @@ spec:
           containers:
             - name: restic
               image: restic/restic:0.18.0
-              command: ["restic", "check"]
+              command: ["restic", "check", "--read-data"]
               envFrom:
                 - secretRef:
                     name: "${APP}-volsync-secret"
