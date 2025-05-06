@@ -17,7 +17,7 @@ const adguardContainer = new docker.Container(
     name: 'pulumi-adguard',
     image: adguardImage.imageId,
     restart: 'unless-stopped',
-    command: ['--web-addr=0.0.0.0:53', '--no-check-update'],
+    // command: ['--web-addr=0.0.0.0:53', '--no-check-update'],
     ports: [
       { internal: 53, external: 53, protocol: 'tcp' },
       { internal: 53, external: 53, protocol: 'udp' },
