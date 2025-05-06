@@ -14,12 +14,12 @@ spec:
         spec:
           initContainers:
             - name: jitter
-              image: docker.io/library/busybox:latest
+              image: docker.io/library/busybox:latest@sha256:37f7b378a29ceb4c551b1b5582e27747b855bbfaa73fa11914fe0df028dc581f
               imagePullPolicy: IfNotPresent
               command: ["sh", "-c", "sleep $(shuf -i 0-300 -n 1)"]
           containers:
             - name: restic
-              image: restic/restic:0.18.0
+              image: restic/restic:0.18.0@sha256:4cf4a61ef9786f4de53e9de8c8f5c040f33830eb0a10bf3d614410ee2fcb6120
               command: ["restic", "check", "--read-data"]
               envFrom:
                 - secretRef:
