@@ -1,4 +1,5 @@
 config:
+  adguard:image: adguard/adguardhome:v0.107.61
   dnsproxy:domain:
     secure: AAABAL9Y8QSnlPSlqKATVNyQyyogzQ/Z2H+uUb48pZp0dBW7paFQ2A==
   dnsproxy:image: adguard/dnsproxy:v0.75.2
