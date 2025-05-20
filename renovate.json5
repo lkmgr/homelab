@@ -20,17 +20,26 @@
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
   flux: {
-    fileMatch: ["(^|/)ansible/.+\\.ya?ml(\\.j2)?$", "(^|/)kubernetes/.+\\.ya?ml$"],
+    managerFilePatterns: [
+      "/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/",
+      "/(^|/)kubernetes/.+\\.ya?ml$/",
+    ],
   },
   "helm-values": {
-    fileMatch: ["(^|/)ansible/.+\\.ya?ml(\\.j2)?$", "(^|/)kubernetes/.+\\.ya?ml$"],
+    managerFilePatterns: [
+      "/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/",
+      "/(^|/)kubernetes/.+\\.ya?ml$/",
+    ],
     pinDigests: true,
   },
   kubernetes: {
-    fileMatch: ["(^|/)ansible/.+\\.ya?ml(\\.j2)?$", "(^|/)kubernetes/.+\\.ya?ml$"],
+    managerFilePatterns: [
+      "/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/",
+      "/(^|/)kubernetes/.+\\.ya?ml$/",
+    ],
   },
   kustomize: {
-    fileMatch: ["(^|/)kustomization\\.ya?ml(\\.j2)?$"],
+    managerFilePatterns: ["/(^|/)kustomization\\.ya?ml(\\.j2)?$/"],
   },
   npm: {
     rangeStrategy: "pin",
