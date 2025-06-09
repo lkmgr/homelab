@@ -63,7 +63,7 @@ spec:
           appdaemon:
             image:
               repository: docker.io/acockburn/appdaemon
-              tag: 4.5.10@sha256:55bfe7c9d43a18ae3ac2bcf374cf1d64921dab351f0cc8979a65153dbbcd399f
+              tag: 4.4.2@sha256:9619fc18bc53082ae2dc680e80f1bcb634c793a74b2114779df1b381ffa0736c
             env:
               TZ: "${TIMEZONE}"
           code-server:
