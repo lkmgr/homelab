@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: 0.6.13@sha256:ddc64d14ec933e8c1caf017df8a0068bece3e35acbc59e4aa4971e5aa4176a72
+              tag: v0.6.15@sha256:fda936056184035a71a9ad5ff3721530ff061f16bc3907efb33a3201ba87ccfe
             env:
               TZ: "${TIMEZONE}"
               ENABLE_OLLAMA_API: false
