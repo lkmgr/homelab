@@ -2,7 +2,7 @@ config:
   adguard:image: adguard/adguardhome:v0.107.63
   dnsproxy:domain:
     secure: AAABAL9Y8QSnlPSlqKATVNyQyyogzQ/Z2H+uUb48pZp0dBW7paFQ2A==
-  dnsproxy:image: adguard/dnsproxy:v0.75.5
+  dnsproxy:image: adguard/dnsproxy:v0.76.1
   homelab:ssh-host:
     secure: AAABAMDj40XLfDAJGm1gs8CDwxbtRFX9jtm38fSQMUq7vRj3pRe+K7CyYOdb9f4FfHJu4k5lnbVcXSP8
   homelab:ssh-key:
