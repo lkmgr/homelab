@@ -56,7 +56,7 @@ spec:
           redis:
             image:
               repository: docker.io/valkey/valkey
-              tag: 8.1.1@sha256:a19bebed6a91bd5e6e2106fef015f9602a3392deeb7c9ed47548378dcee3dfc2
+              tag: 8.1.3@sha256:facc1d2c3462975c34e10fccb167bfa92b0e0dbd992fc282c29a61c3243afb11
             ports:
               - containerPort: 6379
     service:
