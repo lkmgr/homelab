@@ -44,7 +44,7 @@ spec:
           app:
             image:
               repository: ghcr.io/home-assistant/home-assistant
-              tag: 2025.5.3@sha256:8a99004ff832dbd535e6ac4d141042bc31141ff6a86b4d5bb288b3680fbceac1
+              tag: 2025.7.2@sha256:90e105ff097717556df4e87da3b825af85b181c763ca2b8d840aeae5d34a083c
             env:
               TZ: "${TIMEZONE}"
             # probes:
