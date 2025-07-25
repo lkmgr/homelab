@@ -57,3 +57,10 @@ spec:
                 service:
                   identifier: app
                   port: http
+    networkpolicies:
+      main:
+        controller: stirling-pdf
+        policyTypes:
+          - Egress
+        rules:
+          egress: []
