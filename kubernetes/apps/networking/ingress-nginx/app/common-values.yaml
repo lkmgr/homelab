@@ -25,6 +25,7 @@ controller:
       "http_user_agent": "$http_user_agent"}
     proxy-body-size: 0
     proxy-buffer-size: 16k
+    proxy-busy-buffers-size: 16k
     proxy-connect-timeout: 60
     proxy-read-timeout: 1800
     proxy-send-timeout: 1800
