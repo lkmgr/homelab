@@ -6,7 +6,7 @@ metadata:
   namespace: database
 spec:
   instances: 2
-  imageName: ghcr.io/cloudnative-pg/postgresql:15.13-6
+  imageName: ghcr.io/cloudnative-pg/postgresql:15.13-22
   primaryUpdateStrategy: unsupervised
   storage:
     size: 60Gi
