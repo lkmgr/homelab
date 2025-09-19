@@ -37,7 +37,7 @@ spec:
             dependsOn: app
             image:
               repository: ghcr.io/coder/code-server
-              tag: 4.102.2@sha256:8c2aaafb74a2978f48d193135eb3ea6fc0e24563dd59c028b9f1808cefd0fa33
+              tag: 4.104.1@sha256:66b4f0e6d32da53b0cf6af7cb0894b4078a93f2e160a9270c539e12e1ebf278d
             env:
               TZ: "${TIMEZONE}"
             args:
