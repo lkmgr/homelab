@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/authelia/authelia
-              tag: 4.39.5@sha256:023e02e5203dfa0ebaee7a48b5bae34f393d1f9cada4a9df7fbf87eb1759c671
+              tag: 4.39.13@sha256:7adc2a95b6a4be9332f6a420fdf59c7031bff203d1046ab80d8fbd66f5b1095f
             command: ["authelia"]
             args: ["--config", "/config/configuration.yaml"]
             env:
