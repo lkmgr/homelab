@@ -14,7 +14,7 @@ spec:
         spec:
           initContainers:
             - name: jitter
-              image: docker.io/library/busybox:latest@sha256:f85340bf132ae937d2c2a763b8335c9bab35d6e8293f70f606b9c6178d84f42b
+              image: docker.io/library/busybox:latest@sha256:2f590fc602ce325cbff2ccfc39499014d039546dc400ef8bbf5c6ffb860632e7
               imagePullPolicy: IfNotPresent
               command: ["sh", "-c", "sleep $(shuf -i 0-300 -n 1)"]
           containers:
