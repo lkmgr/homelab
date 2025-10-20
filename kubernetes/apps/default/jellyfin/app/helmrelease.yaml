@@ -41,10 +41,10 @@ spec:
             env:
               TZ: ${TIMEZONE}
               JELLYFIN_PublishedServerUrl: ${VIP_JELLYFIN}
-              JELLYFIN_CONFIG_DIR: "/config"
-              JELLYFIN_CACHE_DIR: "/config/cache"
-              JELLYFIN_DATA_DIR: "/config/data"
-              JELLYFIN_LOG_DIR: "/config/log"
+              JELLYFIN_DATA_DIR: "/data"
+              JELLYFIN_CONFIG_DIR: "/data/config"
+              JELLYFIN_CACHE_DIR: "/data/cache"
+              JELLYFIN_LOG_DIR: "/data/log"
             probes:
               liveness: &probes
                 enabled: true
@@ -97,10 +97,10 @@ spec:
                   identifier: app
                   port: http
     persistence:
-      config:
+      data:
         existingClaim: "${PVC_NAME}"
         globalMounts:
-          - path: /config
+          - path: /data
       transcode:
         type: emptyDir
         globalMounts:
