@@ -59,7 +59,7 @@ tasks:
               {
                 "name": "debug",
                 "image": "alpine:latest",
-                "command": ["/bin/bash"],
+                "command": ["/bin/sh"],
                 "stdin": true,
                 "stdinOnce": true,
                 "tty": true,
