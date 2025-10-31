@@ -96,6 +96,12 @@ spec:
         annotations:
           lbipam.cilium.io/ips: "${VIP_HOME_ASSISTANT}"
         ports:
+          mdns:
+            port: 5353
+            protocol: UDP
+          coiot:
+            port: 5683
+            protocol: UDP
           http:
             port: 8123
           homekit:
