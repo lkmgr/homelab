@@ -34,18 +34,18 @@ spec:
       createDefaultDiskLabeledNodes: true
       defaultDataPath: /mnt/nvme/longhorn
       defaultDataLocality: best-effort
-      storageOverProvisioningPercentage: 200
-      storageMinimalAvailablePercentage: 15
-      storageReservedPercentageForDefaultDisk: 15
+      storageOverProvisioningPercentage: "200"
+      storageMinimalAvailablePercentage: "15"
+      storageReservedPercentageForDefaultDisk: "15"
       defaultReplicaCount: 2
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
-      concurrentAutomaticEngineUpgradePerNodeLimit: 1
+      concurrentAutomaticEngineUpgradePerNodeLimit: "1"
       restoreVolumeRecurringJobs: false
       removeSnapshotsDuringFilesystemTrim: true
       v1DataEngine: true
       v2DataEngine: false
       orphanResourceAutoDeletion: replica-data
-      orphanResourceAutoDeletionGracePeriod: 1800
+      orphanResourceAutoDeletionGracePeriod: "1800"
     # defaultBackupStore:
     #   pollInterval: 3600
     csi:
