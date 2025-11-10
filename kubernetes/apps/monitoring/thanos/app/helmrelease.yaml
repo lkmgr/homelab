@@ -28,6 +28,9 @@ spec:
       registry: quay.io
       repository: thanos/thanos
       tag: v0.40.1
+    global:
+      security:
+        allowInsecureImages: true
     existingObjstoreSecret: thanos-objstore
     queryFrontend:
       enabled: true
