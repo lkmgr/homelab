@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: longhorn
-      version: 1.8.1
+      version: 1.9.2
       sourceRef:
         kind: HelmRepository
         name: longhorn
@@ -31,8 +31,6 @@ spec:
       reclaimPolicy: Delete
     defaultSettings:
       backupTarget: "nfs://${NAS_ADDR}:/volume1/backups/longhorn"
-      # backupTarget: s3://longhorn@xyz/
-      # backupTargetCredentialSecret: longhorn-ext
       createDefaultDiskLabeledNodes: true
       defaultDataPath: /mnt/nvme/longhorn
       defaultDataLocality: best-effort
@@ -46,6 +44,8 @@ spec:
       removeSnapshotsDuringFilesystemTrim: true
       v1DataEngine: true
       v2DataEngine: false
+      orphanResourceAutoDeletion: replica-data
+      orphanResourceAutoDeletionGracePeriod: 1800
     # defaultBackupStore:
     #   pollInterval: 3600
     csi:
