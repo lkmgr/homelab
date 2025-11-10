@@ -37,7 +37,7 @@ spec:
       storageOverProvisioningPercentage: "200"
       storageMinimalAvailablePercentage: "15"
       storageReservedPercentageForDefaultDisk: "15"
-      defaultReplicaCount: 2
+      defaultReplicaCount: '{"v1":"2","v2":"2"}'
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       concurrentAutomaticEngineUpgradePerNodeLimit: "1"
       restoreVolumeRecurringJobs: false
