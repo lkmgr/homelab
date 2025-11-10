@@ -24,6 +24,10 @@ spec:
     remediation:
       retries: 3
   values:
+    image:
+      registry: quay.io
+      repository: thanos/thanos
+      tag: v0.40.1
     existingObjstoreSecret: thanos-objstore
     queryFrontend:
       enabled: true
