@@ -1,0 +1,59 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: authelia-extauthz-internal
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: internal-auth
+  extAuth:
+    headersToExtAuth:
+      - accept
+      - cookie
+      - authorization
+      - header-authorization
+      - x-forwarded-proto
+    failOpen: false
+    http:
+      backendRefs:
+        - name: authelia
+          namespace: default
+          port: 80
+      path: /api/authz/ext-authz/
+      headersToBackend:
+        - Remote-User
+        - Remote-Groups
+        - Remote-Name
+        - Remote-Email
+
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: authelia-extauthz-external
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external-auth
+  extAuth:
+    headersToExtAuth:
+      - accept
+      - cookie
+      - authorization
+      - header-authorization
+      - x-forwarded-proto
+    failOpen: false
+    http:
+      backendRefs:
+        - name: authelia
+          namespace: default
+          port: 80
+      path: /api/authz/ext-authz/
+      headersToBackend:
+        - Remote-User
+        - Remote-Groups
+        - Remote-Name
+        - Remote-Email
