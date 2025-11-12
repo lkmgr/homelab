@@ -12,6 +12,7 @@ resources:
   - ./cloudnative-pg.yaml
   - ./coredns.yaml
   - ./csi-driver-nfs.yaml
+  - ./envoy-gateway-crds.yaml
   - ./envoy-gateway.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
