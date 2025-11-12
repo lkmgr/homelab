@@ -8,4 +8,4 @@ metadata:
 spec:
   type: oci
   interval: 5m
-  url: oci://docker.io/envoyproxy/gateway-helm
+  url: oci://registry-1.docker.io/envoyproxy/gateway-helm
