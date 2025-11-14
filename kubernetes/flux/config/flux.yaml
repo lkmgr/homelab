@@ -26,7 +26,7 @@ spec:
     name: flux-manifests
   patches:
     # Remove the network policies that does not work with k3s
-    - patch: |
+    - patch: |-
         $patch: delete
         apiVersion: networking.k8s.io/v1
         kind: NetworkPolicy
@@ -37,7 +37,7 @@ spec:
         kind: NetworkPolicy
     # Increase the number of reconciliations that can be performed in parallel and bump the resources limits
     # https://fluxcd.io/flux/cheatsheets/bootstrap/#increase-the-number-of-workers
-    - patch: |
+    - patch: |-
         - op: add
           path: /spec/template/spec/containers/0/args/-
           value: --concurrent=8
@@ -47,7 +47,7 @@ spec:
       target:
         kind: Deployment
         name: (kustomize-controller|helm-controller|source-controller)
-    - patch: |
+    - patch: |-
         apiVersion: apps/v1
         kind: Deployment
         metadata:
@@ -59,14 +59,12 @@ spec:
                 - name: manager
                   resources:
                     limits:
-                      cpu: 2000m
                       memory: 2Gi
       target:
         kind: Deployment
         name: (kustomize-controller|helm-controller|source-controller)
-    # Enable Helm near OOM detection
-    # https://fluxcd.io/flux/cheatsheets/bootstrap/#enable-helm-near-oom-detection
-    - patch: |
+    # Flux near OOM detection for Helm
+    - patch: |-
         - op: add
           path: /spec/template/spec/containers/0/args/-
           value: --feature-gates=OOMWatch=true
@@ -79,3 +77,33 @@ spec:
       target:
         kind: Deployment
         name: helm-controller
+    # Enable in-memory kustomize builds
+    - patch: |-
+        - op: add
+          path: /spec/template/spec/containers/0/args/-
+          value: --concurrent=20
+        - op: replace
+          path: /spec/template/spec/volumes/0
+          value:
+            name: temp
+            emptyDir:
+              medium: Memory
+      target:
+        kind: Deployment
+        name: kustomize-controller
+    # Disable chart digest tracking
+    - patch: |-
+        - op: add
+          path: /spec/template/spec/containers/0/args/-
+          value: --feature-gates=DisableChartDigestTracking=true
+      target:
+        kind: Deployment
+        name: helm-controller
+    # Cancel health checks on new Kustomizations revisions
+    - patch: |-
+        - op: add
+          path: /spec/template/spec/containers/0/args/-
+          value: --feature-gates=CancelHealthCheckOnNewRevision=true
+      target:
+        kind: Deployment
+        name: kustomize-controller
