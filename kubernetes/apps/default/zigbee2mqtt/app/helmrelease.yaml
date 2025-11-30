@@ -27,6 +27,17 @@ spec:
     - name: mosquitto
       namespace: default
   values:
+    defaultPodOptions:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/hostname
+                    operator: In
+                    values:
+                      - helios
     controllers:
       zigbee2mqtt:
         annotations:
