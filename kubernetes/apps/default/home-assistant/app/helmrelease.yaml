@@ -26,8 +26,6 @@ spec:
       namespace: longhorn-system
   values:
     defaultPodOptions:
-      nodeSelector:
-        feature.node.kubernetes.io/custom-sonoff-zigbee: "true"
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       # TODO: Run as 1000:1000

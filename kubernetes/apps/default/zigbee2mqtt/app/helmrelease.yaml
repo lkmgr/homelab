@@ -27,9 +27,6 @@ spec:
     - name: mosquitto
       namespace: default
   values:
-    defaultPodOptions:
-      nodeSelector:
-        feature.node.kubernetes.io/custom-sonoff-zigbee: "true"
     controllers:
       zigbee2mqtt:
         annotations:
@@ -77,11 +74,3 @@ spec:
         existingClaim: "${PVC_NAME}"
         globalMounts:
           - path: /data
-      usb:
-        type: hostPath
-        hostPathType: CharDevice
-        hostPath: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_fe3bbcfff93aec11b2c29c957a0af07f-if00-port0
-        advancedMounts:
-          zigbee2mqtt:
-            app:
-              - path: /dev/serial/by-id/usb-ITead_Sonoff_Zigbee_3.0_USB_Dongle_Plus_fe3bbcfff93aec11b2c29c957a0af07f-if00-port0
