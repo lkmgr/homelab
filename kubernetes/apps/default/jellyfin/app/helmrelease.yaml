@@ -37,7 +37,7 @@ spec:
           app:
             image:
               repository: ghcr.io/jellyfin/jellyfin
-              tag: 10.11.2@sha256:749972be6e7d440a47531ee36c9e38ea7a6271c875f42e8a52851c39862b0773
+              tag: 10.11.4@sha256:37f2625f5d5d70c5b1ceb57f4d8f2a7ff666ea723fb96b468275bbafbde2c06c
             env:
               TZ: ${TIMEZONE}
               JELLYFIN_PublishedServerUrl: ${VIP_JELLYFIN}
