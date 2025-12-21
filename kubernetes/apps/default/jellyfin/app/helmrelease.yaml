@@ -104,7 +104,7 @@ spec:
       transcode:
         type: emptyDir
         globalMounts:
-          - path: /transcode
+          - path: /data/cache/transcodes
       media:
         type: nfs
         server: nas.internal
