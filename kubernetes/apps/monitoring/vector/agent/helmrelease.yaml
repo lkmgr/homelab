@@ -39,9 +39,6 @@ spec:
         address: 127.0.0.1:8686
         playground: false
       sources:
-        sr_journald:
-          type: journald
-          journal_directory: /var/log/journal
         sr_kubernetes:
           type: kubernetes_logs
           use_apiserver_cache: true
@@ -82,19 +79,6 @@ spec:
             - tr_nginx_without_empty
           source: .message = parse_json!(.message)
       sinks:
-        si_loki_journald:
-          type: loki
-          inputs:
-            - sr_journald
-          endpoint: http://loki-gateway.monitoring.svc.cluster.local
-          encoding:
-            codec: json
-          out_of_order_action: accept
-          remove_label_fields: true
-          remove_timestamp: true
-          labels:
-            hostname: >-
-              {{`{{ host }}`}}
         si_loki_kubernetes:
           type: loki
           inputs:
