@@ -25,7 +25,7 @@ spec:
   values:
     image:
       repository: ghcr.io/movetokube/postgres-operator
-      tag: 2.3.0@sha256:6c2cd12010bf2d62c036df7ab802f2e8ccb07baead25528b5ce8cb8ac9250b76
+      tag: 2.4.0@sha256:def57d85a2dab9b5f1f50dded8b066aa9742fb8e5eaf111ac805d9755899492b
     existingSecret: ext-postgres-operator
     resources:
       requests:
