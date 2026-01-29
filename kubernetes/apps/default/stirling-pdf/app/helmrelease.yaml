@@ -31,7 +31,7 @@ spec:
           app:
             image:
               repository: ghcr.io/stirling-tools/stirling-pdf
-              tag: 2.1.5@sha256:e8b96ebd749ee6c087f853c31fbbb79dc35bb08792bdd5ef0e72e74f5b209ea1
+              tag: 2.4.1@sha256:99e82be32a8bc70e99f284f5b2e1be582be05f7410e3707932fce973b0678419
     service:
       app:
         controller: stirling-pdf
