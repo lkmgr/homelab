@@ -43,7 +43,7 @@ data:
       rotate: 0
 
       custom_limits:
-        start_x: 2550
-        start_y: 3080
-        end_x: 3820
-        end_y: 3875
+        start_x: 2725
+        start_y: 2670
+        end_x: 3995
+        end_y: 3465
