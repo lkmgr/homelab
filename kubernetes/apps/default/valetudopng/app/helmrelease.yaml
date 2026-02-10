@@ -1,0 +1,61 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: valetudopng
+  namespace: default
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.7.3
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  dependsOn:
+    - name: mosquitto
+      namespace: default
+  values:
+    controllers:
+      valetudopng:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/erkexzcx/valetudopng
+              tag: v1.0.17@sha256:93497e8c040902b08e94d608d20038afa83601e4f024bee7e6fec365e525e2d2
+            env:
+              TZ: "${TIMEZONE}"
+            resources:
+              requests:
+                memory: 40Mi
+                cpu: 15m
+    service:
+      app:
+        controller: valetudopng
+        type: LoadBalancer
+        externalTrafficPolicy: Cluster
+        annotations:
+          lbipam.cilium.io/ips: "${VIP_VALETUDOPNG}"
+        ports:
+          http:
+            port: 3000
+    persistence:
+      config:
+        type: configMap
+        name: valetudopng-config
+        globalMounts:
+          - path: /config.yml
+            subPath: config.yml
+            readOnly: true
