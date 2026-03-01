@@ -35,7 +35,7 @@ spec:
           app:
             image:
               repository: ghcr.io/esphome/esphome
-              tag: 2025.12.1@sha256:3a81bf977aca174a74800e33baa11565a77c3f56b574206087555349c6f275bc
+              tag: 2026.2.2@sha256:3e2d5c0b24201935ea41d4a1f105b3f9e80143d12035617cebc0e0194fc6ef26
             # env:
             #   ESPHOME_DASHBOARD_USE_PING: "true"
     defaultPodOptions:
