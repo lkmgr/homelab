@@ -23,9 +23,9 @@
           ansible.builtin.apt:
             name:
               apt-listchanges,apt-transport-https,ca-certificates,conntrack,curl,dirmngr,gdisk,gnupg,hdparm,htop,
-              iptables,iputils-ping,ipvsadm,libseccomp2,lm-sensors,neofetch,net-tools,nfs-common,
+              iptables,iputils-ping,ipvsadm,libseccomp2,lm-sensors,net-tools,nfs-common,
               nvme-cli,open-iscsi,parted,psmisc,python3,python3-apt,python3-kubernetes,python3-yaml,
-              smartmontools,socat,software-properties-common,unattended-upgrades,unzip,util-linux
+              smartmontools,socat,unattended-upgrades,unzip,util-linux
             install_recommends: false
 
     - name: User Configuration
@@ -96,11 +96,11 @@
     - name: System Configuration
       notify: Reboot
       block:
-        - name: System Configuration | Neofetch
-          ansible.builtin.copy:
-            dest: /etc/profile.d/neofetch.sh
-            mode: "0755"
-            content: neofetch --config none
+        # - name: System Configuration | Neofetch
+        #   ansible.builtin.copy:
+        #     dest: /etc/profile.d/neofetch.sh
+        #     mode: "0755"
+        #     content: neofetch --config none
         - name: System Configuration | Disable apparmor
           when: ansible_facts.services['apparmor.service'] is defined
           ansible.builtin.systemd:
