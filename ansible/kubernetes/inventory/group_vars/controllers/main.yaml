@@ -31,5 +31,5 @@ k3s_server:
   kube-apiserver-arg:
     - "anonymous-auth=true"           # Required for HAProxy health-checks
     - "feature-gates=MutatingAdmissionPolicy=true"
-    - "runtime-config=admissionregistration.k8s.io/v1alpha1=true"
+    - "runtime-config=admissionregistration.k8s.io/v1beta1=true"
   secrets-encryption: false           # Can be enabled when recreating cluster
