@@ -170,7 +170,8 @@ spec:
         smartctl-exporter:
           gnetId: 22604 # https://grafana.com/grafana/dashboards/22604?tab=revisions
           revision: 2
-          datasource: Prometheus
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
         redis:
           gnetId: 763 # https://grafana.com/grafana/dashboards/763?tab=revisions
           revision: 5
