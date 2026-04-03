@@ -167,6 +167,10 @@ spec:
           gnetId: 1860 # https://grafana.com/grafana/dashboards/1860?tab=revisions
           revision: 31
           datasource: Prometheus
+        smartctl-exporter:
+          gnetId: 22604 # https://grafana.com/grafana/dashboards/22604?tab=revisions
+          revision: 2
+          datasource: Prometheus
         redis:
           gnetId: 763 # https://grafana.com/grafana/dashboards/763?tab=revisions
           revision: 5
