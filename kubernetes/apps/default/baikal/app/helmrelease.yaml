@@ -36,9 +36,9 @@ spec:
               tag: 0.10.1-nginx
     defaultPodOptions:
       securityContext:
-        runAsNonRoot: true
-        runAsUser: ${APP_UID}
-        runAsGroup: ${APP_GID}
+        # runAsNonRoot: true
+        # runAsUser: ${APP_UID}
+        # runAsGroup: ${APP_GID}
         fsGroup: ${APP_GID}
         fsGroupChangePolicy: OnRootMismatch
     service:
