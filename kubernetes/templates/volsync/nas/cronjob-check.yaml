@@ -26,7 +26,7 @@ spec:
                     name: "${APP}-volsync-secret"
               volumeMounts:
                 - name: repository
-                  mountPath: /repository
+                  mountPath: /mnt/repository
           restartPolicy: OnFailure
           volumes:
             - name: repository
