@@ -32,12 +32,12 @@ spec:
             image:
               repository: ghcr.io/atuinsh/atuin
               tag: 18.13.6@sha256:9bde3fe6b1633c357cb19c07ea49bb9834720e8ff42d04b39ad7865155581150
-            args: ["server", "start"]
+            args: ["start"]
             env:
               TZ: "${TIMEZONE}"
               ATUIN_HOST: 0.0.0.0
               ATUIN_PORT: &port "8888"
-              ATUIN_OPEN_REGISTRATION: "true"
+              ATUIN_OPEN_REGISTRATION: "false"
               ATUIN_DB_URI:
                 valueFrom:
                   secretKeyRef:
