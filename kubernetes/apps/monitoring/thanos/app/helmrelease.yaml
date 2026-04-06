@@ -52,6 +52,9 @@ spec:
       dnsDiscovery:
         sidecarsService: kube-prometheus-stack-thanos-discovery
         sidecarsNamespace: monitoring
+      resources:
+        limits:
+          memory: 512Mi
     bucketweb:
       enabled: true
       replicaCount: 1
@@ -80,6 +83,9 @@ spec:
         enabled: true
         storageClass: openebs-hostpath
         size: 10Gi
+      resources:
+        limits:
+          memory: 512Mi
     ruler:
       enabled: true
       replicaCount: 1
