@@ -6,4 +6,5 @@ resources:
   - ./alertmanager.yaml
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./podmonitor.yaml
   - ./scrapeconfig.yaml
