@@ -26,19 +26,14 @@ spec:
       strategy: rollback
       retries: 3
   values:
+    volumeSnapshotClasses:
+      - name: longhorn-snapshot
+        annotations:
+          snapshot.storage.kubernetes.io/is-default-class: "true"
+        driver: driver.longhorn.io
+        deletionPolicy: Delete
+        parameters:
+          type: snap
     controller:
-      volumeSnapshotClasses:
-        - name: longhorn-snapshot
-          annotations:
-            snapshot.storage.kubernetes.io/is-default-class: "true"
-          driver: driver.longhorn.io
-          deletionPolicy: Delete
-          parameters:
-            type: snap
-        # - name: synology-iscsi-vsc
-        #   driver: csi.san.synology.com
-        #   deletionPolicy: Delete
-        #   parameters:
-        #     description: "Kubernetes CSI"
       serviceMonitor:
         create: true
