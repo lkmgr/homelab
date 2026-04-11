@@ -24,25 +24,6 @@ spec:
       retries: 3
   values:
     replicas: 1
-    annotations:
-      secret.reloader.stakater.com/reload: "pg-grafana"
-    envValueFrom:
-      GF_DATABASE_HOST:
-        secretKeyRef:
-          name: pg-grafana
-          key: HOST
-      GF_DATABASE_USER:
-        secretKeyRef:
-          name: pg-grafana
-          key: LOGIN
-      GF_DATABASE_PASSWORD:
-        secretKeyRef:
-          name: pg-grafana
-          key: PASSWORD
-      GF_DATABASE_NAME:
-        secretKeyRef:
-          name: pg-grafana
-          key: DATABASE_NAME
     admin:
       existingSecret: grafana-ext
       userKey: ADMIN_USER
@@ -73,8 +54,7 @@ spec:
       security:
         disable_initial_admin_creation: true
       database:
-        type: postgres
-        ssl_mode: disable
+        type: sqlite3
       date_formats:
         use_browser_locale: true
         default_timezone: browser
@@ -294,13 +274,7 @@ spec:
         - hosts:
             - *host
     persistence:
-      enabled: false
+      enabled: true
+      existingClaim: grafana-data
     testFramework:
       enabled: false
-    topologySpreadConstraints:
-      - maxSkew: 1
-        topologyKey: kubernetes.io/hostname
-        whenUnsatisfiable: DoNotSchedule
-        labelSelector:
-          matchLabels:
-            app.kubernetes.io/name: grafana
