@@ -9,11 +9,15 @@ spec:
   targetNamespace: default
   commonMetadata:
     labels:
-      app.kubernetes.io/name: atuin-server
-  dependsOn:
-    - name: cluster-apps-cloudnative-pg-cluster
-    - name: cluster-apps-postgres-operator
+      app.kubernetes.io/name: &app atuin-server
   path: ./kubernetes/apps/default/atuin-server/app
+  postBuild:
+    substitute:
+      APP: *app
+      APP_UID: "1000"
+      APP_GID: "1000"
+      PVC_NAME: atuin-data
+      PVC_SIZE: 4Gi
   prune: true
   sourceRef:
     kind: GitRepository
