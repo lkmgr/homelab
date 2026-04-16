@@ -68,12 +68,12 @@ spec:
                 cpu: 200m
               limits:
                 memory: 2500Mi
-          appdaemon:
-            image:
-              repository: docker.io/acockburn/appdaemon
-              tag: 4.5.13@sha256:cabcb3a4e739db2572ecb8dc3cee685300ab27274efda83a6d8ce4d3988dc647
-            env:
-              TZ: "${TIMEZONE}"
+          # appdaemon:
+          #   image:
+          #     repository: docker.io/acockburn/appdaemon
+          #     tag: 4.5.13@sha256:cabcb3a4e739db2572ecb8dc3cee685300ab27274efda83a6d8ce4d3988dc647
+          #   env:
+          #     TZ: "${TIMEZONE}"
           code-server:
             image:
               repository: ghcr.io/coder/code-server
@@ -150,9 +150,9 @@ spec:
           home-assistant:
             app:
               - path: /config
-            appdaemon:
-              - path: /conf
-                subPath: appdaemon
+            # appdaemon:
+            #   - path: /conf
+            #     subPath: appdaemon
             code-server:
               - path: /config
       # Workaround for https://github.com/home-assistant/core/issues/133537
