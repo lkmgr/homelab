@@ -11,4 +11,5 @@ data:
     allow_anonymous true
     persistence true
     persistence_location /mosquitto/data
-    autosave_interval 1800
+    autosave_interval 600
+    max_packet_size 10485760
