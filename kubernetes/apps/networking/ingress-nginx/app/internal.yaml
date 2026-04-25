@@ -14,13 +14,6 @@ spec:
         kind: HelmRepository
         name: ingress-nginx
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
   valuesFrom:
     - kind: ConfigMap
       name: ingress-nginx-common-values

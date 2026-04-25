@@ -14,14 +14,6 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      strategy: rollback
-      retries: 3
   dependsOn:
     - name: kube-prometheus-stack
       namespace: monitoring
