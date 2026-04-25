@@ -49,19 +49,19 @@ spec:
                 spec:
                   install:
                     crds: CreateReplace
-                    strategy:
-                      name: RetryOnFailure
+                    remediation:
+                      retries: 3
+                  upgrade:
+                    crds: CreateReplace
+                    cleanupOnFail: true
+                    remediation:
+                      retries: 3
                   rollback:
                     cleanupOnFail: true
-                    recreate: true
-                  upgrade:
-                    cleanupOnFail: true
-                    crds: CreateReplace
-                    strategy:
-                      name: RemediateOnFailure
-                    remediation:
-                      remediateLastFailure: true
-                      retries: 2
+                  uninstall:
+                    keepHistory: false
+                  timeout: 10m
+                  maxHistory: 3
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
