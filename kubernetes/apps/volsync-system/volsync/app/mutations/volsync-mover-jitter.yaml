@@ -43,7 +43,7 @@ spec:
                 name: "jitter",
                 image: "docker.io/library/busybox:1.37.0@sha256:1487d0af5f52b4ba31c7e465126ee2123fe3f2305d638e7827681e7cf6c83d5e",
                 imagePullPolicy: "IfNotPresent",
-                command: ["sh", "-c", "sleep $(shuf -i 0-120 -n 1)"]
+                command: ["sh", "-c", "sleep $(shuf -i 0-480 -n 1)"]
               }
             }
           ]

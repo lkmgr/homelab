@@ -25,3 +25,9 @@ spec:
       runAsUser: ${APP_UID:-1000}
       runAsGroup: ${APP_GID:-1000}
       fsGroup: ${APP_GID:-1000}
+    moverVolumes:
+      - mountPath: repository # /mnt/repository
+        volumeSource:
+          nfs:
+            server: "${NAS_ADDR}"
+            path: "/volume1/backups/volsync"
