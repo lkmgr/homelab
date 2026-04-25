@@ -14,6 +14,7 @@ K8S_AUTH_KUBECONFIG="{{config_root}}/kubeconfig"
 python = "3.14.3"
 
 age = "latest"
+cilium-cli = "latest"
 cloudflared = "latest"
 flux2 = "latest"
 helm = "latest"
