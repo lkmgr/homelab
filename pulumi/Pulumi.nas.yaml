@@ -5,7 +5,7 @@ config:
   dnsproxy:image: adguard/dnsproxy:v0.81.0
   homelab:ssh-host:
     secure: AAABAMDj40XLfDAJGm1gs8CDwxbtRFX9jtm38fSQMUq7vRj3pRe+K7CyYOdb9f4FfHJu4k5lnbVcXSP8
-  minio:image: quay.io/minio/minio:RELEASE.2025-04-03T14-56-28Z
+  minio:image: quay.io/minio/minio:RELEASE.2025-09-07T16-13-09Z
   minio:root-pass:
     secure: AAABANcT6kPTQ1+eq6KdaQ/CVT7eOj8yOv8K9pshGv6LRxcg8EQ7jwZCA8gSBh3HkVaXAADUQbU=
   minio:root-user:
