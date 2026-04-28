@@ -28,6 +28,9 @@ spec:
     queryFrontend:
       enabled: true
       replicaCount: 1
+      resources:
+        limits:
+          cpu: 500m
       ingress:
         enabled: true
         ingressClassName: internal
@@ -67,8 +70,8 @@ spec:
           cpu: 100m
           memory: 150Mi
         limits:
-          cpu: 400m
-          memory: 500Mi
+          cpu: 500m
+          memory: 600Mi
     storegateway:
       enabled: true
       replicaCount: 1
