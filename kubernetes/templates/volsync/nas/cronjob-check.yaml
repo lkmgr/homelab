@@ -6,7 +6,7 @@ metadata:
 spec:
   schedule: "0 2 * * 3"
   timeZone: "Etc/UTC"
-  successfulJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 0
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
