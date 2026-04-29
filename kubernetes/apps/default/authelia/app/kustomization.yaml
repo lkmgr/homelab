@@ -6,4 +6,5 @@ namespace: default
 resources:
   - ../../../../templates/volsync
   - ./helmrelease.yaml
+  - ./ocirepository.yaml
   - ./secret.sops.yaml

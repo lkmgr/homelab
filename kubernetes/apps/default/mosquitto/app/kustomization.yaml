@@ -7,3 +7,4 @@ resources:
   - ./config-map.yaml
   - ./helmrelease.yaml
   - ./pvc.yaml
+  - ./ocirepository.yaml
