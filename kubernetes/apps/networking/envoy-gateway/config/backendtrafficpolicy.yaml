@@ -8,7 +8,7 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: internal
+      name: envoy-internal
   compression:
     - type: Brotli
     - type: Gzip
@@ -23,7 +23,7 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: external
+      name: envoy-external
   compression:
     - type: Brotli
     - type: Gzip

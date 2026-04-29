@@ -7,7 +7,7 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: internal
+      name: envoy-internal
   clientIPDetection:
     xForwardedFor:
       numTrustedHops: 1
@@ -25,7 +25,7 @@ spec:
   targetRefs:
     - group: gateway.networking.k8s.io
       kind: Gateway
-      name: external
+      name: envoy-external
   clientIPDetection:
     xForwardedFor:
       numTrustedHops: 1

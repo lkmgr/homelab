@@ -48,7 +48,7 @@ spec:
       app:
         hostnames: ["echo-server.${SECRET_DOMAIN}"]
         parentRefs:
-          - name: internal
+          - name: envoy-internal
             namespace: networking
             sectionName: https
         rules:

@@ -3,7 +3,7 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: internal
+  name: envoy-internal
   # annotations:
   #   external-dns.alpha.kubernetes.io/target: &host internal.${SECRET_EXTERNAL_DOMAIN}
 spec:
@@ -36,7 +36,7 @@ spec:
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
-  name: external
+  name: envoy-external
   # annotations:
   #   external-dns.alpha.kubernetes.io/target: &host external.${SECRET_EXTERNAL_DOMAIN}
 spec:
