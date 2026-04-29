@@ -11,7 +11,7 @@ ANSIBLE_VARS_ENABLED="host_group_vars,community.sops.sops"
 K8S_AUTH_KUBECONFIG="{{config_root}}/kubeconfig"
 
 [tools]
-python = "3.14.3"
+python = "3.14.4"
 
 age = "latest"
 cilium-cli = "latest"
