@@ -9,8 +9,11 @@ spec:
   targetNamespace: default
   commonMetadata:
     labels:
-      app.kubernetes.io/name: echo-server
+      app.kubernetes.io/name: &app echo-server
   path: ./kubernetes/apps/default/echo-server/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository
