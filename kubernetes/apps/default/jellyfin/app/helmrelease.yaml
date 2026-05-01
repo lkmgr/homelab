@@ -8,7 +8,8 @@ spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: jellyfin
+    name: app-template
+    namespace: flux-system
   dependsOn:
     - name: intel-device-plugin-gpu
       namespace: kube-system

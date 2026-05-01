@@ -6,4 +6,3 @@ namespace: default
 resources:
   - ./config-map.yaml
   - ./helmrelease.yaml
-  - ./ocirepository.yaml

@@ -9,7 +9,8 @@ spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: valetudopng
+    name: app-template
+    namespace: flux-system
   dependsOn:
     - name: mosquitto
       namespace: default

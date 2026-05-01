@@ -9,7 +9,8 @@ spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: mosquitto
+    name: app-template
+    namespace: flux-system
   dependsOn:
     - name: longhorn
       namespace: longhorn-system

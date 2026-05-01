@@ -8,7 +8,8 @@ spec:
   interval: 30m
   chartRef:
     kind: OCIRepository
-    name: echo-server
+    name: app-template
+    namespace: flux-system
   values:
     controllers:
       echo-server:
