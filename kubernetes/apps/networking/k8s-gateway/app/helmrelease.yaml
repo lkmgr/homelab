@@ -18,7 +18,7 @@ spec:
   values:
     fullnameOverride: k8s-gateway
     domain: "${SECRET_DOMAIN}"
-    watchedResources: ["Ingress", "HTTPRoute"]
+    watchedResources: ["HTTPRoute"]
     ttl: 1
     fallthrough:
       enabled: false
