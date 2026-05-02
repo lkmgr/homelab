@@ -32,7 +32,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: &port 5006
+            port: 5006
     route:
       app:
         hostnames: ["actual.${SECRET_DOMAIN}"]
@@ -42,8 +42,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
-                port: *port
+              - identifier: app
+                port: http
     persistence:
       data:
         existingClaim: "${PVC_NAME}"

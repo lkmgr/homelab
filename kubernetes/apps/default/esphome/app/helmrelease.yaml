@@ -39,7 +39,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: &port 6052
+            port: 6052
     route:
       app:
         hostnames: ["esphome.${SECRET_DOMAIN}"]
@@ -49,8 +49,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
-                port: *port
+              - identifier: app
+                port: http
     persistence:
       config:
         existingClaim: "${PVC_NAME}"

@@ -37,7 +37,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: &port 80
+            port: 80
     route:
       app:
         hostnames: ["baikal.${SECRET_DOMAIN}"]
@@ -47,8 +47,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
-                port: *port
+              - identifier: app
+                port: http
     persistence:
       data:
         existingClaim: "${PVC_NAME}"
