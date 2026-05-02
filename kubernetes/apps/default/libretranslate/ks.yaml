@@ -9,8 +9,11 @@ spec:
   targetNamespace: default
   commonMetadata:
     labels:
-      app.kubernetes.io/name: libretranslate
+      app.kubernetes.io/name: &app libretranslate
   path: ./kubernetes/apps/default/libretranslate/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository

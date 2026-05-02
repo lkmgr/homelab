@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: changedetection
+  name: &app changedetection
 spec:
   interval: 30m
   chartRef:
@@ -27,31 +27,26 @@ spec:
               tag: 0.54.8@sha256:45a90dd17a4012ce3046b246ff100f001f9e09a8114db496d6ed64ae3c8db2e9
             env:
               TZ: "${TIMEZONE}"
-              PORT: "5000"
+              PORT: &port 5000
               USE_X_SETTINGS: "1"
               BASE_URL: "changedetection.${SECRET_DOMAIN}"
     service:
       app:
-        controller: changedetection
+        controller: *app
         ports:
           http:
-            port: 5000
-    ingress:
+            port: *port
+    route:
       app:
-        className: internal
-        annotations:
-          nginx.ingress.kubernetes.io/auth-method: GET
-          nginx.ingress.kubernetes.io/auth-url: http://authelia.default.svc.cluster.local/api/verify
-          nginx.ingress.kubernetes.io/auth-signin: https://auth.${SECRET_DOMAIN}?rm=$request_method
-          nginx.ingress.kubernetes.io/auth-response-headers: Remote-User,Remote-Name,Remote-Groups,Remote-Email
-          nginx.ingress.kubernetes.io/auth-snippet: proxy_set_header X-Forwarded-Method $request_method;
-        hosts:
-          - host: "changedetection.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["changedetection.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         existingClaim: "${PVC_NAME}"

@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: atuin-server
+  name: &app atuin
 spec:
   interval: 30m
   chartRef:
@@ -28,7 +28,7 @@ spec:
               TZ: "${TIMEZONE}"
               ATUIN_HOST: 0.0.0.0
               ATUIN_PORT: &port "8888"
-              ATUIN_OPEN_REGISTRATION: "true"
+              ATUIN_OPEN_REGISTRATION: "false"
               ATUIN_DB_URI: "sqlite:///data/atuin.db"
             resources:
               requests:
@@ -43,22 +43,21 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: atuin
+        controller: *app
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-        hosts:
-          - host: "atuin.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["atuin.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         existingClaim: "${PVC_NAME}"

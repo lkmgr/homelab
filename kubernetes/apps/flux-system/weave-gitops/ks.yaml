@@ -9,7 +9,10 @@ spec:
   targetNamespace: flux-system
   commonMetadata:
     labels:
-      app.kubernetes.io/name: weave-gitops
+      app.kubernetes.io/name: &app weave-gitops
+  postBuild:
+    substitute:
+      APP: *app
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/flux-system/weave-gitops/app
@@ -20,4 +23,3 @@ spec:
   wait: false
   interval: 30m
   timeout: 5m
-

@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./actual/ks.yaml
-  - ./atuin-server/ks.yaml
+  - ./atuin/ks.yaml
   - ./authelia/ks.yaml
   - ./baikal/ks.yaml
   - ./changedetection/ks.yaml
