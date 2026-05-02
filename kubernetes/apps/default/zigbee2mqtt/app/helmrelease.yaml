@@ -52,7 +52,7 @@ spec:
         controller: *app
         ports:
           http:
-            port: &port 8080
+            port: 8080
     route:
       app:
         hostnames: ["z2m.${SECRET_DOMAIN}"]
@@ -62,8 +62,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
-                port: *port
+              - identifier: app
+                port: http
     persistence:
       data:
         existingClaim: "${PVC_NAME}"

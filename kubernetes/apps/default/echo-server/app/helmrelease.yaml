@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: echo-server
+  name: &app echo-server
 spec:
   interval: 30m
   chartRef:
@@ -41,7 +41,7 @@ spec:
                 memory: 50Mi
     service:
       app:
-        controller: echo-server
+        controller: *app
         ports:
           http:
             port: 8080
@@ -54,5 +54,5 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: echo-server
-                port: 8080
+              - identifier: app
+                port: http

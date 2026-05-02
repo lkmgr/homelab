@@ -59,8 +59,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
-                port: *port
+              - identifier: app
+                port: http
     # ingress:
     #   app:
     #     className: external

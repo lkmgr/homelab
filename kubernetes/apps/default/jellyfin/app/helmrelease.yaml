@@ -84,8 +84,8 @@ spec:
             sectionName: https
         rules:
           - backendRefs:
-              - name: *app
-                port: *port
+              - identifier: app
+                port: http
     persistence:
       data:
         existingClaim: "${PVC_NAME}"
