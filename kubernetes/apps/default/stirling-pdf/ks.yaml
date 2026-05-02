@@ -9,8 +9,11 @@ spec:
   targetNamespace: default
   commonMetadata:
     labels:
-      app.kubernetes.io/name: stirling-pdf
+      app.kubernetes.io/name: &app stirling-pdf
   path: ./kubernetes/apps/default/stirling-pdf/app
+  postBuild:
+    substitute:
+      APP: *app
   prune: true
   sourceRef:
     kind: GitRepository

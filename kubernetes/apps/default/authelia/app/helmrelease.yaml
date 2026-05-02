@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: authelia
+  name: &app authelia
 spec:
   interval: 30m
   chartRef:
@@ -13,7 +13,6 @@ spec:
   values:
     controllers:
       authelia:
-        replicas: 1
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -21,16 +20,9 @@ spec:
             image:
               repository: ghcr.io/authelia/authelia
               tag: 4.39.16@sha256:edbce01c5125249e4f4faea01e0f76f0031d64b4a1d0c2514a0ca69cb126d05f
-            command: ["authelia"]
             args: ["--config", "/config/configuration.yaml"]
             env:
               TZ: "${TIMEZONE}"
-              AUTHELIA_SERVER_PORT: &port 80
-              # prevents 431 request header too large
-              # https://www.authelia.com/reference/guides/log-messages/#request-header-too-large
-              AUTHELIA_SERVER_BUFFERS_READ: 16384
-              AUTHELIA_SERVER_BUFFERS_WRITE: 16384
-              AUTHELIA_STORAGE_LOCAL_PATH: /data/db.sqlite3
             probes:
               liveness: &probe
                 enabled: true
@@ -38,7 +30,7 @@ spec:
                 spec:
                   httpGet:
                     path: /api/health
-                    port: *port
+                    port: &port 9091
                   initialDelaySeconds: 0
                   periodSeconds: 10
                   timeoutSeconds: 1
@@ -54,27 +46,38 @@ spec:
                 memory: 200Mi
     service:
       app:
-        controller: authelia
+        controller: *app
         ports:
           http:
             port: *port
-    ingress:
+    route:
       app:
-        className: external
-        annotations:
-          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            add_header Cache-Control "no-store";
-            add_header Pragma "no-cache";
-            add_header X-Frame-Options "SAMEORIGIN";
-            add_header X-XSS-Protection "1; mode=block";
-        hosts:
-          - host: "auth.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["auth.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-external
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
+    # ingress:
+    #   app:
+    #     className: external
+    #     annotations:
+    #       external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
+    #       nginx.ingress.kubernetes.io/configuration-snippet: |
+    #         add_header Cache-Control "no-store";
+    #         add_header Pragma "no-cache";
+    #         add_header X-Frame-Options "SAMEORIGIN";
+    #         add_header X-XSS-Protection "1; mode=block";
+    #     hosts:
+    #       - host: "auth.${SECRET_DOMAIN}"
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: app
+    #               port: http
     persistence:
       data:
         existingClaim: "${PVC_NAME}"
@@ -82,14 +85,14 @@ spec:
           - path: /data
       config:
         type: secret
-        name: authelia-config-secret
+        name: authelia-config
         globalMounts:
           - path: /config/configuration.yaml
             subPath: configuration.yaml
             readOnly: true
       users:
         type: secret
-        name: authelia-users-secret
+        name: authelia-users
         globalMounts:
           - path: /config/users.yaml
             subPath: users.yaml

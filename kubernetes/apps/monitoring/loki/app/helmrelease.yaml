@@ -71,17 +71,6 @@ spec:
       replicas: 0
     gateway:
       replicas: 1
-      ingress:
-        enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: &host "loki.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                pathType: Prefix
-        tls:
-          - hosts:
-              - *host
     ingester:
       replicas: 0
     querier:

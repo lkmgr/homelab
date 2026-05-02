@@ -3,7 +3,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: baikal
+  name: &app baikal
 spec:
   interval: 30m
   chartRef:
@@ -34,20 +34,21 @@ spec:
         fsGroupChangePolicy: OnRootMismatch
     service:
       app:
-        controller: baikal
+        controller: *app
         ports:
           http:
-            port: 80
-    ingress:
+            port: &port 80
+    route:
       app:
-        className: internal
-        hosts:
-          - host: "baikal.${SECRET_DOMAIN}"
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
+        hostnames: ["baikal.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - name: *app
+                port: *port
     persistence:
       data:
         existingClaim: "${PVC_NAME}"

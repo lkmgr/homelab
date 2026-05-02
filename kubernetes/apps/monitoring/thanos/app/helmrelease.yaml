@@ -31,14 +31,6 @@ spec:
       resources:
         limits:
           cpu: 500m
-      ingress:
-        enabled: true
-        ingressClassName: internal
-        hostname: "thanos-query-frontend.${SECRET_DOMAIN}"
-        tls: true
-        extraTls:
-          - hosts:
-              - "thanos-query-frontend.${SECRET_DOMAIN}"
     query:
       enabled: true
       extraFlags:
