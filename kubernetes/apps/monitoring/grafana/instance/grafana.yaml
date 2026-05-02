@@ -36,7 +36,7 @@ spec:
       plugin_admin_enabled: "false"
     server:
       enable_gzip: "true"
-  disableDefaultAdminSecret: true
+  # disableDefaultAdminSecret: true
   deployment:
     spec:
       strategy:
@@ -45,17 +45,17 @@ spec:
         spec:
           containers:
             - name: grafana
-              env:
-                - name: GF_SECURITY_ADMIN_USER
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-admin
-                      key: GF_SECURITY_ADMIN_USER
-                - name: GF_SECURITY_ADMIN_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: grafana-admin
-                      key: GF_SECURITY_ADMIN_PASSWORD
+              # env:
+              #   - name: GF_SECURITY_ADMIN_USER
+              #     valueFrom:
+              #       secretKeyRef:
+              #         name: grafana-admin
+              #         key: GF_SECURITY_ADMIN_USER
+              #   - name: GF_SECURITY_ADMIN_PASSWORD
+              #     valueFrom:
+              #       secretKeyRef:
+              #         name: grafana-admin
+              #         key: GF_SECURITY_ADMIN_PASSWORD
               securityContext:
                 allowPrivilegeEscalation: false
                 readOnlyRootFilesystem: true
