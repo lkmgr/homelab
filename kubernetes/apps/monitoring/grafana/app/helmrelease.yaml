@@ -10,6 +10,8 @@ spec:
     kind: OCIRepository
     name: grafana-operator
   values:
+    crds:
+      immutable: false
     dashboard:
       enabled: true
     serviceMonitor:
