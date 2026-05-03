@@ -5,5 +5,6 @@ kind: Kustomization
 namespace: volsync-system
 resources:
   - ./mutations
+  - ./grafanadashboard.yaml
   - ./helmrelease.yaml
   - ./prometheusrule.yaml
