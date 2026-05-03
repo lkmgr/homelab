@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./alertmanager.yaml
   - ./externalsecret.yaml
+  - ./grafanadatasource.yaml
   - ./helmrelease.yaml
   - ./podmonitor.yaml
   - ./scrapeconfig.yaml
