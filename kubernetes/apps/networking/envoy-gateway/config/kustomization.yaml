@@ -9,3 +9,5 @@ resources:
   - ./gateway.yaml
   - ./gatewayclass.yaml
   - ./httproute.yaml
+  - ./podmonitor.yaml
+  - ./servicemonitor.yaml
