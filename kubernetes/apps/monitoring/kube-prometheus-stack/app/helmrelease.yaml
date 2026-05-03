@@ -54,11 +54,10 @@ spec:
     grafana:
       enabled: false
       forceDeployDashboards: true
-      sidecar:
-        dashboards:
-          multicluster:
-            etcd:
-              enabled: true
+      operator:
+        dashboardsConfigMapRefEnabled: true
+        matchLabels:
+          dashboards: grafana
     kubeApiServer:
       enabled: true
       serviceMonitor:
