@@ -33,6 +33,7 @@ spec:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
+  resyncPeriod: 24h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -49,6 +50,7 @@ spec:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
+  resyncPeriod: 24h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -65,3 +67,4 @@ spec:
     - datasourceName: Loki
       inputName: DS_LOKI
   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/logs.json
+  resyncPeriod: 24h

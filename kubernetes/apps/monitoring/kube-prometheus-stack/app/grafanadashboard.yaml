@@ -14,6 +14,7 @@ spec:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
   url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json
+  resyncPeriod: 24h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -30,6 +31,7 @@ spec:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
   url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json
+  resyncPeriod: 24h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -46,6 +48,7 @@ spec:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
   url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json
+  resyncPeriod: 24h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -62,6 +65,7 @@ spec:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
   url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-namespaces.json
+  resyncPeriod: 24h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -78,6 +82,7 @@ spec:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
   url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-nodes.json
+  resyncPeriod: 24h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -94,6 +99,7 @@ spec:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
   url: https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-pods.json
+  resyncPeriod: 24h
 
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
@@ -111,3 +117,4 @@ spec:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
   url: https://grafana.com/api/dashboards/1860/revisions/31/download
+  resyncPeriod: 24h
