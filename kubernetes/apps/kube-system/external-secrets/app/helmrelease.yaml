@@ -4,7 +4,6 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: external-secrets
-  namespace: kube-system
 spec:
   interval: 30m
   chart:
@@ -29,3 +28,5 @@ spec:
       serviceMonitor:
         enabled: true
         interval: 1m
+    grafanaDashboard:
+      enabled: true

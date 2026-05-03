@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: kube-system
 resources:
   - ./cilium-l2.yaml
+  - ./grafanadashboard.yaml
   - ./helmrelease.yaml
   - ./httproute.yaml
   - ./securitypolicy.yaml
