@@ -6,16 +6,16 @@ metadata:
   name: cluster-apps-kube-prometheus-stack
   namespace: flux-system
 spec:
-  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-external-secrets-stores
+  interval: 1h
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: monitoring
   wait: false
-  interval: 1h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -24,11 +24,11 @@ metadata:
   name: cluster-apps-kube-prometheus-stack-crds
   namespace: flux-system
 spec:
-  targetNamespace: monitoring
+  interval: 1h
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/crds
   prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: monitoring
   wait: false
-  interval: 1h

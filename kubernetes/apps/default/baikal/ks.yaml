@@ -11,8 +11,8 @@ spec:
   postBuild:
     substitute:
       APP: baikal
-      APP_UID: "101"
       APP_GID: "101"
+      APP_UID: "101"
       PVC_NAME: baikal-data
       PVC_SIZE: 2Gi
   prune: true

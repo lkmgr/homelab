@@ -6,11 +6,11 @@ metadata:
   name: cluster-apps-node-feature-discovery
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  interval: 1h
   path: ./kubernetes/apps/kube-system/node-feature-discovery/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: kube-system
   wait: true
-  interval: 1h

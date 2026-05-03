@@ -6,13 +6,13 @@ metadata:
   name: cluster-apps-loki
   namespace: flux-system
 spec:
-  targetNamespace: monitoring
   dependsOn:
     - name: cluster-apps-external-secrets-stores
+  interval: 1h
   path: ./kubernetes/apps/monitoring/loki/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: monitoring
   wait: false
-  interval: 1h

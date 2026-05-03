@@ -6,11 +6,11 @@ metadata:
   name: cluster-apps-k8s-gateway
   namespace: flux-system
 spec:
-  targetNamespace: networking
+  interval: 1h
   path: ./kubernetes/apps/networking/k8s-gateway/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: networking
   wait: false # no flux ks dependents
-  interval: 1h

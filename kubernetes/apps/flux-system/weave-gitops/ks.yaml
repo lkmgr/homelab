@@ -6,16 +6,16 @@ metadata:
   name: cluster-apps-weave-gitops
   namespace: flux-system
 spec:
-  targetNamespace: flux-system
+  dependsOn:
+    - name: cluster-apps-external-secrets-stores
+  interval: 1h
+  path: ./kubernetes/apps/flux-system/weave-gitops/app
   postBuild:
     substitute:
       APP: weave-gitops
-  dependsOn:
-    - name: cluster-apps-external-secrets-stores
-  path: ./kubernetes/apps/flux-system/weave-gitops/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: flux-system
   wait: false
-  interval: 1h

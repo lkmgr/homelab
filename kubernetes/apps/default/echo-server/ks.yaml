@@ -6,7 +6,7 @@ metadata:
   name: cluster-apps-echo-server
   namespace: flux-system
 spec:
-  targetNamespace: default
+  interval: 1h
   path: ./kubernetes/apps/default/echo-server/app
   postBuild:
     substitute:
@@ -15,5 +15,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: default
   wait: false
-  interval: 1h

@@ -6,14 +6,14 @@ metadata:
   name: cluster-apps-cloudnative-pg
   namespace: flux-system
 spec:
-  targetNamespace: database
+  interval: 1h
   path: ./kubernetes/apps/database/cloudnative-pg/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: database
   wait: true
-  interval: 1h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -22,14 +22,14 @@ metadata:
   name: cluster-apps-cloudnative-pg-cluster
   namespace: flux-system
 spec:
-  targetNamespace: database
   dependsOn:
     - name: cluster-apps-cloudnative-pg
     - name: cluster-apps-external-secrets-stores
+  interval: 1h
   path: ./kubernetes/apps/database/cloudnative-pg/cluster
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: database
   wait: true
-  interval: 1h

@@ -6,14 +6,14 @@ metadata:
   name: cluster-apps-intel-device-plugin-operator
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  interval: 1h
   path: ./kubernetes/apps/kube-system/intel-device-plugin/operator
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: kube-system
   wait: true
-  interval: 1h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -22,11 +22,11 @@ metadata:
   name: cluster-apps-intel-device-plugin-gpu
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  interval: 1h
   path: ./kubernetes/apps/kube-system/intel-device-plugin/gpu
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: kube-system
   wait: true
-  interval: 1h

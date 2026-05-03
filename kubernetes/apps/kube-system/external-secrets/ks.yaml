@@ -6,14 +6,14 @@ metadata:
   name: cluster-apps-external-secrets
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  interval: 1h
   path: ./kubernetes/apps/kube-system/external-secrets/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: kube-system
   wait: true
-  interval: 1h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -22,13 +22,13 @@ metadata:
   name: cluster-apps-external-secrets-stores
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
   dependsOn:
     - name: cluster-apps-external-secrets
+  interval: 1h
   path: ./kubernetes/apps/kube-system/external-secrets/stores
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: kube-system
   wait: true
-  interval: 1h

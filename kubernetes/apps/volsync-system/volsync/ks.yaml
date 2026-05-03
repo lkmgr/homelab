@@ -6,13 +6,13 @@ metadata:
   name: cluster-apps-volsync
   namespace: flux-system
 spec:
-  targetNamespace: volsync-system
   dependsOn:
     - name: cluster-apps-snapshot-controller
+  interval: 1h
   path: ./kubernetes/apps/volsync-system/volsync/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: volsync-system
   wait: false
-  interval: 1h

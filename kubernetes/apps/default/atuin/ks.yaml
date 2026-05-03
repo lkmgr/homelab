@@ -6,18 +6,18 @@ metadata:
   name: cluster-apps-atuin
   namespace: flux-system
 spec:
-  targetNamespace: default
+  interval: 1h
   path: ./kubernetes/apps/default/atuin/app
   postBuild:
     substitute:
       APP: atuin
-      APP_UID: "1000"
       APP_GID: "1000"
+      APP_UID: "1000"
       PVC_NAME: atuin-data
       PVC_SIZE: 4Gi
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: default
   wait: false
-  interval: 1h

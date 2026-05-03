@@ -6,11 +6,11 @@ metadata:
   name: cluster-apps-valetudopng
   namespace: flux-system
 spec:
-  targetNamespace: default
+  interval: 1h
   path: ./kubernetes/apps/default/valetudopng/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: default
   wait: false
-  interval: 1h

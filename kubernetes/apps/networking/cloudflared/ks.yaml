@@ -6,13 +6,13 @@ metadata:
   name: cluster-apps-cloudflared
   namespace: flux-system
 spec:
-  targetNamespace: networking
   dependsOn:
     - name: cluster-apps-external-dns
+  interval: 1h
   path: ./kubernetes/apps/networking/cloudflared/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: networking
   wait: true
-  interval: 1h

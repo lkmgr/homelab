@@ -6,11 +6,11 @@ metadata:
   name: cluster-apps-coredns
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  interval: 1h
   path: ./kubernetes/apps/kube-system/coredns/app
   prune: false # never should be deleted
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: kube-system
   wait: false # no flux ks dependents
-  interval: 1h

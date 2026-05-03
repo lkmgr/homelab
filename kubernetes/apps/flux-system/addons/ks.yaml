@@ -6,14 +6,14 @@ metadata:
   name: cluster-apps-flux-notifications
   namespace: flux-system
 spec:
-  targetNamespace: flux-system
+  interval: 1h
   path: ./kubernetes/apps/flux-system/addons/notifications
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: flux-system
   wait: true
-  interval: 1h
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -22,11 +22,11 @@ metadata:
   name: cluster-apps-flux-webhooks
   namespace: flux-system
 spec:
-  targetNamespace: flux-system
+  interval: 1h
   path: ./kubernetes/apps/flux-system/addons/webhooks
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: flux-system
   wait: true
-  interval: 1h

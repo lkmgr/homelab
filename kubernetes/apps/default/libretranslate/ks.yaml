@@ -6,7 +6,7 @@ metadata:
   name: cluster-apps-libretranslate
   namespace: flux-system
 spec:
-  targetNamespace: default
+  interval: 1h
   path: ./kubernetes/apps/default/libretranslate/app
   postBuild:
     substitute:
@@ -15,5 +15,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: default
   wait: false
-  interval: 1h

@@ -6,13 +6,13 @@ metadata:
   name: cluster-apps-longhorn
   namespace: flux-system
 spec:
-  targetNamespace: longhorn-system
   dependsOn:
     - name: cluster-apps-external-secrets-stores
+  interval: 1h
   path: ./kubernetes/apps/longhorn/app
   prune: false
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: longhorn-system
   wait: false
-  interval: 1h

@@ -6,11 +6,11 @@ metadata:
   name: cluster-apps-metrics-server
   namespace: flux-system
 spec:
-  targetNamespace: kube-system
+  interval: 1h
   path: ./kubernetes/apps/kube-system/metrics-server/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: home-kubernetes
+  targetNamespace: kube-system
   wait: false # no flux ks dependents
-  interval: 1h
