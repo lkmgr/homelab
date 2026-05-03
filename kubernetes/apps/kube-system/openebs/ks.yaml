@@ -7,9 +7,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: kube-system
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: openebs
   path: ./kubernetes/apps/kube-system/openebs/app
   prune: true
   sourceRef:

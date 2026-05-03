@@ -6,14 +6,11 @@ metadata:
   name: cluster-apps-baikal
   namespace: flux-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app baikal
   interval: 1h
   path: ./kubernetes/apps/default/baikal/app
   postBuild:
     substitute:
-      APP: *app
+      APP: baikal
       APP_UID: "101"
       APP_GID: "101"
       PVC_NAME: baikal-data

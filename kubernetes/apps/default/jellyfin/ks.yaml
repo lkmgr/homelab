@@ -6,14 +6,11 @@ metadata:
   name: cluster-apps-jellyfin
   namespace: flux-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app jellyfin
   interval: 1h
   path: ./kubernetes/apps/default/jellyfin/app
   postBuild:
     substitute:
-      APP: *app
+      APP: jellyfin
       APP_UID: "568"
       APP_GID: "568"
       PVC_NAME: jellyfin-config

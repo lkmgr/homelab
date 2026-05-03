@@ -7,9 +7,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: volsync-system
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: volsync
   dependsOn:
     - name: cluster-apps-snapshot-controller
   path: ./kubernetes/apps/volsync-system/volsync/app

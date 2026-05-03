@@ -7,9 +7,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: longhorn-system
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: longhorn
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/longhorn/app

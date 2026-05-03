@@ -7,9 +7,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: envoy-gateway
   path: ./kubernetes/apps/networking/envoy-gateway/app
   prune: true
   sourceRef:
@@ -26,9 +23,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: envoy-gateway-config
   dependsOn:
     - name: cluster-apps-envoy-gateway
   path: ./kubernetes/apps/networking/envoy-gateway/config

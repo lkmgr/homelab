@@ -7,9 +7,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: networking
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: external-dns
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/networking/external-dns/app

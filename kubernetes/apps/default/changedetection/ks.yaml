@@ -6,14 +6,11 @@ metadata:
   name: cluster-apps-changedetection
   namespace: flux-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app changedetection
   interval: 1h
   path: ./kubernetes/apps/default/changedetection/app
   postBuild:
     substitute:
-      APP: *app
+      APP: changedetection
       PVC_NAME: changedetection-data
       PVC_SIZE: 3Gi
   prune: true

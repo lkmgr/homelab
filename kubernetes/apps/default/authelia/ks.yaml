@@ -6,16 +6,13 @@ metadata:
   name: cluster-apps-authelia
   namespace: flux-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app authelia
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   interval: 1h
   path: ./kubernetes/apps/default/authelia/app
   postBuild:
     substitute:
-      APP: *app
+      APP: authelia
       PVC_NAME: authelia-data
       PVC_SIZE: 2Gi
   prune: true

@@ -6,14 +6,11 @@ metadata:
   name: cluster-apps-zigbee2mqtt
   namespace: flux-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app zigbee2mqtt
   interval: 1h
   path: ./kubernetes/apps/default/zigbee2mqtt/app
   postBuild:
     substitute:
-      APP: *app
+      APP: zigbee2mqtt
       PVC_NAME: zigbee2mqtt-data
       PVC_SIZE: 2Gi
   prune: true

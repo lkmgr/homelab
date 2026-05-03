@@ -6,14 +6,11 @@ metadata:
   name: cluster-apps-open-webui
   namespace: flux-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app open-webui
   interval: 1h
   path: ./kubernetes/apps/default/open-webui/app
   postBuild:
     substitute:
-      APP: *app
+      APP: open-webui
       PVC_NAME: open-webui
       PVC_SIZE: 5Gi
   prune: true

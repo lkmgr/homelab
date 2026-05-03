@@ -6,16 +6,13 @@ metadata:
   name: cluster-apps-home-assistant
   namespace: flux-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app home-assistant
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   interval: 1h
   path: ./kubernetes/apps/default/home-assistant/app
   postBuild:
     substitute:
-      APP: *app
+      APP: home-assistant
       PVC_NAME: home-assistant-config
       PVC_SIZE: 20Gi
   prune: true

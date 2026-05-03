@@ -7,13 +7,10 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app stirling-pdf
   path: ./kubernetes/apps/default/stirling-pdf/app
   postBuild:
     substitute:
-      APP: *app
+      APP: stirling-pdf
   prune: true
   sourceRef:
     kind: GitRepository

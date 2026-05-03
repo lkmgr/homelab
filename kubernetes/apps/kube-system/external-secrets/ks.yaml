@@ -7,9 +7,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: kube-system
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: external-secrets
   path: ./kubernetes/apps/kube-system/external-secrets/app
   prune: true
   sourceRef:
@@ -26,9 +23,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: kube-system
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: external-secrets-stores
   dependsOn:
     - name: cluster-apps-external-secrets
   path: ./kubernetes/apps/kube-system/external-secrets/stores

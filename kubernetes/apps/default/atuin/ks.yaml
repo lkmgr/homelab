@@ -7,13 +7,10 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: default
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app atuin
   path: ./kubernetes/apps/default/atuin/app
   postBuild:
     substitute:
-      APP: *app
+      APP: atuin
       APP_UID: "1000"
       APP_GID: "1000"
       PVC_NAME: atuin-data

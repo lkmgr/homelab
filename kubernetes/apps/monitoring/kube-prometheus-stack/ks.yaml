@@ -7,9 +7,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: monitoring
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: kube-prometheus-stack
   dependsOn:
     - name: cluster-apps-external-secrets-stores
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/app
@@ -28,9 +25,6 @@ metadata:
   namespace: flux-system
 spec:
   targetNamespace: monitoring
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: kube-prometheus-stack-crds
   path: ./kubernetes/apps/monitoring/kube-prometheus-stack/crds
   prune: false
   sourceRef:
@@ -38,4 +32,3 @@ spec:
     name: home-kubernetes
   wait: false
   interval: 1h
-

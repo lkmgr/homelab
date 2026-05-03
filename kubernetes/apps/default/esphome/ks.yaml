@@ -6,14 +6,11 @@ metadata:
   name: cluster-apps-esphome
   namespace: flux-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app esphome
   interval: 1h
   path: ./kubernetes/apps/default/esphome/app
   postBuild:
     substitute:
-      APP: *app
+      APP: esphome
       PVC_NAME: esphome-config
       PVC_SIZE: 5Gi
   prune: true

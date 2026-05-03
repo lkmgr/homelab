@@ -6,14 +6,11 @@ metadata:
   name: cluster-apps-actual
   namespace: flux-system
 spec:
-  commonMetadata:
-    labels:
-      app.kubernetes.io/name: &app actual
   interval: 1h
   path: ./kubernetes/apps/default/actual/app
   postBuild:
     substitute:
-      APP: *app
+      APP: actual
       PVC_NAME: actual-data
       PVC_SIZE: 10Gi
   prune: true
