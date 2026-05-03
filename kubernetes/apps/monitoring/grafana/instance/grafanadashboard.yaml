@@ -51,20 +51,20 @@ spec:
       inputName: DS_PROMETHEUS
   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
   resyncPeriod: 24h
----
+# ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/grafana.integreatly.org/grafanadashboard_v1beta1.json
-apiVersion: grafana.integreatly.org/v1beta1
-kind: GrafanaDashboard
-metadata:
-  name: flux-logs
-spec:
-  allowCrossNamespaceImport: true
-  instanceSelector:
-    matchLabels:
-      dashboards: grafana
-  folder: General
-  datasources:
-    - datasourceName: Loki
-      inputName: DS_LOKI
-  url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/logs.json
-  resyncPeriod: 24h
+# apiVersion: grafana.integreatly.org/v1beta1
+# kind: GrafanaDashboard
+# metadata:
+#   name: flux-logs
+# spec:
+#   allowCrossNamespaceImport: true
+#   instanceSelector:
+#     matchLabels:
+#       dashboards: grafana
+#   folder: General
+#   datasources:
+#     - datasourceName: Loki
+#       inputName: DS_LOKI
+#   url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/logs.json
+#   resyncPeriod: 24h
