@@ -11,7 +11,7 @@ spec:
       app.kubernetes.io/name: &app home-assistant
   dependsOn:
     - name: cluster-apps-external-secrets-stores
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/default/home-assistant/app
   postBuild:
     substitute:

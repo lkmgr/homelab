@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &app open-webui
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/default/open-webui/app
   postBuild:
     substitute:

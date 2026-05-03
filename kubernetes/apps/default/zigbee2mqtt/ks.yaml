@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &app zigbee2mqtt
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/default/zigbee2mqtt/app
   postBuild:
     substitute:

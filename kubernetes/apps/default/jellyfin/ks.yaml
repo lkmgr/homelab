@@ -9,7 +9,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: &app jellyfin
-  interval: 30m
+  interval: 1h
   path: ./kubernetes/apps/default/jellyfin/app
   postBuild:
     substitute:
