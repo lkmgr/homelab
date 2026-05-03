@@ -29,7 +29,7 @@ spec:
         hostnames: ["victoria-logs.${SECRET_DOMAIN}"]
         parentRefs:
           - name: envoy-internal
-            namespace: network
+            namespace: networking
             sectionName: https
       serviceMonitor:
         enabled: true
