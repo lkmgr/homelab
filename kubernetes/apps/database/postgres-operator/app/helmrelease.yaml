@@ -6,7 +6,7 @@ metadata:
   name: ext-postgres-operator
   namespace: database
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: ext-postgres-operator

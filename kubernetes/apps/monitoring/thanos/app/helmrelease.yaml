@@ -6,7 +6,7 @@ metadata:
   name: thanos
   namespace: monitoring
 spec:
-  interval: 30m
+  interval: 1h
   timeout: 15m
   chart:
     spec:
