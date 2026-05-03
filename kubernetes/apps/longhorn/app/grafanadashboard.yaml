@@ -9,6 +9,7 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: grafana
+  folder: General
   datasources:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS

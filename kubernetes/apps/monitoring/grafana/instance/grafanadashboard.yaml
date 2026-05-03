@@ -9,7 +9,7 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  folder: Grafana
+  folder: General
   datasources:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
@@ -28,7 +28,7 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  folder: Flux
+  folder: General
   datasources:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
@@ -45,7 +45,7 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  folder: Flux
+  folder: General
   datasources:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
@@ -62,7 +62,7 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  folder: Flux
+  folder: General
   datasources:
     - datasourceName: Loki
       inputName: DS_LOKI
