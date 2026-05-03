@@ -102,4 +102,11 @@ spec:
       prometheusRule:
         enabled: true
         default:
-          create: true
+          absent_rules: true
+          compaction: true
+          query: true
+          receive: false
+          replicate: true
+          ruler: true
+          sidecar: true
+          sidecarJobRegex: ".*kube-prometheus-stack-thanos-discovery.*"
