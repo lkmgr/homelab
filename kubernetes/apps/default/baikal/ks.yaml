@@ -23,5 +23,4 @@ spec:
     kind: GitRepository
     name: home-kubernetes
   targetNamespace: default
-  timeout: 5m
   wait: false

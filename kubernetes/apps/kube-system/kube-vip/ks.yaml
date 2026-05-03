@@ -16,5 +16,4 @@ spec:
     kind: GitRepository
     name: home-kubernetes
   targetNamespace: kube-system
-  timeout: 5m
   wait: false

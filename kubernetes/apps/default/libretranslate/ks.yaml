@@ -20,4 +20,3 @@ spec:
     name: home-kubernetes
   wait: false
   interval: 1h
-  timeout: 5m

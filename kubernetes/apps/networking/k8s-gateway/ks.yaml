@@ -17,4 +17,3 @@ spec:
     name: home-kubernetes
   wait: false # no flux ks dependents
   interval: 1h
-  timeout: 5m

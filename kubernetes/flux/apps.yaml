@@ -60,7 +60,6 @@ spec:
                     cleanupOnFail: true
                   uninstall:
                     keepHistory: false
-                  timeout: 10m
                   maxHistory: 3
               target:
                 group: helm.toolkit.fluxcd.io
