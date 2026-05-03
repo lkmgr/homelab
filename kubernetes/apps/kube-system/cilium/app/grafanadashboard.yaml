@@ -9,7 +9,6 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  folder: Cilium
   datasources:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS
@@ -27,7 +26,6 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  folder: Cilium
   datasources:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS

@@ -9,7 +9,6 @@ spec:
   instanceSelector:
     matchLabels:
       dashboards: grafana
-  folder: cert-manager
   datasources:
     - datasourceName: Prometheus
       inputName: DS_PROMETHEUS

@@ -92,11 +92,5 @@ spec:
     monitoring:
       dashboards:
         enabled: true
-        annotations:
-          grafana_folder: Loki
-    sidecar:
-      image:
-        registry: ghcr.io
-        repository: kiwigrid/k8s-sidecar
       rules:
-        searchNamespace: ALL
+        enabled: true
