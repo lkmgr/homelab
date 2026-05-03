@@ -101,3 +101,5 @@ spec:
         enabled: true
       prometheusRule:
         enabled: true
+        default:
+          create: true
