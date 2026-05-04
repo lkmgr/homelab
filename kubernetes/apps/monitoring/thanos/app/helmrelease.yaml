@@ -109,3 +109,5 @@ spec:
           ruler: true
           sidecar: true
           sidecarJobRegex: ".*kube-prometheus-stack-thanos-discovery.*"
+          disabled:
+            ThanosReceiveIsDown: true
