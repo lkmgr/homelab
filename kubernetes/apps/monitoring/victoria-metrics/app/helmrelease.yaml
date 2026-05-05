@@ -133,10 +133,17 @@ spec:
                 insecureSkipVerify: true
     kubeEtcd:
       endpoints: *endpoints
+      service:
+        port: 2381
+        targetPort: 2381
       vmScrape:
         spec:
           endpoints:
-            - scheme: http
+            - port: http-metrics
+              scheme: http
+          namespaceSelector:
+            matchNames:
+              - kube-system
     kubeScheduler:
       endpoints: *endpoints
       vmScrape:
@@ -146,7 +153,9 @@ spec:
               port: http-metrics
               scheme: https
               tlsConfig:
+                caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
                 insecureSkipVerify: true
+                serverName: localhost
     prometheus-node-exporter:
       enabled: false
     victoria-metrics-operator:
