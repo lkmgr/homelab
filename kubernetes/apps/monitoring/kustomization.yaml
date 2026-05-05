@@ -7,6 +7,7 @@ resources:
   - ./grafana/ks.yaml
   - ./kube-state-metrics/ks.yaml
   - ./node-exporter/ks.yaml
+  - ./prometheus-operator-crds/ks.yaml
   - ./smartctl-exporter/ks.yaml
   - ./victoria-logs/ks.yaml
   - ./victoria-metrics/ks.yaml
