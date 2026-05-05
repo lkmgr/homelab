@@ -11,7 +11,7 @@ spec:
       dashboards: grafana
   folder: General
   datasources:
-    - datasourceName: Prometheus
+    - datasourceName: VictoriaMetrics
       inputName: DS_PROMETHEUS
   configMapRef:
     name: external-secrets-dashboard
