@@ -119,6 +119,7 @@ spec:
     kube-state-metrics:
       enabled: false
     kubeControllerManager:
+      enabled: false
       endpoints: &endpoints
         - 192.168.4.10
         - 192.168.4.13
@@ -132,6 +133,7 @@ spec:
               tlsConfig:
                 insecureSkipVerify: true
     kubeEtcd:
+      enabled: false
       endpoints: *endpoints
       service:
         port: 2381
@@ -145,6 +147,7 @@ spec:
             matchNames:
               - kube-system
     kubeScheduler:
+      enabled: false
       endpoints: *endpoints
       vmScrape:
         spec:
