@@ -14,9 +14,6 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  dependsOn:
-    - name: kube-prometheus-stack
-      namespace: monitoring
   values:
     serviceMonitor:
       enabled: true
