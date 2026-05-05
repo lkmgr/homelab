@@ -11,7 +11,7 @@ spec:
       dashboards: grafana
   folder: General
   datasources:
-    - datasourceName: Prometheus
+    - datasourceName: VictoriaMetrics
       inputName: DS_PROMETHEUS
   url: https://grafana.com/api/dashboards/20842/revisions/3/download
   resyncPeriod: 24h

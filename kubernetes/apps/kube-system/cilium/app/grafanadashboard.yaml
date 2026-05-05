@@ -11,7 +11,7 @@ spec:
       dashboards: grafana
   folder: General
   datasources:
-    - datasourceName: Prometheus
+    - datasourceName: VictoriaMetrics
       inputName: DS_PROMETHEUS
   configMapRef:
     name: cilium-dashboard
@@ -29,7 +29,7 @@ spec:
       dashboards: grafana
   folder: General
   datasources:
-    - datasourceName: Prometheus
+    - datasourceName: VictoriaMetrics
       inputName: DS_PROMETHEUS
   configMapRef:
     name: cilium-operator-dashboard
