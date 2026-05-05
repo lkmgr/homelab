@@ -193,10 +193,10 @@ spec:
             - src_paths:
                 - /api/v1/query.*
                 - /api/v1/label/.*
-              url_prefix: http://vmsingle-victoria-metrics.o11y.svc.cluster.local:8428
+              url_prefix: http://vmsingle-victoria-metrics.monitoring.svc.cluster.local:8428
             - src_paths:
                 - /select/logsql/.*
-              url_prefix: http://victoria-logs.o11y.svc.cluster.local:9428
+              url_prefix: http://victoria-logs.monitoring.svc.cluster.local:9428
     vmsingle:
       route:
         enabled: true
