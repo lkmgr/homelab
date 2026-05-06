@@ -128,7 +128,7 @@ spec:
         spec:
           endpoints:
             - port: http-metrics
-              scheme: http
+              scheme: https
               bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
               tlsConfig:
                 insecureSkipVerify: true
@@ -150,7 +150,7 @@ spec:
         spec:
           endpoints:
             - port: http-metrics
-              scheme: http
+              scheme: https
               bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
               tlsConfig:
                 insecureSkipVerify: true
