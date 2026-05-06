@@ -119,7 +119,7 @@ spec:
     kube-state-metrics:
       enabled: false
     kubeControllerManager:
-      enabled: false
+      enabled: true
       endpoints: &endpoints
         - 192.168.4.10
         - 192.168.4.13
@@ -127,13 +127,10 @@ spec:
       vmScrape:
         spec:
           endpoints:
-            - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-              port: http-metrics
-              scheme: https
-              tlsConfig:
-                insecureSkipVerify: true
+            - port: http-metrics
+              scheme: http
     kubeEtcd:
-      enabled: false
+      enabled: true
       endpoints: *endpoints
       service:
         port: 2381
@@ -143,22 +140,14 @@ spec:
           endpoints:
             - port: http-metrics
               scheme: http
-          namespaceSelector:
-            matchNames:
-              - kube-system
     kubeScheduler:
-      enabled: false
+      enabled: true
       endpoints: *endpoints
       vmScrape:
         spec:
           endpoints:
-            - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
-              port: http-metrics
-              scheme: https
-              tlsConfig:
-                caFile: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-                insecureSkipVerify: true
-                serverName: localhost
+            - port: http-metrics
+              scheme: http
     prometheus-node-exporter:
       enabled: false
     victoria-metrics-operator:
