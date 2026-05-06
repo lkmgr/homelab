@@ -129,6 +129,9 @@ spec:
           endpoints:
             - port: http-metrics
               scheme: http
+              bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+              tlsConfig:
+                insecureSkipVerify: true
     kubeEtcd:
       enabled: true
       endpoints: *endpoints
@@ -148,6 +151,9 @@ spec:
           endpoints:
             - port: http-metrics
               scheme: http
+              bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+              tlsConfig:
+                insecureSkipVerify: true
     prometheus-node-exporter:
       enabled: false
     victoria-metrics-operator:
