@@ -231,6 +231,13 @@ spec:
           promscrape.dropOriginalLabels: "true"
           promscrape.maxScrapeSize: 50MiB
           promscrape.streamParse: "true"
+      route:
+        enabled: true
+        hostnames: ["vmagent.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
     vmalert:
       spec:
         extraArgs:
