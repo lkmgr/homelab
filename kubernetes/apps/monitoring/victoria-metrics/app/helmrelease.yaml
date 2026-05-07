@@ -228,6 +228,13 @@ spec:
     vmagent:
       spec:
         scrapeInterval: 60s
+        resources:
+          requests:
+            cpu: 100m
+            memory: 200Mi
+          limits:
+            cpu: 400m
+            memory: 500Mi
         extraArgs:
           promscrape.dropOriginalLabels: "true"
           promscrape.maxScrapeSize: 50MiB
