@@ -5,4 +5,4 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./helmrelease.yaml
-  - ./servicemonitor.yaml
+  - ./podmonitor.yaml

@@ -1,6 +1,7 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/podmonitor_v1.json
 apiVersion: monitoring.coreos.com/v1
-kind: ServiceMonitor
+kind: PodMonitor
 metadata:
   name: k8s-gateway
   namespace: networking
@@ -8,13 +9,10 @@ metadata:
     app.kubernetes.io/instance: k8s-gateway
     app.kubernetes.io/name: k8s-gateway
 spec:
-  endpoints:
+  podMetricsEndpoints:
     - interval: 1m
       path: /metrics
       port: metrics
-  namespaceSelector:
-    matchNames:
-      - networking
   selector:
     matchLabels:
       app.kubernetes.io/instance: k8s-gateway
