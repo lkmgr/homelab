@@ -3,13 +3,17 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: envoy-gateway
+  name: volsync
+  labels:
+    control-plane: volsync-controller
 spec:
   endpoints:
-    - port: metrics
+    - interval: 30s
       path: /metrics
-      honorLabels: true
-  jobLabel: envoy-gateway
+      port: https
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
   selector:
     matchLabels:
-      control-plane: envoy-gateway
+      control-plane: volsync-controller
