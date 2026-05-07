@@ -238,7 +238,7 @@ spec:
             cpu: 100m
             memory: 200Mi
           limits:
-            cpu: 400m
+            cpu: null
             memory: 500Mi
         extraArgs:
           promscrape.dropOriginalLabels: "true"
