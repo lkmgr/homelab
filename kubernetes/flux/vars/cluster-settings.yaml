@@ -12,8 +12,6 @@ data:
   SERVICE_CIDR: "10.43.0.0/16"
 
   NAS_ADDR: "nas.internal"
-  NAS_ADDR_MINIO_SSD: "nas.internal:9000"
-  NAS_ADDR_MINIO: "nas.internal:9001"
 
   NODE_CIDR: "192.168.4.0/24"
   KUBE_VIP_ADDR: "192.168.4.250"
