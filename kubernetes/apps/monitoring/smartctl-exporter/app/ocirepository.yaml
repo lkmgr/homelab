@@ -3,12 +3,12 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: cert-manager
+  name: smartctl-exporter
 spec:
   interval: 15m
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
   ref:
-    tag: v1.20.1
-  url: oci://quay.io/jetstack/charts/cert-manager
+    tag: 0.16.0
+  url: oci://ghcr.io/prometheus-community/charts/prometheus-smartctl-exporter

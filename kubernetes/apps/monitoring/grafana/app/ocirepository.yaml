@@ -6,9 +6,9 @@ metadata:
   name: grafana-operator
 spec:
   interval: 15m
-  url: oci://ghcr.io/grafana/helm-charts/grafana-operator
-  ref:
-    tag: 5.22.2
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
     operation: copy
+  ref:
+    tag: 5.22.2
+  url: oci://ghcr.io/grafana/helm-charts/grafana-operator
