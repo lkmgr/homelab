@@ -152,6 +152,20 @@
               fs.inotify.max_user_instances: 8192
               net.core.rmem_max: 2500000
               net.core.wmem_max: 2500000
+        - name: System Configuration | nfsmount.conf
+          ansible.builtin.copy:
+            dest: /etc/nfsmount.conf
+            owner: root
+            group: root
+            mode: "0644"
+            content: |
+              [ NFSMount_Global_Options ]
+              nfsvers=4.1
+              hard=True
+              nconnect=4
+              noatime=True
+              rsize=1048576
+              wsize=1048576
 
   handlers:
     - name: Reboot
