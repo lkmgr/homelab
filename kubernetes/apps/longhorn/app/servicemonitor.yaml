@@ -11,7 +11,7 @@ spec:
   endpoints:
     - port: manager
       relabelings:
-        - sourceLabels: [__meta_kubernetes_node_name]
+        - sourceLabels: [__meta_kubernetes_pod_node_name]
           targetLabel: instance
   selector:
     matchLabels:
