@@ -7,7 +7,6 @@ resources:
   - ./backube.yaml
   - ./bitnami.yaml
   - ./cilium.yaml
-  - ./cloudnative-pg.yaml
   - ./coredns.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml
@@ -20,7 +19,6 @@ resources:
   - ./node-feature-discovery.yaml
   - ./openebs.yaml
   - ./piraeus.yaml
-  - ./postgres-operator.yaml
   - ./prometheus-community.yaml
   - ./stakater.yaml
   - ./synology-csi.yaml
