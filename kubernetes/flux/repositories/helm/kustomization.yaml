@@ -19,6 +19,4 @@ resources:
   - ./openebs.yaml
   - ./piraeus.yaml
   - ./stakater.yaml
-  - ./synology-csi.yaml
-  - ./vector.yaml
   - ./weaveworks.yaml
