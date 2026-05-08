@@ -10,6 +10,9 @@ metadata:
 spec:
   endpoints:
     - port: manager
+      relabelings:
+        - sourceLabels: [__meta_kubernetes_node_name]
+          targetLabel: instance
   selector:
     matchLabels:
       app: longhorn-manager
