@@ -23,7 +23,6 @@ spec:
       defaultDataLocality: best-effort
       reclaimPolicy: Delete
     defaultSettings:
-      backupTarget: "nfs://${NAS_ADDR}:/volume1/backups/longhorn"
       createDefaultDiskLabeledNodes: true
       defaultDataPath: /mnt/nvme/longhorn
       defaultDataLocality: best-effort
@@ -39,20 +38,17 @@ spec:
       v2DataEngine: false
       orphanResourceAutoDeletion: replica-data
       orphanResourceAutoDeletionGracePeriod: "1800"
-    # defaultBackupStore:
-    #   pollInterval: 3600
     csi:
-      attacherReplicaCount: 1
-      provisionerReplicaCount: 1
-      resizerReplicaCount: 1
-      snapshotterReplicaCount: 1
+      attacherReplicaCount: 2
+      provisionerReplicaCount: 2
+      resizerReplicaCount: 2
+      snapshotterReplicaCount: 2
     longhornUI:
       replicas: 1
-    # TODO: Enable when updating chart
-    # httproute:
-    #   enabled: true
-    #   parentRefs:
-    #     - name: envoy-internal
-    #       namespace: networking
-    #       sectionName: https
-    #   hostnames: ["longhorn.${SECRET_DOMAIN}"]
+    httproute:
+      enabled: true
+      parentRefs:
+        - name: envoy-internal
+          namespace: networking
+          sectionName: https
+      hostnames: ["longhorn.${SECRET_DOMAIN}"]
