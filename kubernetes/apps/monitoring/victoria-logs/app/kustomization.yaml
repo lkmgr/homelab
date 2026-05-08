@@ -6,3 +6,4 @@ resources:
   - ./grafanadatasource.yaml
   - ./helmrelease.yaml
   - ./ocirepository.yaml
+  - ./securitypolicy.yaml
