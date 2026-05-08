@@ -12,7 +12,6 @@ resources:
   - ./external-secrets.yaml
   - ./grafana.yaml
   - ./intel.yaml
-  - ./jetstack.yaml
   - ./k8s-gateway.yaml
   - ./longhorn.yaml
   - ./metrics-server.yaml

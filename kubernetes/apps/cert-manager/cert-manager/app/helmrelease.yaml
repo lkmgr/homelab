@@ -6,14 +6,9 @@ metadata:
   name: cert-manager
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: cert-manager
-      version: v1.20.1
-      sourceRef:
-        kind: HelmRepository
-        name: jetstack
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: cert-manager
   values:
     installCRDs: true
     extraArgs:
