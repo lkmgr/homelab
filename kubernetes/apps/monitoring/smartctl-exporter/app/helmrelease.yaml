@@ -18,13 +18,15 @@ spec:
     prometheusRules:
       enabled: true
       rules:
+        smartCTLDeviceMediaErrors:
+          for: 3m
+        smartCTLDeviceCriticalWarning:
+          for: 3m
+        smartCTLDeviceAvailableSpareUnderThreshold:
+          for: 3m
+        smartCTLDeviceStatus:
+          for: 3m
+        smartCTLDInterfaceSlow:
+          for: 3m
         smartCTLDDeviceTemperature:
-          enabled: true
-          alert: SmartCTLDDeviceTemperature
-          expr: smartctl_device_temperature{temperature_type="current"} > 65
-          for: 2m
-          annotations:
-            summary: Device has temperature higher than 65°C
-            description: Device {{ $labels.device }} on instance {{ $labels.instance }} has temperature higher than 65°C
-          labels:
-            severity: warning
+          for: 3m
