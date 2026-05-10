@@ -8,6 +8,7 @@ resources:
   - ./atuin/ks.yaml
   - ./authelia/ks.yaml
   - ./baikal/ks.yaml
+  - ./bentopdf/ks.yaml
   - ./changedetection/ks.yaml
   - ./echo-server/ks.yaml
   - ./esphome/ks.yaml
