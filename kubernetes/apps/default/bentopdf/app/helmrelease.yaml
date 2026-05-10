@@ -55,6 +55,16 @@ spec:
           - backendRefs:
               - identifier: app
                 port: http
+    persistence:
+      tmpfs:
+        type: emptyDir
+        globalMounts:
+          - path: /etc/nginx/tmp
+            subPath: etc-tmp
+          - path: /var/cache/nginx
+            subPath: cache
+          - path: /var/lib/nginx/tmp
+            subPath: var-tmp
     networkpolicies:
       main:
         controller: *app
