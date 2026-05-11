@@ -31,8 +31,8 @@ spec:
     # containerRuntime:
     #   integration: containerd
     #   socketPath: /var/run/k3s/containerd/containerd.sock
-    devices:
-      - trunk0.4
+    # devices:
+    #   - trunk0.4
     endpointRoutes:
       enabled: true
     hubble:
