@@ -6,7 +6,6 @@ resources:
   - ./angelnu.yaml
   - ./backube.yaml
   - ./bitnami.yaml
-  - ./cilium.yaml
   - ./coredns.yaml
   - ./external-dns.yaml
   - ./external-secrets.yaml

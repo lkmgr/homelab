@@ -1,0 +1,24 @@
+# Cilium
+
+## UniFi BGP
+
+Save file as `bgp.conf` and upload
+
+```sh
+router bgp 64513
+  bgp router-id 192.168.4.1
+  no bgp ebgp-requires-policy
+
+  neighbor k8s peer-group
+  neighbor k8s remote-as 64514
+
+  neighbor 192.168.4.10 peer-group k8s
+  neighbor 192.168.4.13 peer-group k8s
+  neighbor 192.168.4.14 peer-group k8s
+
+  address-family ipv4 unicast
+    neighbor k8s next-hop-self
+    neighbor k8s soft-reconfiguration inbound
+  exit-address-family
+exit
+```
