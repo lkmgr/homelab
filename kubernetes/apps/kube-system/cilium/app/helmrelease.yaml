@@ -7,32 +7,35 @@ metadata:
   namespace: kube-system
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: cilium
-      version: 1.19.3
-      sourceRef:
-        kind: HelmRepository
-        name: cilium
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: cilium
   values:
     autoDirectNodeRoutes: true
+    bandwidthManager:
+      bbr: true
+      enabled: true
+    bgpControlPlane:
+      enabled: true
+    bpf:
+      # TODO: enable with kernel 6.8+
+      # datapathMode: netkit
+      masquerade: true
+      preallocateMaps: true
+    bpfClockProbe: true
     cgroup:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
-    cluster:
-      name: home-cluster
-      id: 1
     cni:
-      exclusive: false
       binPath: /var/lib/rancher/k3s/data/cni
       confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
-    # containerRuntime:
-    #   integration: containerd
-    #   socketPath: /var/run/k3s/containerd/containerd.sock
-    # devices:
-    #   - trunk0.4
+      exclusive: false
+    dashboards:
+      enabled: true
+    devices: trunk0+
+    # TODO: enable with kernel 6.3+
+    # enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
     hubble:
@@ -50,10 +53,10 @@ spec:
           enabled: true
       relay:
         enabled: true
-        rollOutPods: true
         prometheus:
           serviceMonitor:
             enabled: true
+        rollOutPods: true
       ui:
         enabled: true
         rollOutPods: true
@@ -65,30 +68,28 @@ spec:
     kubeProxyReplacement: true
     kubeProxyReplacementHealthzBindAddr: 0.0.0.0:10256
     l2announcements:
-      enabled: true
-      leaseDuration: 60s
-      leaseRenewDeadline: 10s
-      leaseRetryPeriod: 2s
+      enabled: false
     loadBalancer:
       algorithm: maglev
-      mode: snat
-    localRedirectPolicy: true
+      mode: dsr
+    localRedirectPolicies:
+      enabled: true
     operator:
-      replicas: 1
-      rollOutPods: true
+      dashboards:
+        enabled: true
       prometheus:
         enabled: true
         serviceMonitor:
           enabled: true
-      dashboards:
-        enabled: true
+      replicas: 1
+      rollOutPods: true
+    pmtuDiscovery:
+      enabled: true
     prometheus:
       enabled: true
       serviceMonitor:
         enabled: true
         trustCRDsExist: true
-    dashboards:
-      enabled: true
     rollOutCiliumPods: true
     routingMode: native
     securityContext:
@@ -101,6 +102,8 @@ spec:
           - IPC_LOCK
           - SYS_ADMIN
           - SYS_RESOURCE
+          - PERFMON
+          - BPF
           - DAC_OVERRIDE
           - FOWNER
           - SETGID
@@ -109,3 +112,6 @@ spec:
           - NET_ADMIN
           - SYS_ADMIN
           - SYS_RESOURCE
+    socketLB:
+      enabled: true
+      hostNamespaceOnly: true
