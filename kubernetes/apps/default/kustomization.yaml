@@ -17,6 +17,7 @@ resources:
   - ./jellyfin/ks.yaml
   - ./libretranslate/ks.yaml
   - ./mosquitto/ks.yaml
+  - ./netshoot/ks.yaml
   - ./open-webui/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
