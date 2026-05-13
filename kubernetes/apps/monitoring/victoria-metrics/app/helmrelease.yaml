@@ -113,11 +113,10 @@ spec:
         enabled: true
         spec:
           allowCrossNamespaceImport: true
-    # defaultRules:
-    #   rules:
-    #     # always fires because of dropped _bucket metrics
-    #     RecordingRulesNoData:
-    #       create: false
+    defaultRules:
+      rules:
+        RecordingRulesNoData:
+          create: false
     grafana:
       enabled: false
       forceDeployDatasource: true
