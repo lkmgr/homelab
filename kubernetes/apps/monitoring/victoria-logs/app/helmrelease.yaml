@@ -19,6 +19,8 @@ spec:
         enabled: true
     server:
       fullnameOverride: victoria-logs
+      extraArgs:
+        delete.enable: true
       persistentVolume:
         enabled: true
         storageClassName: longhorn
