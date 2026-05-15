@@ -34,7 +34,7 @@ spec:
       app:
         controller: valetudopng
         type: LoadBalancer
-        externalTrafficPolicy: Cluster
+        externalTrafficPolicy: Local
         annotations:
           lbipam.cilium.io/ips: "${VIP_VALETUDOPNG}"
         ports:

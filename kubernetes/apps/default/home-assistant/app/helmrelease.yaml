@@ -95,7 +95,7 @@ spec:
       app:
         controller: home-assistant
         type: LoadBalancer
-        externalTrafficPolicy: Cluster
+        externalTrafficPolicy: Local
         annotations:
           lbipam.cilium.io/ips: "${VIP_HOME_ASSISTANT}"
         ports:

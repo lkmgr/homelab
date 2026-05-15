@@ -37,7 +37,7 @@ spec:
       app:
         controller: mosquitto
         type: LoadBalancer
-        externalTrafficPolicy: Cluster
+        externalTrafficPolicy: Local
         annotations:
           lbipam.cilium.io/ips: "${VIP_MOSQUITTO}"
         ports:

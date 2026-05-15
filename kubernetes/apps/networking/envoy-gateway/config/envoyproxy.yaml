@@ -24,5 +24,4 @@ spec:
             limits:
               memory: 1Gi
       envoyService:
-        # externalTrafficPolicy: Local
-        externalTrafficPolicy: Cluster
+        externalTrafficPolicy: Local
