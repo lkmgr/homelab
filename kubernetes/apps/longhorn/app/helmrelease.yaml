@@ -34,9 +34,9 @@ spec:
       removeSnapshotsDuringFilesystemTrim: true
       restoreVolumeRecurringJobs: false
       snapshotHeavyTaskConcurrentLimit: "1"
-      storageMinimalAvailablePercentage: "15"
+      storageMinimalAvailablePercentage: "10"
       storageOverProvisioningPercentage: "200"
-      storageReservedPercentageForDefaultDisk: "15"
+      storageReservedPercentageForDefaultDisk: "10"
       v1DataEngine: true
       v2DataEngine: false
     csi:
