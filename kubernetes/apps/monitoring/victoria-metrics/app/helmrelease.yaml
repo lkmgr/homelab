@@ -115,6 +115,8 @@ spec:
           allowCrossNamespaceImport: true
     defaultRules:
       rules:
+        etcdMemberCommunicationSlow:
+          create: false
         RecordingRulesNoData:
           create: false
     grafana:
