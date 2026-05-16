@@ -4,3 +4,4 @@ customization:
     officialExtensions:
       - siderolabs/amd-ucode
       - siderolabs/amdgpu
+      - siderolabs/iscsi-tools
