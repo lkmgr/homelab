@@ -124,10 +124,6 @@ spec:
       enabled: false
     kubeControllerManager:
       enabled: true
-      endpoints: &endpoints
-        - 192.168.4.10
-        - 192.168.4.13
-        - 192.168.4.14
       vmScrape:
         spec:
           endpoints:
@@ -145,18 +141,17 @@ spec:
                 #   regex: ".*_bucket"
     kubeEtcd:
       enabled: true
-      endpoints: *endpoints
       service:
         port: 2381
         targetPort: 2381
+        selector:
+          component: kube-apiserver
       vmScrape:
         spec:
           endpoints:
-            - port: http-metrics
-              scheme: http
+            - scheme: http
     kubeScheduler:
       enabled: true
-      endpoints: *endpoints
       vmScrape:
         spec:
           endpoints:
