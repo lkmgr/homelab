@@ -21,12 +21,9 @@ spec:
     k8sAppLabelOverride: kube-dns
     service:
       name: kube-dns
-      clusterIP: "${COREDNS_ADDR}"
+      clusterIP: 10.43.0.10
     serviceAccount:
       create: true
-    deployment:
-      annotations:
-        reloader.stakater.com/auto: "true"
     servers:
       - zones:
           - zone: .
