@@ -71,7 +71,7 @@ spec:
         type: LoadBalancer
         controller: *app
         annotations:
-          lbipam.cilium.io/ips: "${VIP_JELLYFIN}"
+          lbipam.cilium.io/ips: "192.168.4.241"
         ports:
           http:
             port: *port

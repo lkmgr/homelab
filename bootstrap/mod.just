@@ -20,7 +20,7 @@ k8s:
         sleep 5
     done
 
-apps: (kubeconfig "node") ready apps-ns apps-configmaps apps-secrets apps-crds apps-helm kubeconfig flux
+apps: (kubeconfig "node") ready apps-ns apps-secrets apps-crds apps-helm kubeconfig flux
     just log info "Cluster is bootstrapped — Flux will start syncing the Git repository"
 
 [private]
@@ -63,20 +63,6 @@ apps-ns:
             just log error "Failed to apply namespace" namespace "$ns"
             exit 1
         fi
-    done
-
-[script]
-apps-configmaps:
-    just log info "Creating initial config maps"
-    for cm in \
-        "{{ kubernetes_dir }}/flux/vars/cluster-settings.yaml"
-    do
-      name="$(basename "$cm" .yaml)"
-      if kubectl -n flux-system apply --server-side --filename "$cm" &>/dev/null; then
-          just log info "ConfigMap applied" resource "$name"
-      else
-          just log fatal "Failed to apply ConfigMap" resource "$name"
-      fi
     done
 
 [script]

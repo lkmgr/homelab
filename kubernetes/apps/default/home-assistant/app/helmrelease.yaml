@@ -32,7 +32,7 @@ spec:
                   - key: kubernetes.io/hostname
                     operator: In
                     values:
-                      - helios
+                      - k8s-0
     controllers:
       home-assistant:
         containers:
@@ -41,7 +41,7 @@ spec:
               repository: ghcr.io/home-assistant/home-assistant
               tag: 2026.5.1@sha256:d4fbec16196d5c8bedf32647f0ca7165f654d92a2e81f35a373508d3226cb867
             env:
-              TZ: "${TIMEZONE}"
+              TZ: Europe/Berlin
             probes:
               startup:
                 enabled: true
@@ -74,7 +74,7 @@ spec:
               repository: ghcr.io/coder/code-server
               tag: 4.118.0@sha256:4aff9947c113487113201da811564fade1af5f23038b4d683998d024eebbac92
             env:
-              TZ: "${TIMEZONE}"
+              TZ: Europe/Berlin
             args:
               - --auth
               - "none"
@@ -97,7 +97,7 @@ spec:
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
-          lbipam.cilium.io/ips: "${VIP_HOME_ASSISTANT}"
+          lbipam.cilium.io/ips: "192.168.4.247"
         ports:
           mdns:
             port: 5353

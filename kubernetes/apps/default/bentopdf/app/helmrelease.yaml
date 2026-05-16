@@ -19,7 +19,7 @@ spec:
               repository: ghcr.io/alam00000/bentopdf-simple
               tag: 2.8.4@sha256:2bae644d27351a4d01bbbbcce7a9948fcc66da053ec7a37fff168c3788de9096
             env:
-              TZ: "${TIMEZONE}"
+              TZ: Europe/Berlin
               PORT: &port 8080
             securityContext:
               allowPrivilegeEscalation: false

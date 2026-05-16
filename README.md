@@ -8,8 +8,8 @@
 
 ### Kubernetes Cluster
 
-| Device                      | Type          | OS Disk        | Data Disk      | RAM   | OS        | Longhorn |
-| --------------------------- | ------------- | -------------- | -------------- | ----- | --------- | -------- |
+| Device                      | Type          | OS Disk        | Data Disk      | RAM   | OS    | Longhorn |
+| --------------------------- | ------------- | -------------- | -------------- | ----- | ----- | -------- |
 | Dell Optiplex 3050 i5-7500T | Control Plane | 500GB SATA SSD | 500GB NVME SSD | 16 GB | Talos | ✅       |
 | Dell Optiplex 3050 i5-7500T | Control Plane | 500GB SATA SSD | 500GB NVME SSD | 16 GB | Talos | ✅       |
 | Minisforum Ryzen 5 4500U    | Control Plane | 500GB SATA SSD | 512GB NVME SSD | 16 GB | Talos | ✅       |
@@ -39,7 +39,7 @@ talosctl -n <ip> get links --insecure
 
 - Create config for each node in `talos/` folder
 
-## Installation - WIP
+## Installation
 
 ```sh
 just talos apply-node k8s-0 <ip> --insecure

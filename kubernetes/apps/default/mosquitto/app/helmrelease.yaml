@@ -25,7 +25,7 @@ spec:
               repository: public.ecr.aws/docker/library/eclipse-mosquitto
               tag: 2.1.2-alpine@sha256:a908c65cc8e67ec9d292ef27c2c0360dbaaee7eb1b935cdd194e67697f15dea1
             env:
-              TZ: "${TIMEZONE}"
+              TZ: Europe/Berlin
     # defaultPodOptions:
     #   securityContext:
     #     runAsNonRoot: true
@@ -39,7 +39,7 @@ spec:
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
-          lbipam.cilium.io/ips: "${VIP_MOSQUITTO}"
+          lbipam.cilium.io/ips: "192.168.4.245"
         ports:
           mqtt:
             port: 1883

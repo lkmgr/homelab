@@ -30,5 +30,5 @@ spec:
       - mountPath: repository # /mnt/repository
         volumeSource:
           nfs:
-            server: "${NAS_ADDR}"
+            server: "nas.internal"
             path: "/volume1/backups/volsync"
