@@ -16,21 +16,20 @@ spec:
         name: openebs
         namespace: flux-system
   values:
+    preUpgradeHook:
+      enabled: false
     localpv-provisioner:
+      analytics:
+        enabled: false
       localpv:
         image:
           registry: quay.io/
-        resources:
-          requests:
-            cpu: 100m
-            memory: 48Mi
-          limits:
-            memory: 96Mi
+        basePath: &hostPath /var/mnt/local-hostpath
       hostpathClass:
         enabled: true
         name: openebs-hostpath
         isDefaultClass: false
-        basePath: /var/mnt/local-hostpath
+        basePath: *hostPath
       helperPod:
         image:
           registry: quay.io/
