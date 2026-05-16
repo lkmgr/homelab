@@ -28,12 +28,12 @@ spec:
         enabled: false
       hostRoot: /sys/fs/cgroup
     cni:
-      binPath: /var/lib/rancher/k3s/data/cni
-      confPath: /var/lib/rancher/k3s/agent/etc/cni/net.d
+      binPath: /opt/cni/bin
+      confPath: /etc/cni/net.d
       exclusive: false
     dashboards:
       enabled: true
-    devices: trunk0+
+    devices: net0+
     # TODO: enable with kernel 6.3+
     # enableIPv4BIGTCP: true
     endpointRoutes:

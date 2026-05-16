@@ -10,10 +10,9 @@
 
 | Device                      | Type          | OS Disk        | Data Disk      | RAM   | OS        | Longhorn |
 | --------------------------- | ------------- | -------------- | -------------- | ----- | --------- | -------- |
-| Dell Optiplex 3050 i5-7500T | Control Plane | 240GB SATA SSD | 500GB NVME SSD | 16 GB | Debian 12 | ✅       |
-| Dell Optiplex 3050 i5-7500T | Control Plane | 240GB SATA SSD | 500GB NVME SSD | 16 GB | Debian 12 | ✅       |
-| Dell Optiplex 3040 i5-6500T | Control Plane | 480GB SATA SSD | -              | 16 GB | Debian 12 | -        |
-| Minisforum Ryzen 5 4500U    | Worker        | 512GB NVME SSD | -              | 16 GB | Debian 12 | ✅       |
+| Dell Optiplex 3050 i5-7500T | Control Plane | 500GB SATA SSD | 500GB NVME SSD | 16 GB | Talos | ✅       |
+| Dell Optiplex 3050 i5-7500T | Control Plane | 500GB SATA SSD | 500GB NVME SSD | 16 GB | Talos | ✅       |
+| Minisforum Ryzen 5 4500U    | Control Plane | 500GB SATA SSD | 512GB NVME SSD | 16 GB | Talos | ✅       |
 
 ### NAS
 
@@ -21,33 +20,36 @@
 | --------------- | ------- | ------- |
 | Synology DS218+ | 2x16 TB | 6GB RAM |
 
-### Misc.
-
-| Device             | Used for                 |
-| ------------------ | ------------------------ |
-| Raspberry Pi 4 4GB | Klipper/Moonraker/Fluidd |
-| Raspberry Pi 2     | -                        |
-
 ## Requirements
 
-- `mise` installed
+- `mise install`
+- Install `minijinja-cli`
+- Doppler CLI set up
 - Age key in `age.key` file in root folder
 
-### Set up tools
+## Preparation
 
+- Download Talos image: `just talos download-image [intel|amd] [talos-version]`
+- Boot from .iso
+
+```sh
+talosctl -n <ip> get disks --insecure
+talosctl -n <ip> get links --insecure
 ```
-mise install
-mise tasks run install
+
+- Create config for each node in `talos/` folder
+
+## Installation - WIP
+
+```sh
+just talos apply-node k8s-0 <ip> --insecure
+just talos apply-node k8s-1 <ip> --insecure
+just talos apply-node k8s-2 <ip> --insecure
+
+just bootstrap k8s
+
+just bootstrap apps
 ```
-
-## Installation
-
-- Install Debian on hosts, update Ansible `hosts.yaml` and files in `host_vars/`
-- `task ansible:kubernetes playbook=cluster-prepare`
-- `task ansible:kubernetes playbook=cluster-installation`
-- Verify nodes are online
-- Run `flux check --pre`
-- `task flux:install`
 
 ## License
 

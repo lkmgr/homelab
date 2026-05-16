@@ -6,8 +6,6 @@ metadata:
   name: cluster-apps-grafana
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-external-secrets-stores
   interval: 1h
   path: ./kubernetes/apps/monitoring/grafana/app
   prune: true

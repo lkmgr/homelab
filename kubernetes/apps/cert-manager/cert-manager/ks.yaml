@@ -24,7 +24,6 @@ metadata:
 spec:
   dependsOn:
     - name: cluster-apps-cert-manager
-    - name: cluster-apps-external-secrets-stores
   healthCheckExprs:
     - apiVersion: cert-manager.io/v1
       current: status.conditions.filter(e, e.type == 'Ready').all(e, e.status == 'True')

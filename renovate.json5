@@ -4,10 +4,8 @@
     "config:recommended",
     "docker:enableMajor",
     "helpers:pinGitHubActionDigests",
-    "github>lkmgr/homelab//.renovate/allowedVersions.json5",
     "github>lkmgr/homelab//.renovate/autoMerge.json5",
     "github>lkmgr/homelab//.renovate/customManagers.json5",
-    "github>lkmgr/homelab//.renovate/customVersioning.json5",
     "github>lkmgr/homelab//.renovate/groups.json5",
     "github>lkmgr/homelab//.renovate/labels.json5",
     "github>lkmgr/homelab//.renovate/semanticCommits.json5",
@@ -19,29 +17,38 @@
   ],
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   suppressNotifications: ["prEditedNotification", "prIgnoreNotification"],
+  ignorePaths: ["**/*.sops.*"],
   flux: {
-    managerFilePatterns: [
-      "/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/",
-      "/(^|/)kubernetes/.+\\.ya?ml$/",
-    ],
+    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
   },
-  "helm-values": {
+  helmfile: {
     managerFilePatterns: [
-      "/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/",
-      "/(^|/)kubernetes/.+\\.ya?ml$/",
+      "/(^|/)helmfile\\.ya?ml(?:\\.gotmpl)?(?:\\.j2)?$/",
+      "/(^|/)helmfile\\.d/.+\\.ya?ml(?:\\.gotmpl)?(?:\\.j2)?$/",
     ],
-    pinDigests: true,
   },
   kubernetes: {
-    managerFilePatterns: [
-      "/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/",
-      "/(^|/)kubernetes/.+\\.ya?ml$/",
-    ],
+    managerFilePatterns: ["/(^|/)kubernetes/.+\\.ya?ml(?:\\.j2)?$/"],
   },
   kustomize: {
-    managerFilePatterns: ["/(^|/)kustomization\\.ya?ml(\\.j2)?$/"],
+    managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
   },
+  // "helm-values": {
+  //   managerFilePatterns: [
+  //     "/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/",
+  //     "/(^|/)kubernetes/.+\\.ya?ml$/",
+  //   ],
+  //   pinDigests: true,
+  // },
   npm: {
     rangeStrategy: "pin",
+  },
+  packageRules: [
+    {
+      description: "Override Helmfile Dependency Name",
+      matchDatasources: ["docker"],
+      matchManagers: ["helmfile"],
+      overrideDepName: "{{packageName}}",
+    },
   },
 }

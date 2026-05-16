@@ -6,8 +6,6 @@ metadata:
   name: cluster-apps-longhorn
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-external-secrets-stores
   interval: 1h
   path: ./kubernetes/apps/longhorn/app
   prune: false

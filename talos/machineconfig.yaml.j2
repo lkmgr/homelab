@@ -1,0 +1,138 @@
+---
+version: v1alpha1
+machine:
+  type: controlplane
+  token: {{ ENV.MACHINE_TOKEN }}
+  ca:
+    crt: {{ ENV.MACHINE_CA_CRT }}
+    key: {{ ENV.MACHINE_CA_KEY }}
+  certSANs:
+    - 127.0.0.1
+    - {{ kubernetes.api.addr }}
+  kubelet:
+    image: ghcr.io/siderolabs/kubelet:{{ versions.kubernetes }}
+    defaultRuntimeSeccompProfileEnabled: true
+    disableManifestsDirectory: true
+    extraConfig:
+      serializeImagePulls: false
+    nodeIP:
+      validSubnets:
+        - {{ network.node_cidr }}
+  network:
+    nameservers:
+      {% for item in network.dns_servers %}
+      - {{ item }}
+      {% endfor %}
+    disableSearchDomain: true
+  install:
+    wipe: false
+    grubUseUKICmdline: true
+  files:
+    - op: create
+      path: /etc/cri/conf.d/20-customization.part
+      content: |
+        [plugins."io.containerd.cri.v1.images"]
+          discard_unpacked_layers = false
+        [plugins."io.containerd.cri.v1.runtime"]
+          device_ownership_from_security_context = true
+    - op: overwrite
+      path: /etc/nfsmount.conf
+      permissions: 0o644
+      content: |
+        [ NFSMount_Global_Options ]
+        nfsvers=4.1
+        hard=True
+        nconnect=4
+        noatime=True
+        rsize=1048576
+        wsize=1048576
+  time:
+    disabled: false
+    servers:
+      {% for item in network.ntp_servers %}
+      - {{ item }}
+      {% endfor %}
+  sysctls:
+    fs.inotify.max_user_instances: "8192"
+    fs.inotify.max_user_watches: "1048576"
+    net.core.rmem_max: "7500000"
+    net.core.wmem_max: "7500000"
+    net.ipv4.neigh.default.gc_thresh1: "4096"
+    net.ipv4.neigh.default.gc_thresh2: "8192"
+    net.ipv4.neigh.default.gc_thresh3: "16384"
+    net.ipv4.tcp_slow_start_after_idle: "0"
+    user.max_user_namespaces: "11255"
+  features:
+    diskQuotaSupport: true
+    hostDNS:
+      enabled: true
+      forwardKubeDNSToHost: true # Requires Cilium socketLB features
+      resolveMemberNames: true
+    kubePrism:
+      enabled: true
+      port: 7445
+cluster:
+  id: {{ ENV.CLUSTER_ID }}
+  secret: {{ ENV.CLUSTER_SECRET }}
+  token: {{ ENV.CLUSTER_TOKEN }}
+  controlPlane:
+    endpoint: https://{{ kubernetes.api.addr }}:6443
+  ca:
+    crt: {{ ENV.CLUSTER_CA_CRT }}
+    key: {{ ENV.CLUSTER_CA_KEY }}
+  clusterName: main
+  network:
+    cni:
+      name: none
+    dnsDomain: cluster.local
+    podSubnets:
+      - {{ network.pod_cidr }}
+    serviceSubnets:
+      - {{ network.svc_cidr }}
+  discovery:
+    enabled: true
+    registries:
+      kubernetes:
+        disabled: true
+      service: {}
+  aggregatorCA:
+    crt: {{ ENV.CLUSTER_AGGREGATORCA_CRT }}
+    key: {{ ENV.CLUSTER_AGGREGATORCA_KEY }}
+  allowSchedulingOnControlPlanes: true
+  apiServer:
+    image: registry.k8s.io/kube-apiserver:{{ versions.kubernetes }}
+    auditPolicy:
+      apiVersion: audit.k8s.io/v1
+      kind: Policy
+      rules:
+        - level: Metadata
+    certSANs:
+      - 127.0.0.1
+      - {{ kubernetes.api.addr }}
+    disablePodSecurityPolicy: true
+    extraArgs:
+      enable-aggregator-routing: "true"
+  controllerManager:
+    image: registry.k8s.io/kube-controller-manager:{{ versions.kubernetes }}
+    extraArgs:
+      bind-address: 0.0.0.0
+  coreDNS:
+    disabled: true
+  etcd:
+    advertisedSubnets:
+      - {{ network.node_cidr }}
+    ca:
+      crt: {{ ENV.CLUSTER_ETCD_CA_CRT }}
+      key: {{ ENV.CLUSTER_ETCD_CA_KEY }}
+    extraArgs:
+      listen-metrics-urls: http://0.0.0.0:2381
+  proxy:
+    disabled: true
+    image: registry.k8s.io/kube-proxy:{{ versions.kubernetes }}
+  scheduler:
+    image: registry.k8s.io/kube-scheduler:{{ versions.kubernetes }}
+    extraArgs:
+      bind-address: 0.0.0.0
+  secretboxEncryptionSecret: {{ ENV.CLUSTER_SECRETBOXENCRYPTIONSECRET }}
+  serviceAccount:
+    key: {{ ENV.CLUSTER_SERVICEACCOUNT_KEY }}

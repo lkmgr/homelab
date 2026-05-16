@@ -8,4 +8,4 @@ resources:
   - ./envoy-gateway/ks.yaml
   - ./external-dns/ks.yaml
   - ./k8s-gateway/ks.yaml
-  - ./multus/ks.yaml
+  # - ./multus/ks.yaml

@@ -1,0 +1,40 @@
+---
+helmDefaults:
+  cleanupOnFail: true
+  wait: true
+  waitForJobs: true
+
+releases:
+  - name: cilium
+    namespace: kube-system
+    chart: oci://quay.io/cilium/charts/cilium
+    version: 1.19.3
+    values: ["./templates/values.yaml.gotmpl"]
+
+  - name: coredns
+    namespace: kube-system
+    chart: oci://ghcr.io/coredns/charts/coredns
+    version: 1.45.2
+    values: ["./templates/values.yaml.gotmpl"]
+    needs: ["kube-system/cilium"]
+
+  - name: spegel
+    namespace: kube-system
+    chart: oci://ghcr.io/spegel-org/helm-charts/spegel
+    version: 0.7.0
+    values: ["./templates/values.yaml.gotmpl"]
+    needs: ["kube-system/coredns"]
+
+  - name: cert-manager
+    namespace: cert-manager
+    chart: oci://quay.io/jetstack/charts/cert-manager
+    version: v1.20.2
+    values: ["./templates/values.yaml.gotmpl"]
+    needs: ["kube-system/coredns"]
+
+  - name: external-secrets
+    namespace: kube-system
+    chart: oci://ghcr.io/external-secrets/charts/external-secrets
+    version: 2.4.1
+    values: ["./templates/values.yaml.gotmpl"]
+    needs: ["cert-manager/cert-manager"]

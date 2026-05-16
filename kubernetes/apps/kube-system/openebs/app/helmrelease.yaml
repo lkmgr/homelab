@@ -30,7 +30,7 @@ spec:
         enabled: true
         name: openebs-hostpath
         isDefaultClass: false
-        basePath: /mnt/nvme/openebs-hostpath
+        basePath: /var/mnt/local-hostpath
       helperPod:
         image:
           registry: quay.io/

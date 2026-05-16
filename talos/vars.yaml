@@ -1,0 +1,17 @@
+network:
+  node_cidr: "192.168.4.0/24"
+  gateway: "192.168.4.1"
+  dns_servers: ["192.168.4.1"]
+  ntp_servers: ["162.159.200.1", "162.159.200.123"]
+  pod_cidr: "10.42.0.0/16"
+  svc_cidr: "10.43.0.0/16"
+
+kubernetes:
+  api:
+    addr: "192.168.4.250"
+
+versions:
+  # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+  kubernetes: "v1.36.0"
+  # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+  talos: "v1.13.2"

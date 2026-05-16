@@ -11,7 +11,7 @@ spec:
     branch: main
   url: "ssh://git@github.com/lkmgr/homelab-extra"
   secretRef:
-    name: cluster-extra-deploy-key
+    name: github-extra-deploy-key
   ignore: |
     # exclude all
     /*

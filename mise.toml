@@ -1,38 +1,28 @@
 [env]
-_.python.venv = { path = ".venv", create = true }
-
+_.python.venv = { path = "{{config_root}}/.venv", create = true }
+JUST_UNSTABLE = "1"
 KUBECONFIG = "{{config_root}}/kubeconfig"
+MINIJINJA_CONFIG_FILE = "{{config_root}}/.minijinja.toml"
 SOPS_AGE_KEY_FILE = "{{config_root}}/age.key"
-
-VIRTUAL_ENV="{{config_root}}/.venv"
-ANSIBLE_COLLECTIONS_PATH="{{config_root}}/.venv/galaxy"
-ANSIBLE_ROLES_PATH="{{config_root}}/.venv/galaxy/ansible_roles"
-ANSIBLE_VARS_ENABLED="host_group_vars,community.sops.sops"
-K8S_AUTH_KUBECONFIG="{{config_root}}/kubeconfig"
+SOPS_CONFIG = "{{config_root}}/.sops.yaml"
+TALOSCONFIG = "{{config_root}}/talosconfig"
 
 [tools]
-python = "3.14.5"
-
-age = "latest"
-cilium-cli = "latest"
-cloudflared = "latest"
-flux2 = "latest"
-helm = "latest"
-helmfile = "latest"
-jq = "latest"
-kubectl = "latest"
-kustomize = "latest"
-pulumi = "latest"
-sops = "latest"
-stern = "latest"
-task = "latest"
-uv = "latest"
-yq = "latest"
-
-[tasks.install]
-description = "Install dependencies"
-alias = "i"
-run = [
-  "uv pip install -r requirements.txt",
-  "ansible-galaxy install -r requirements.yaml"
-]
+"python" = "3.14.5"
+"uv" = "0.11.12"
+"pipx" = "1.12.0"
+"aqua:casey/just" = "1.51.0"
+"aqua:charmbracelet/gum" = "0.17.0"
+"aqua:cilium/cilium-cli" = "0.19.2"
+"aqua:cloudflare/cloudflared" = "2026.3.0"
+"aqua:FiloSottile/age" = "1.3.1"
+"aqua:fluxcd/flux2" = "2.8.6"
+"aqua:getsops/sops" = "3.13.0"
+"aqua:helm/helm" = "4.1.4"
+"aqua:helmfile/helmfile" = "1.5.0"
+"aqua:jqlang/jq" = "1.8.1"
+"aqua:kubernetes-sigs/kustomize" = "5.7.1"
+"aqua:kubernetes/kubernetes/kubectl" = "1.36.0"
+"aqua:mikefarah/yq" = "4.53.2"
+"aqua:siderolabs/talos" = "1.13.0"
+doppler = { version = "3.76.0", exe = "doppler" }

@@ -6,8 +6,6 @@ metadata:
   name: cluster-apps-weave-gitops
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-external-secrets-stores
   interval: 1h
   path: ./kubernetes/apps/flux-system/weave-gitops/app
   postBuild:

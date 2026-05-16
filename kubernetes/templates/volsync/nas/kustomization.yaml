@@ -6,4 +6,4 @@ resources:
   - ./backup.yaml
   - ./cronjob-check.yaml
   - ./externalsecret.yaml
-  # - ./restore.yaml
+  - ./restore.yaml

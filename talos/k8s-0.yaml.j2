@@ -1,0 +1,54 @@
+---
+machine:
+  install:
+    disk: /dev/disk/by-id/ata-KINGSTON_SA400S37480G_50026B7282F2A53E
+    image: factory.talos.dev/installer/9c1d1b442d73f96dcd04e81463eb20000ab014062d22e1b083e1773336bc1dd5:{{ versions.talos }}
+  nodeLabels:
+    node.longhorn.io/create-default-disk: true
+---
+apiVersion: v1alpha1
+kind: HostnameConfig
+hostname: k8s-0
+---
+apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: net0
+selector:
+  match: glob("1c:83:41:29:28:*", mac(link.permanent_addr))
+---
+apiVersion: v1alpha1
+kind: VLANConfig
+name: net0.4
+vlanID: 4
+parent: net0
+mtu: 1500
+---
+apiVersion: v1alpha1
+kind: DHCPv4Config
+name: net0.4
+clientIdentifier: mac
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: {{ kubernetes.api.addr }}
+link: net0.4
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: local-hostpath
+volumeType: partition
+provisioning:
+  diskSelector:
+    match: '"/dev/disk/by-id/nvme-KINGSTON_OM8PCP3512F-A02_50026B7684A7F7B2" in disk.symlinks'
+  minSize: 100GiB
+  maxSize: 100GiB
+---
+apiVersion: v1alpha1
+kind: UserVolumeConfig
+name: longhorn
+volumeType: partition
+provisioning:
+  diskSelector:
+    match: '"/dev/disk/by-id/nvme-KINGSTON_OM8PCP3512F-A02_50026B7684A7F7B2" in disk.symlinks'
+  minSize: 100GiB
+  grow: true

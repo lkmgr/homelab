@@ -6,8 +6,6 @@ metadata:
   name: cluster-apps-authelia
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-external-secrets-stores
   interval: 1h
   path: ./kubernetes/apps/default/authelia/app
   postBuild:

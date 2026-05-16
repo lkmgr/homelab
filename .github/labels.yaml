@@ -1,35 +1,44 @@
 ---
-# Area
-- name: area/ansible
-  color: "72ccf3"
+# Areas
+- name: area/bootstrap
+  color: "0e8a16"
+- name: area/docs
+  color: "0e8a16"
 - name: area/github
-  color: "72ccf3"
+  color: "0e8a16"
 - name: area/kubernetes
-  color: "72ccf3"
+  color: "0e8a16"
+- name: area/mise
+  color: "0e8a16"
+- name: area/renovate
+  color: "0e8a16"
+- name: area/scripts
+  color: "0e8a16"
+- name: area/talos
+  color: "0e8a16"
+- name: area/justfile
+  color: "0e8a16"
 - name: area/pulumi
-  color: "72ccf3"
-# Renovate
-- name: renovate/ansible
-  color: "ffc300"
+  color: "0e8a16"
+# Renovate Types
 - name: renovate/container
-  color: "ffc300"
+  color: "027fa0"
 - name: renovate/github-action
-  color: "ffc300"
+  color: "027fa0"
+- name: renovate/grafana-dashboard
+  color: "027fa0"
 - name: renovate/github-release
-  color: "ffc300"
+  color: "027fa0"
 - name: renovate/helm
-  color: "ffc300"
+  color: "027fa0"
 - name: renovate/npm
-  color: "ffc300"
-# Semantic Type
+  color: "027fa0"
+# Semantic Types
 - name: type/digest
-  color: "ffec19"
+  color: "ffeC19"
 - name: type/patch
-  color: "ffec19"
+  color: "ffeC19"
 - name: type/minor
   color: "ff9800"
 - name: type/major
   color: "f6412d"
-# Uncategorized
-- name: on-hold
-  color: "ee0701"

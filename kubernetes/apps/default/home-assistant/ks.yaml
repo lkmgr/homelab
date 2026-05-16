@@ -6,8 +6,6 @@ metadata:
   name: cluster-apps-home-assistant
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: cluster-apps-external-secrets-stores
   interval: 1h
   path: ./kubernetes/apps/default/home-assistant/app
   postBuild:

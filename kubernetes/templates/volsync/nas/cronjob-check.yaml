@@ -16,7 +16,7 @@ spec:
             - name: jitter
               image: docker.io/library/busybox:1.37.0@sha256:1487d0af5f52b4ba31c7e465126ee2123fe3f2305d638e7827681e7cf6c83d5e
               imagePullPolicy: IfNotPresent
-              command: ["sh", "-c", "sleep $(shuf -i 0-300 -n 1)"]
+              command: ["sh", "-c", "sleep $(shuf -i 0-600 -n 1)"]
           containers:
             - name: restic
               image: restic/restic:0.18.1@sha256:39d9072fb5651c80d75c7a811612eb60b4c06b32ffe87c2e9f3c7222e1797e76

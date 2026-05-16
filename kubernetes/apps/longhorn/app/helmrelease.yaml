@@ -26,7 +26,7 @@ spec:
       concurrentAutomaticEngineUpgradePerNodeLimit: "1"
       createDefaultDiskLabeledNodes: true
       defaultDataLocality: best-effort
-      defaultDataPath: /mnt/nvme/longhorn
+      defaultDataPath: /var/mnt/longhorn
       defaultReplicaCount: '{"v1":"2","v2":"2"}'
       nodeDownPodDeletionPolicy: delete-both-statefulset-and-deployment-pod
       orphanResourceAutoDeletion: replica-data

@@ -30,10 +30,6 @@
       addLabels: ["renovate/npm"],
     },
     {
-      matchDatasources: ["galaxy", "galaxy-collection"],
-      addLabels: ["renovate/ansible"],
-    },
-    {
       matchDatasources: ["github-releases", "github-tags"],
       addLabels: ["renovate/github-release"],
     },
