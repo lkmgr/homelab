@@ -106,6 +106,6 @@ apps-helm:
 [script]
 flux:
     just log info "Initial Flux setup"
-    kubectl apply --kustomize {{ source_directory() }}/flux
+    kubectl apply --server-side --force-conflicts --kustomize {{ source_directory() }}/flux
     kubectl wait deployment -n flux-system --all --for=condition=Available --timeout=2m
-    kubectl apply --kustomize {{ kubernetes_dir }}/flux/config
+    kubectl apply --server-side --force-conflicts --kustomize {{ kubernetes_dir }}/flux/config
