@@ -6,7 +6,7 @@ namespace: kube-system
 resources:
   - ./grafanadashboard.yaml
   - ./helmrelease.yaml
-  - ./httproute.yaml
+  # - ./httproute.yaml
   - ./networks.yaml
   - ./ocirepository.yaml
-  - ./securitypolicy.yaml
+  # - ./securitypolicy.yaml
