@@ -24,6 +24,13 @@ parent: net0
 mtu: 1500
 ---
 apiVersion: v1alpha1
+kind: VLANConfig
+name: net0.60
+vlanID: 60
+parent: net0
+mtu: 1500
+---
+apiVersion: v1alpha1
 kind: DHCPv4Config
 name: net0.4
 clientIdentifier: mac
