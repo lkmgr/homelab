@@ -7,14 +7,9 @@ metadata:
   namespace: kube-system
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: coredns
-      version: 1.45.2
-      sourceRef:
-        kind: HelmRepository
-        name: coredns
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: coredns
   values:
     fullnameOverride: coredns
     replicaCount: 2
