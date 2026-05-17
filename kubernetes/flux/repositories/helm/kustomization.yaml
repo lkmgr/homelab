@@ -8,7 +8,6 @@ resources:
   - ./bitnami.yaml
   - ./coredns.yaml
   - ./external-dns.yaml
-  - ./external-secrets.yaml
   - ./grafana.yaml
   - ./intel.yaml
   - ./k8s-gateway.yaml
