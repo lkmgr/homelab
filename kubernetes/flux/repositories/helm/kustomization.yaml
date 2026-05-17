@@ -7,7 +7,6 @@ resources:
   - ./backube.yaml
   - ./bitnami.yaml
   - ./external-dns.yaml
-  - ./grafana.yaml
   - ./intel.yaml
   - ./k8s-gateway.yaml
   - ./longhorn.yaml
