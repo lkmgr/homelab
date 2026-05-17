@@ -1,45 +1,41 @@
 set quiet
-set shell := ['bash', '-euo', 'pipefail', '-c']
 set script-interpreter := ['bash', '-euo', 'pipefail']
+set shell := ['bash', '-euo', 'pipefail', '-c']
 
 [private]
 default:
     just -l kube
 
-reconcile:
-    flux -n flux-system reconcile kustomization cluster-apps --with-source
-
-# Snapshot a single app's replication source
+[doc('Prune pods in Failed, Pending, or Succeeded state')]
 [script]
-snapshot app ns='default':
-    if ! kubectl --namespace "{{ ns }}" get replicationsources "{{ app }}" &>/dev/null; then
-        just log error "ReplicationSource not found" app "{{ app }}" namespace "{{ ns }}"
+prune-pods:
+    for phase in Failed Pending Succeeded; do
+        kubectl delete pods -A --field-selector status.phase="$phase" --ignore-not-found=true
+    done
+
+[doc('Snapshot a single app with VolSync')]
+[script]
+snapshot ns app:
+    if ! kubectl -n "{{ ns }}" get replicationsources "{{ app }}" &>/dev/null; then
+        just log error "ReplicationSource not found" namespace "{{ ns }}" app "{{ app }}"
         exit 1
     fi
-    just log info "Triggering snapshot" app "{{ app }}" namespace "{{ ns }}"
-    kubectl --namespace "{{ ns }}" patch replicationsources "{{ app }}" \
-        --type merge \
-        -p "{\"spec\":{\"trigger\":{\"manual\":\"$(date +%s)\"}}}"
+    just log info "Triggering snapshot" namespace "{{ ns }}" app "{{ app }}"
+    kubectl -n "{{ ns }}" patch replicationsources "{{ app }}" --type merge \
+        -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'
     job="volsync-src-{{ app }}"
     just log info "Waiting for job to appear..." job "$job"
-    until kubectl --namespace "{{ ns }}" get job/"$job" &>/dev/null; do
+    until kubectl -n "{{ ns }}" get job/"$job" &>/dev/null; do
         sleep 5
     done
     just log info "Waiting for job to complete..." job "$job"
-    kubectl --namespace "{{ ns }}" wait job/"$job" \
-        --for=condition=complete \
-        --timeout=120m
-    just log info "Snapshot complete" app "{{ app }}" namespace "{{ ns }}"
+    kubectl -n "{{ ns }}" wait job/"$job" --for=condition=complete --timeout=120m
+    just log info "Snapshot complete" namespace "{{ ns }}" app "{{ app }}"
 
-# Snapshot all apps with a replication source in a namespace
+[doc('Snapshot all apps with VolSync')]
 [script]
-snapshot-all ns='default':
-    apps="$(kubectl --namespace "{{ ns }}" get replicationsources \
-        -o jsonpath='{.items[*].metadata.name}')"
-    if [[ -z "$apps" ]]; then
-        just log warn "No replication sources found" namespace "{{ ns }}"
-        exit 0
-    fi
-    for app in $apps; do
-        just kube snapshot "$app" "{{ ns }}"
+snapshot-all:
+    kubectl get replicationsources --no-headers -A | while read -r ns name _; do
+        kubectl -n "$ns" patch replicationsources "$name" --type merge \
+            -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'
     done

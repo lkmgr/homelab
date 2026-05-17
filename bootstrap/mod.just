@@ -14,7 +14,7 @@ default:
 
 [script]
 k8s:
-    just log info "Running stage..." "stage" "$(basename "$0")"
+    just log info "Bootstrapping..." "stage" "$(basename "$0")"
     until op=$(talosctl -n "{{ controller }}" bootstrap 2>&1 || true) && [[ "$op" == *"AlreadyExists"* ]]; do
         just log info "Kubernetes bootstrap in progress. Retrying in 5 seconds..." "stage" "$(basename "$0")"
         sleep 5
@@ -40,7 +40,7 @@ ready:
 
 [script]
 kubeconfig lb="cilium":
-    just log info "Running stage..." "stage" "$(basename "$0")"
+    just log info "Getting kubeconfig..." "stage" "$(basename "$0")"
     if ! talosctl kubeconfig -n "{{ controller }}" -f --force-context-name main {{ justfile_dir() }}; then
         just log fatal "Failed to fetch kubeconfig" "stage" "$(basename "$0")"
     fi
@@ -52,6 +52,7 @@ kubeconfig lb="cilium":
 
 [script]
 apps-ns:
+    just log info "Creating namespaces..." "stage" "$(basename "$0")"
     for app in "{{ kubernetes_dir }}/apps"/*/; do
         ns="$(basename "$app")"
         if kubectl get namespace "$ns" &>/dev/null; then
@@ -67,7 +68,7 @@ apps-ns:
 
 [script]
 apps-secrets:
-    just log info "Applying secrets for apps"
+    just log info "Creating initial secrets..." "stage" "$(basename "$0")"
     for secret in \
         "{{ bootstrap_dir }}/github-deploy-key.sops.yaml" \
         "{{ bootstrap_dir }}/github-extra-deploy-key.sops.yaml" \
@@ -85,6 +86,7 @@ apps-secrets:
 
 [script]
 apps-crds:
+    just log info "Installing CRDs..." "stage" "$(basename "$0")"
     helmfile_file="{{ bootstrap_dir }}/helmfile.d/00-crds.yaml"
     crds="$(helmfile --file "$helmfile_file" template --quiet \
         | yq eval-all --exit-status 'select(.kind == "CustomResourceDefinition")')" \
@@ -100,12 +102,14 @@ apps-crds:
         exit 1
     fi
 
+[script]
 apps-helm:
+    just log info "Installing apps..." "stage" "$(basename "$0")"
     helmfile --file "{{ bootstrap_dir }}/helmfile.d/01-apps.yaml" sync --hide-notes
 
 [script]
 flux:
-    just log info "Initial Flux setup"
+    just log info "Initial Flux setup..." "stage" "$(basename "$0")"
     kubectl apply --server-side --force-conflicts --kustomize {{ source_directory() }}/flux
     kubectl wait deployment -n flux-system --all --for=condition=Available --timeout=2m
     kubectl apply --server-side --force-conflicts --kustomize {{ kubernetes_dir }}/flux/config

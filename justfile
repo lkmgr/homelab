@@ -1,16 +1,16 @@
 #!/usr/bin/env -S just --justfile
 
+set lazy
 set quiet
 set shell := ['bash', '-euo', 'pipefail', '-c']
-set script-interpreter := ['bash', '-euo', 'pipefail']
 
-[group: 'bootstrap']
+[group: 'Bootstrap']
 mod bootstrap 'bootstrap'
 
-[group: 'kubernetes']
+[group: 'Kube']
 mod kube 'kubernetes'
 
-[group: 'talos']
+[group: 'Talos']
 mod talos 'talos'
 
 [private]

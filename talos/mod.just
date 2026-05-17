@@ -22,6 +22,9 @@ render-config node:
         <(just talos template "{{ source_directory() }}/machineconfig.yaml.j2" "{{ source_directory() }}/vars.yaml") \
         -p @<(just talos template "{{ source_directory() }}/{{ node }}.yaml.j2" "{{ source_directory() }}/vars.yaml")
 
+[arg('type', pattern='intel|amd')]
+[arg('version', pattern='v\d+\.\d+.\d+')]
+[doc('Download Talos image')]
 [script]
 download-image type version:
     export SCHEMATIC="$(just talos schematic-id {{ type }})"
@@ -30,5 +33,7 @@ download-image type version:
         "https://factory.talos.dev/image/${SCHEMATIC}/{{ version }}/metal-amd64.iso"
     just log info "Downloaded Talos" version "{{ version }}" schematic "${SCHEMATIC}"
 
+[arg('type', pattern='intel|amd')]
+[doc('Get Talos schematic ID')]
 schematic-id type:
     curl -sX POST --data-binary @"{{ source_directory() }}/schematics/{{ type }}.yaml" "https://factory.talos.dev/schematics" | jq -r '.id'
