@@ -50,5 +50,5 @@
       matchManagers: ["helmfile"],
       overrideDepName: "{{packageName}}",
     },
-  },
+  ],
 }
