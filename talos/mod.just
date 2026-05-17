@@ -15,6 +15,15 @@ template file *args:
 apply-node node ip *args:
     just talos render-config "{{ node }}" | talosctl -n "{{ ip }}" apply-config -f /dev/stdin {{ args }}
 
+[confirm('Upgrade Talos on node ' + node + ' with IP ' + ip + ' [y|N] ?')]
+[doc('Upgrade Talos on a node')]
+[script]
+upgrade-node node ip:
+    IMAGE="$(just talos render-config "{{ node }}" | yq 'select(.machine.install.image != null) | .machine.install.image')"
+    just log info "Upgrading Talos on node..." ip "{{ ip }}" image "${IMAGE}"
+    talosctl upgrade -n "{{ ip }}" --image "${IMAGE}"
+    just log info "Successfully upgraded Talos" ip "{{ ip }}" image "${IMAGE}"
+
 [doc('Render Talos config for a node')]
 [script]
 render-config node:
