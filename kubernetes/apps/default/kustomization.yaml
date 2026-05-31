@@ -15,9 +15,10 @@ resources:
   - ./home-assistant/ks.yaml
   # - ./homepage/ks.yaml
   - ./jellyfin/ks.yaml
+  - ./larapaper/ks.yaml
   - ./libretranslate/ks.yaml
   - ./mosquitto/ks.yaml
-  - ./netshoot/ks.yaml
+  # - ./netshoot/ks.yaml
   - ./open-webui/ks.yaml
   - ./valetudopng/ks.yaml
   - ./zigbee2mqtt/ks.yaml
