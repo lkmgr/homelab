@@ -53,7 +53,7 @@ spec:
               tag: 0.60.0
             command: ["bundle", "exec", "sidekiq", "-r", "./config/sidekiq.rb"]
             env:
-              TZ: "America/New_York"
+              TZ: "Europe/Berlin"
               API_URI: "https://terminus.${SECRET_DOMAIN}"
               RACK_ATTACK_ALLOWED_SUBNETS: "10.42.0.0/16"
               KEYVALUE_URL: "redis://terminus-valkey:6379"
