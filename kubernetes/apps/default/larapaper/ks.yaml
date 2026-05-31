@@ -11,8 +11,8 @@ spec:
   postBuild:
     substitute:
       APP: larapaper
-      APP_GID: "1000"
-      APP_UID: "1000"
+      APP_GID: "82"
+      APP_UID: "82"
       PVC_NAME: larapaper-data
       PVC_SIZE: 5Gi
   prune: true
