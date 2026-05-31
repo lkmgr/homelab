@@ -13,6 +13,8 @@ spec:
     - type: Brotli
     - type: Gzip
     - type: Zstd
+  connection:
+    bufferLimit: 10M
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/backendtrafficpolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
@@ -28,3 +30,5 @@ spec:
     - type: Brotli
     - type: Gzip
     - type: Zstd
+  connection:
+    bufferLimit: 10M
