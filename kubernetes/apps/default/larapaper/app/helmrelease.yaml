@@ -32,6 +32,7 @@ spec:
               PHP_OPCACHE_ENABLE: "1"
               REGISTRATION_ENABLED: "0"
               DB_DATABASE: "database/storage/database.sqlite"
+              FORCE_HTTPS: "1"
     defaultPodOptions:
       securityContext:
         # runAsNonRoot: true
