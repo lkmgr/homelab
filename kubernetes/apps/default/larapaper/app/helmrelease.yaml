@@ -30,7 +30,7 @@ spec:
                   key: APP_KEY
               APP_URL: "https://trmnl.${SECRET_DOMAIN}"
               PHP_OPCACHE_ENABLE: "1"
-              REGISTRATION_ENABLED: "0"
+              REGISTRATION_ENABLED: "1"
               DB_DATABASE: "database/storage/database.sqlite"
               FORCE_HTTPS: "1"
     defaultPodOptions:
