@@ -14,7 +14,7 @@ apiVersion: v1alpha1
 kind: LinkAliasConfig
 name: net0
 selector:
-  match: glob("14:b3:1f:04:*", mac(link.permanent_addr))
+  match: glob("00:e0:4c:68:*", mac(link.permanent_addr))
 ---
 apiVersion: v1alpha1
 kind: VLANConfig
@@ -22,6 +22,10 @@ name: net0.4
 vlanID: 4
 parent: net0
 mtu: 1500
+addresses:
+  - address: 192.168.4.14/24
+routes:
+  - gateway: 192.168.4.1
 ---
 apiVersion: v1alpha1
 kind: VLANConfig
@@ -29,11 +33,6 @@ name: net0.60
 vlanID: 60
 parent: net0
 mtu: 1500
----
-apiVersion: v1alpha1
-kind: DHCPv4Config
-name: net0.4
-clientIdentifier: mac
 ---
 apiVersion: v1alpha1
 kind: Layer2VIPConfig
