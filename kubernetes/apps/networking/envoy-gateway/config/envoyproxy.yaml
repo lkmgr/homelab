@@ -19,8 +19,8 @@ spec:
           image: mirror.gcr.io/envoyproxy/envoy:v1.38.0@sha256:8146b97ee61a42cd216514709e4e3198af75f014974e3d9f310aef9c901fcbdf
           resources:
             requests:
-              cpu: 100m
-              memory: 400Mi
+              cpu: 20m
+              memory: 200Mi
             limits:
               memory: 1Gi
       envoyService:
