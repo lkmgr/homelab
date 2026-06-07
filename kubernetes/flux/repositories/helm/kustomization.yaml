@@ -10,7 +10,6 @@ resources:
   - ./intel.yaml
   - ./k8s-gateway.yaml
   - ./longhorn.yaml
-  - ./metrics-server.yaml
   - ./node-feature-discovery.yaml
   - ./openebs.yaml
   - ./piraeus.yaml
