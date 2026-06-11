@@ -76,7 +76,7 @@ spec:
           valkey:
             image:
               repository: valkey/valkey
-              tag: 8-alpine
+              tag: 9-alpine
             resources:
               requests:
                 cpu: 100m
