@@ -9,7 +9,7 @@ TALOSCONFIG = "{{config_root}}/talosconfig"
 
 [tools]
 "python" = "3.14.6"
-"uv" = "0.11.22"
+"uv" = "0.11.23"
 "pipx" = "1.14.1"
 "aqua:casey/just" = "1.53.0"
 "aqua:charmbracelet/gum" = "0.17.0"
