@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/usetrmnl/larapaper
-              tag: 0.36.2
+              tag: 0.38.0
             env:
               APP_KEY:
                 secretKeyRef:
