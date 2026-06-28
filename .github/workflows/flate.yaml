@@ -42,7 +42,7 @@ jobs:
           cache: true
 
       - name: Run flate test
-        run: flate test all --path /github/workspace/kubernetes/flux
+        run: flate test all --path ${{ github.workspace }}/kubernetes/flux
 
   diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -79,8 +79,8 @@ jobs:
         id: diff
         run: |
           flate diff ${{ matrix.resource }} \
-            --path /github/workspace/pull/kubernetes/flux \
-            --path-orig /github/workspace/default/kubernetes/flux \
+            --path ${{ github.workspace }}/pull/kubernetes/flux \
+            --path-orig ${{ github.workspace }}/default/kubernetes/flux \
             --allow-missing-secrets \
             -o github > diff.patch
           [ -s diff.patch ] && echo "has_diff=true" >> $GITHUB_OUTPUT || echo "has_diff=false" >> $GITHUB_OUTPUT
