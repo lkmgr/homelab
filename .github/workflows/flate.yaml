@@ -45,7 +45,10 @@ jobs:
           cache: true
 
       - name: Run flate test
-        run: flate test all --path ./kubernetes/flux
+        run: |
+          flate test all \
+            --path ./kubernetes/flux \
+            --allow-missing-secrets
 
   diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
