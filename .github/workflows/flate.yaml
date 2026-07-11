@@ -34,7 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        uses: actions/checkout@v7
 
       - name: Install flate
         uses: home-operations/flate/action@v0.4.10
@@ -42,7 +42,7 @@ jobs:
           cache: true
 
       - name: Run flate test
-        run: flate test all --path ${{ github.workspace }}/kubernetes/flux
+        run: flate test all --path ./kubernetes/flux
 
   diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -59,16 +59,11 @@ jobs:
           - ks
       fail-fast: false
     steps:
-      - name: Checkout Pull Request Branch
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Checkout
+        uses: actions/checkout@v7
         with:
-          path: pull
-
-      - name: Checkout Default Branch
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-        with:
-          path: default
-          ref: ${{ github.event.repository.default_branch }}
+          fetch-depth: 0
+          persist-credentials: false
 
       - name: Install flate
         uses: home-operations/flate/action@v0.4.10
@@ -79,8 +74,7 @@ jobs:
         id: diff
         run: |
           flate diff ${{ matrix.resource }} \
-            --path ${{ github.workspace }}/pull/kubernetes/flux \
-            --path-orig ${{ github.workspace }}/default/kubernetes/flux \
+            --path ./kubernetes/flux \
             --allow-missing-secrets \
             -o github > diff.patch
           [ -s diff.patch ] && echo "has_diff=true" >> $GITHUB_OUTPUT || echo "has_diff=false" >> $GITHUB_OUTPUT
