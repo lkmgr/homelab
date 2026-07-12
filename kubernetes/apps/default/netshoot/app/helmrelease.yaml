@@ -17,7 +17,7 @@ spec:
           app:
             image:
               repository: docker.io/nicolaka/netshoot
-              tag: v0.15
+              tag: v0.16
             command: ["/bin/sh", "-c", "while true; do sleep 3600; done"]
             securityContext:
               capabilities:
