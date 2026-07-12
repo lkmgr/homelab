@@ -16,6 +16,7 @@ resources:
   # - ./homepage/ks.yaml
   - ./jellyfin/ks.yaml
   - ./libretranslate/ks.yaml
+  - ./litellm/ks.yaml
   - ./mosquitto/ks.yaml
   # - ./netshoot/ks.yaml
   - ./open-webui/ks.yaml
