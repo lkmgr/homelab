@@ -19,7 +19,7 @@ spec:
           app:
             image:
               repository: docker.io/libretranslate/libretranslate
-              tag: v1.9.5@sha256:b358e61598c9d5240ddb5f9e8f53389931db8305ccfd426fbfcc603f4b24c7a4
+              tag: v1.9.6@sha256:1de2d7056bb8ad607a412f4563d9abe324ff632b43b5be9428bcc8e213aebb32
             # env:
             #   # LT_UPDATE_MODELS: "true"
             #   LT_LOAD_ONLY: "en,de"
