@@ -85,6 +85,24 @@ jobs:
             -o github > diff.patch
           [ -s diff.patch ] && echo "has_diff=true" >> $GITHUB_OUTPUT || echo "has_diff=false" >> $GITHUB_OUTPUT
 
+      # - name: Upload diff
+      #   if: ${{ steps.diff.outputs.has_diff == 'true' }}
+      #   uses: actions/upload-artifact@v7
+      #   with:
+      #     name: diff-${{ matrix.resource }}
+      #     path: diff.patch
+
+      - name: Truncate diff
+        if: ${{ steps.diff.outputs.has_diff == 'true' }}
+        run: |
+          max_size=60000
+          if [ $(wc -c < diff.patch) -gt $max_size ]; then
+            truncate -s $max_size diff.patch
+            echo "..." >> diff.patch
+            echo "_(diff truncated)_" >> diff.patch
+            # echo "_(diff truncated, full diff available as [workflow artifact](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}))_" >> diff.patch
+          fi
+
       - if: ${{ steps.diff.outputs.has_diff == 'true' }}
         name: Add Comment
         uses: marocchino/sticky-pull-request-comment@5770ad5eb8f42dd2c4f34da00c94c5381e49af88 # v3.0.5
