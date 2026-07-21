@@ -1,0 +1,38 @@
+---
+# Not managed by doco-cd
+
+services:
+  app:
+    container_name: doco-cd
+    environment:
+      DEPLOY_CONFIG_BASE_DIR: ./docker/nas/
+      HTTP_PORT: 8080
+      LOG_LEVEL: info
+      POLL_CONFIG: |-
+        - url: https://github.com/lkmgr/homelab.git
+          reference: refs/heads/main
+          interval: 3600
+      TZ: Europe/Berlin
+      SOPS_AGE_KEY_FILE: /run/secrets/sops_age_key
+      WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
+    healthcheck:
+      test: ["CMD", "/doco-cd", "healthcheck"]
+      start_period: 15s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    image: ghcr.io/kimdre/doco-cd:0.94.0@sha256:378fd7d5fcbd9b038640dd14af7ded1686ab26b464bbbe7df880cc0563161e38
+    restart: unless-stopped
+    ports:
+      - 8080:8080
+    secrets:
+      - sops_age_key
+      - webhook_secret
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /volume1/docker/doco-cd/data:/data
+secrets:
+  sops_age_key:
+    file: /volume1/docker/doco-cd/sops_age_key.txt
+  webhook_secret:
+    file: /volume1/docker/doco-cd/webhook_secret.txt
