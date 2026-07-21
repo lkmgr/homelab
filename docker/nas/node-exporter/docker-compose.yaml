@@ -1,0 +1,16 @@
+services:
+  node-exporter:
+    image: prom/node-exporter:v1.8.2
+    restart: unless-stopped
+    command:
+      - "--path.procfs=/host/proc"
+      - "--path.sysfs=/host/sys"
+      - "--no-collector.diskstats"
+      - "--no-collector.filesystem"
+      - "--no-collector.time"
+    ports:
+      - 9100:9100
+    # privileged: true
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
