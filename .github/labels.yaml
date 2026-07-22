@@ -18,7 +18,7 @@
   color: "0e8a16"
 - name: area/justfile
   color: "0e8a16"
-- name: area/pulumi
+- name: area/docker
   color: "0e8a16"
 # Renovate Types
 - name: renovate/container

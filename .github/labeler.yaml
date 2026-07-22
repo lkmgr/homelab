@@ -33,7 +33,7 @@ area/justfile:
       - any-glob-to-any-file:
           - justfile
           - "**/*.just"
-area/pulumi:
+area/docker:
   - changed-files:
       - any-glob-to-any-file:
-          - pulumi/**/*
+          - docker/**/*
