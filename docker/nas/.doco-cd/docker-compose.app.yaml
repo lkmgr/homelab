@@ -11,7 +11,7 @@ services:
       POLL_CONFIG: |-
         - url: https://github.com/lkmgr/homelab.git
           reference: refs/heads/main
-          interval: 3600
+          interval: 300
       TZ: Europe/Berlin
       SOPS_AGE_KEY_FILE: /run/secrets/sops_age_key
       WEBHOOK_SECRET_FILE: /run/secrets/webhook_secret
