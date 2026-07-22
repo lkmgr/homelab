@@ -33,16 +33,6 @@
   kustomize: {
     managerFilePatterns: ["/^kustomization\\.ya?ml(?:\\.j2)?$/"],
   },
-  // "helm-values": {
-  //   managerFilePatterns: [
-  //     "/(^|/)ansible/.+\\.ya?ml(\\.j2)?$/",
-  //     "/(^|/)kubernetes/.+\\.ya?ml$/",
-  //   ],
-  //   pinDigests: true,
-  // },
-  npm: {
-    rangeStrategy: "pin",
-  },
   packageRules: [
     {
       description: "Override Helmfile Dependency Name",

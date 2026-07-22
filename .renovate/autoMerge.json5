@@ -4,15 +4,6 @@
     {
       automerge: true,
       automergeType: "branch",
-      description: "Auto merge npm",
-      ignoreTests: true,
-      matchManagers: ["npm"],
-      matchUpdateTypes: ["minor", "patch"],
-      minimumReleaseAge: "3 days",
-    },
-    {
-      automerge: true,
-      automergeType: "branch",
       description: "Auto merge GitHub Actions",
       ignoreTests: true,
       matchManagers: ["github-actions"],
