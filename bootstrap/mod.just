@@ -95,7 +95,7 @@ apps-crds:
         just log info "CRDs already up-to-date"
         exit 0
     fi
-    if echo "$crds" | kubectl apply --server-side --filename - &>/dev/null; then
+    if echo "$crds" | kubectl apply --server-side --force-conflicts --filename - &>/dev/null; then
         just log info "CRDs applied"
     else
         just log error "Failed to apply CRDs" file "$helmfile_file"

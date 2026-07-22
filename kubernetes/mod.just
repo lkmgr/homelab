@@ -39,3 +39,9 @@ snapshot-all:
         kubectl -n "$ns" patch replicationsources "$name" --type merge \
             -p '{"spec":{"trigger":{"manual":"$(date +%s)"}}}'
     done
+
+[doc('Debug a node')]
+[script]
+debug-node node:
+    trap 'kubectl delete pod -n default -l app.kubernetes.io/managed-by=kubectl-debug --field-selector spec.nodeName={{ node }} --ignore-not-found --wait=false' EXIT
+    kubectl debug node/{{ node }} -n default -it --image=mirror.gcr.io/alpine:latest --profile=sysadmin
