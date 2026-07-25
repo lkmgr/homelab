@@ -1,0 +1,31 @@
+---
+# Not managed by doco-cd
+
+services:
+  app:
+    container_name: doco-cd
+    environment:
+      DEPLOY_CONFIG_BASE_DIR: ./docker/vps/
+      LOG_LEVEL: info
+      POLL_CONFIG: |-
+        - url: https://github.com/lkmgr/homelab.git
+          reference: refs/heads/main
+          interval: 300
+      TZ: Europe/Berlin
+      SOPS_AGE_KEY_FILE: /run/secrets/sops_age_key
+    healthcheck:
+      test: ["CMD", "/doco-cd", "healthcheck"]
+      start_period: 15s
+      interval: 30s
+      timeout: 5s
+      retries: 3
+    image: ghcr.io/kimdre/doco-cd:0.101.1@sha256:3ff91174c0ea2ce1cebdf9bee0ae8693b1715593181b9d812ddfe5fb509fb023
+    restart: unless-stopped
+    secrets:
+      - sops_age_key
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - data:/data
+secrets:
+  sops_age_key:
+    file: /opt/docker/doco-cd/sops_age_key.txt
