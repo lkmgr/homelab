@@ -29,3 +29,5 @@ services:
 secrets:
   sops_age_key:
     file: /opt/docker/doco-cd/sops_age_key.txt
+volumes:
+  data: {}
