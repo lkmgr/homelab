@@ -6,14 +6,9 @@ metadata:
   name: snapshot-controller
 spec:
   interval: 1h
-  chart:
-    spec:
-      chart: snapshot-controller
-      version: 5.1.1
-      sourceRef:
-        kind: HelmRepository
-        name: piraeus
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: snapshot-controller
   values:
     volumeSnapshotClasses:
       - name: longhorn-snapshot
