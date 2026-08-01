@@ -18,7 +18,7 @@ spec:
     bgpControlPlane:
       enabled: true
     bpf:
-      # TODO: enable with kernel 6.8+
+      # TODO: enable?
       # datapathMode: netkit
       masquerade: true
       preallocateMaps: true
@@ -34,32 +34,32 @@ spec:
     dashboards:
       enabled: true
     devices: net0+
-    # TODO: enable with kernel 6.3+
+    # TODO: check if this can be enabled
     # enableIPv4BIGTCP: true
     endpointRoutes:
       enabled: true
     hubble:
-      enabled: false
-      # metrics:
-      #   enabled:
-      #     - dns:query
-      #     - drop
-      #     - tcp
-      #     - flow
-      #     - port-distribution
-      #     - icmp
-      #     - http
-      #   serviceMonitor:
-      #     enabled: true
-      # relay:
-      #   enabled: true
-      #   prometheus:
-      #     serviceMonitor:
-      #       enabled: true
-      #   rollOutPods: true
-      # ui:
-      #   enabled: true
-      #   rollOutPods: true
+      enabled: true
+      metrics:
+        enabled:
+          - dns:query
+          - drop
+          - tcp
+          - flow
+          - port-distribution
+          - icmp
+          - httpV2
+        serviceMonitor:
+          enabled: true
+      relay:
+        enabled: true
+        prometheus:
+          serviceMonitor:
+            enabled: true
+        rollOutPods: true
+      ui:
+        enabled: true
+        rollOutPods: true
     ipam:
       mode: kubernetes
     ipv4NativeRoutingCIDR: 10.42.0.0/16
@@ -81,7 +81,7 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
-      replicas: 1
+      replicas: 2
       rollOutPods: true
     pmtuDiscovery:
       enabled: true
