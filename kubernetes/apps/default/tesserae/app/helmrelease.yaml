@@ -20,7 +20,7 @@ spec:
           app:
             image:
               repository: ghcr.io/dmellok/tesserae
-              tag: 0.152.0
+              tag: 0.227.4-edge.1785590524
             env:
               TZ: Europe/Berlin
               TESSERAE_IN_DOCKER: "1"
