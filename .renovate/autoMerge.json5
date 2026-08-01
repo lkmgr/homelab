@@ -9,6 +9,7 @@
       matchManagers: ["github-actions"],
       matchUpdateTypes: ["minor", "patch", "digest"],
       minimumReleaseAge: "3 days",
+      schedule: ["* 2-5 * * *"]
     },
     {
       automerge: true,
@@ -18,6 +19,7 @@
       matchManagers: ["mise"],
       matchUpdateTypes: ["minor", "patch"],
       minimumReleaseAge: "3 days",
+      schedule: ["* 2-5 * * *"]
     },
   ],
 }
