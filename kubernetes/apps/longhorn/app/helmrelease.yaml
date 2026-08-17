@@ -39,6 +39,9 @@ spec:
       storageReservedPercentageForDefaultDisk: "10"
       v1DataEngine: true
       v2DataEngine: false
+    metrics:
+      serviceMonitor:
+        enabled: true
     csi:
       attacherReplicaCount: 2
       provisionerReplicaCount: 2
