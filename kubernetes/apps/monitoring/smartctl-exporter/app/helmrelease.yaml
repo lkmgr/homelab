@@ -29,4 +29,12 @@ spec:
         smartCTLDInterfaceSlow:
           for: 3m
         smartCTLDDeviceTemperature:
+          enabled: true
+          alert: SmartCTLDDeviceTemperature
+          expr: smartctl_device_temperature{temperature_type="current"} > 70
           for: 3m
+          annotations:
+            summary: Device has temperature higher than 70°C
+            description: Device {{ $labels.device }} on instance {{ $labels.instance }} has temperature higher than 70°C
+          labels:
+            severity: warning
