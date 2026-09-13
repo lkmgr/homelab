@@ -5,3 +5,4 @@ customization:
       - siderolabs/i915
       - siderolabs/intel-ucode
       - siderolabs/iscsi-tools
+      - siderolabs/util-linux-tools

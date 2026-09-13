@@ -5,3 +5,4 @@ customization:
       - siderolabs/amd-ucode
       - siderolabs/amdgpu
       - siderolabs/iscsi-tools
+      - siderolabs/util-linux-tools
