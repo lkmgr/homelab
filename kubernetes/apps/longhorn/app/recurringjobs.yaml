@@ -1,41 +1,27 @@
-# ---
-# apiVersion: longhorn.io/v1beta1
-# kind: RecurringJob
-# metadata:
-#   name: default-backup
-#   namespace: longhorn-system
-# spec:
-#   cron: "47 2 * * *"
-#   task: "backup"
-#   groups:
-#     - default
-#   retain: 10
-#   concurrency: 2
+---
+apiVersion: longhorn.io/v1beta1
+kind: RecurringJob
+metadata:
+  name: default-snapshot-cleanup
+  namespace: longhorn-system
+spec:
+  cron: "12 1 * * 1"
+  task: "snapshot-cleanup"
+  groups:
+    - default
+  retain: 1
+  concurrency: 2
 
-# ---
-# apiVersion: longhorn.io/v1beta1
-# kind: RecurringJob
-# metadata:
-#   name: default-snapshot
-#   namespace: longhorn-system
-# spec:
-#   cron: "47 14 * * *"
-#   task: "snapshot"
-#   groups:
-#     - default
-#   retain: 10
-#   concurrency: 2
-
-# ---
-# apiVersion: longhorn.io/v1beta1
-# kind: RecurringJob
-# metadata:
-#   name: default-trim
-#   namespace: longhorn-system
-# spec:
-#   cron: "12 1 * * *"
-#   task: "filesystem-trim"
-#   groups:
-#     - default
-#   retain: 0
-#   concurrency: 2
+---
+apiVersion: longhorn.io/v1beta1
+kind: RecurringJob
+metadata:
+  name: default-trim
+  namespace: longhorn-system
+spec:
+  cron: "12 3 * * 1"
+  task: "filesystem-trim"
+  groups:
+    - default
+  retain: 1
+  concurrency: 2
