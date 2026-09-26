@@ -25,4 +25,4 @@ TALOSCONFIG = "{{config_root}}/talosconfig"
 "aqua:kubernetes/kubernetes/kubectl" = "1.37.0"
 "aqua:mikefarah/yq" = "4.53.6"
 "aqua:siderolabs/talos" = "1.14.1"
-doppler = { version = "3.76.5", exe = "doppler" }
+doppler = { version = "3.76.6", exe = "doppler" }
