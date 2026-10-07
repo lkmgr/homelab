@@ -24,7 +24,7 @@ spec:
           app:
             image:
               repository: ghcr.io/open-webui/open-webui
-              tag: v0.11.3@sha256:751b617714b91e4cfd0186a509c72480c858e012976103b09a30dad053c36175
+              tag: v0.11.4@sha256:9591b13f13843c7721c2b8eaf7382846c81b3ffe126526d1888d1fed50c6a33f
             env:
               TZ: Europe/Berlin
               ENABLE_OLLAMA_API: false
@@ -45,7 +45,7 @@ spec:
           redis:
             image:
               repository: docker.io/valkey/valkey
-              tag: 9.1.1@sha256:3acc0687f2a2e1091fae6450d7842dd658c941338cf0a873ddd9e14b9e4ea4dd
+              tag: 9.1.2@sha256:418652cfb58ef879d4978c33553735d7147016032d5aefaa14c828e611eb9dfd
             ports:
               - containerPort: 6379
     service:

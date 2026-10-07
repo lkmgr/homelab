@@ -21,9 +21,9 @@ releases:
   - name: prometheus-operator-crds
     namespace: monitoring
     chart: oci://ghcr.io/prometheus-community/charts/prometheus-operator-crds
-    version: 31.0.1
+    version: 32.0.1
 
   - name: snapshot-controller
     namespace: kube-system
     chart: oci://ghcr.io/piraeusdatastore/helm-charts/snapshot-controller
-    version: 5.2.0
+    version: 5.3.0
