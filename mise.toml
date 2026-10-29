@@ -8,7 +8,7 @@ SOPS_CONFIG = "{{config_root}}/.sops.yaml"
 TALOSCONFIG = "{{config_root}}/talosconfig"
 
 [tools]
-"python" = "3.15.1"
+"python" = "3.15.2"
 "uv" = "0.13.5"
 "pipx" = "1.18.4"
 "aqua:casey/just" = "1.59.0"
