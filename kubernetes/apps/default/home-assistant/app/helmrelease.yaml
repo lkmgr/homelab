@@ -107,6 +107,7 @@ spec:
             port: 5683
             protocol: UDP
           http:
+            appProtocol: kubernetes.io/ws
             port: 8123
           homekit:
             port: 21063
