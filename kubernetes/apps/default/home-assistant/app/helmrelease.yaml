@@ -94,6 +94,7 @@ spec:
     service:
       app:
         controller: home-assistant
+        forceRename: home-assistant
         type: LoadBalancer
         externalTrafficPolicy: Local
         annotations:
