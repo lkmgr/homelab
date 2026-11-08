@@ -28,10 +28,16 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
-    - toEndpoints:
-        - matchLabels:
-            app.kubernetes.io/name: home-assistant
-            io.kubernetes.pod.namespace: default
+    - toEntities:
+        - host
+        - remote-node
       toPorts:
         - ports:
             - port: "8123"
+    # - toEndpoints:
+    #     - matchLabels:
+    #         app.kubernetes.io/name: home-assistant
+    #         io.kubernetes.pod.namespace: default
+    #   toPorts:
+    #     - ports:
+    #         - port: "8123"
