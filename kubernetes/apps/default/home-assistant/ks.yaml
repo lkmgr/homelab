@@ -29,9 +29,6 @@ metadata:
 spec:
   interval: 1h
   path: ./kubernetes/apps/default/home-assistant/mcp
-  postBuild:
-    substitute:
-      APP: home-assistant-mcp
   prune: true
   sourceRef:
     kind: GitRepository
