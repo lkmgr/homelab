@@ -13,6 +13,9 @@ spec:
         - matchLabels:
             app.kubernetes.io/name: envoy
             io.kubernetes.pod.namespace: networking
+        - matchLabels:
+            app.kubernetes.io/name: open-webui
+            io.kubernetes.pod.namespace: default
       toPorts:
         - ports:
             - port: "80"
