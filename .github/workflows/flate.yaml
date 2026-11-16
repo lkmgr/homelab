@@ -48,7 +48,7 @@ jobs:
         run: |
           flate test all \
             --path ./kubernetes/flux \
-            --allow-missing-secrets
+            --allow-missing-kinds Secret
 
   diff:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -81,7 +81,7 @@ jobs:
         run: |
           flate diff ${{ matrix.resource }} \
             --path ./kubernetes/flux \
-            --allow-missing-secrets \
+            --allow-missing-kinds Secret \
             -o github > diff.patch
           [ -s diff.patch ] && echo "has_diff=true" >> $GITHUB_OUTPUT || echo "has_diff=false" >> $GITHUB_OUTPUT
 
