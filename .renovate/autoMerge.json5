@@ -8,6 +8,7 @@
       ignoreTests: true,
       matchManagers: ["github-actions"],
       matchUpdateTypes: ["minor", "patch", "digest"],
+      matchCurrentVersion: "!/^v?0\\./",
       minimumReleaseAge: "3 days",
       schedule: ["* 2-5 * * *"]
     },
@@ -18,6 +19,7 @@
       ignoreTests: true,
       matchManagers: ["mise"],
       matchUpdateTypes: ["minor", "patch"],
+      matchCurrentVersion: "!/^v?0\\./",
       minimumReleaseAge: "3 days",
       schedule: ["* 2-5 * * *"]
     },
