@@ -19,7 +19,7 @@ services:
       interval: 30s
       timeout: 5s
       retries: 3
-    image: ghcr.io/kimdre/doco-cd:0.109.2@sha256:1c7941bd12fe94aea3c2560cb85f775e48928be102f990dfae3aebe5bcb170b3
+    image: ghcr.io/kimdre/doco-cd:0.136.0@sha256:fa55a3a431e479163a06dd42b8d59ceb90483e958056fd8f325b304aaf3d2a97
     restart: unless-stopped
     secrets:
       - sops_age_key
