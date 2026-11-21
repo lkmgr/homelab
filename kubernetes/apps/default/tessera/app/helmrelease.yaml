@@ -30,7 +30,8 @@ spec:
               HA_TOKEN_FILE: /run/secrets/ha_token
               ESPHOME_CONFIG: /config
               SCREEN_DATA: /data
-          # The app only listens on 127.0.0.1:8099, this sidecar forwards pod traffic to it
+              SCREEN_CAMERA_URL: http://192.168.4.243:8098
+          # The web UI only listens on 127.0.0.1:8099, this sidecar forwards pod traffic to it
           proxy:
             image:
               repository: docker.io/alpine/socat
@@ -44,6 +45,15 @@ spec:
         ports:
           http:
             port: 8080
+      camera:
+        controller: *app
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        annotations:
+          lbipam.cilium.io/ips: "192.168.4.243"
+        ports:
+          camera:
+            port: 8098
     route:
       app:
         hostnames: ["tessera.${SECRET_DOMAIN}"]
@@ -88,3 +98,9 @@ spec:
                   podSelector:
                     matchLabels:
                       app.kubernetes.io/name: envoy
+            - from:
+                - ipBlock:
+                    cidr: 192.168.0.0/16
+              ports:
+                - port: 8098
+                  protocol: TCP
