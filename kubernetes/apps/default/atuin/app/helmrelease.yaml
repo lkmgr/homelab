@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/atuinsh/atuin
-              tag: 18.23.0@sha256:f232feeead54a0a13132b9cd477e312c3380e9dc90f1db24c4f79ce6c8e034ea
+              tag: 18.25.1@sha256:8049083e74727566e314ca5de07f4d9db6f7baf357035b3adb23cbe23bcc2926
             args: ["start"]
             env:
               TZ: Europe/Berlin
