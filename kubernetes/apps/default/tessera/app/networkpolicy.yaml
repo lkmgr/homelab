@@ -41,9 +41,9 @@ spec:
           rules:
             dns:
               - matchPattern: "*"
-    - toEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: default
+    - toEntities:
+        - host
+        - remote-node
       toPorts:
         - ports:
             - port: "8123"
