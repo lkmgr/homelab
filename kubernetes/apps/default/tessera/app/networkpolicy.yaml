@@ -29,22 +29,3 @@ spec:
               type: EchoRequest
             - family: IPv6
               type: EchoRequest
-  egress:
-    - toEndpoints:
-        - matchLabels:
-            io.kubernetes.pod.namespace: kube-system
-            k8s-app: kube-dns
-      toPorts:
-        - ports:
-            - port: "53"
-              protocol: UDP
-          rules:
-            dns:
-              - matchPattern: "*"
-    - toEntities:
-        - host
-        - remote-node
-      toPorts:
-        - ports:
-            - port: "8123"
-              protocol: TCP
