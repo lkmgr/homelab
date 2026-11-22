@@ -7,3 +7,4 @@ resources:
   - ../../../../templates/volsync
   - ./externalsecret.yaml
   - ./helmrelease.yaml
+  - ./networkpolicy.yaml

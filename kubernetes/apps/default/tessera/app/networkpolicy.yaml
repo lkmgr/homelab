@@ -1,0 +1,50 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/refs/heads/main/cilium.io/ciliumnetworkpolicy_v2.json
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  name: tessera
+spec:
+  endpointSelector:
+    matchLabels:
+      app.kubernetes.io/name: tessera
+  ingress:
+    - fromEndpoints:
+        - matchLabels:
+            app.kubernetes.io/name: envoy
+          matchExpressions:
+            - key: io.kubernetes.pod.namespace
+              operator: Exists
+    - fromCIDR:
+        - 192.168.0.0/16
+      toPorts:
+        - ports:
+            - port: "8098"
+              protocol: TCP
+    - fromEntities:
+        - all
+      icmps:
+        - fields:
+            - family: IPv4
+              type: EchoRequest
+            - family: IPv6
+              type: EchoRequest
+  egress:
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
+          rules:
+            dns:
+              - matchPattern: "*"
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: default
+      toPorts:
+        - ports:
+            - port: "8123"
+              protocol: TCP

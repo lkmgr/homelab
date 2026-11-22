@@ -86,21 +86,3 @@ spec:
               - path: /run/secrets/ha_token
                 subPath: ha_token
                 readOnly: true
-    networkpolicies:
-      main:
-        controller: tessera
-        policyTypes:
-          - Ingress
-        rules:
-          ingress:
-            - from:
-                - namespaceSelector: {}
-                  podSelector:
-                    matchLabels:
-                      app.kubernetes.io/name: envoy
-            - from:
-                - ipBlock:
-                    cidr: 192.168.0.0/16
-              ports:
-                - port: 8098
-                  protocol: TCP
