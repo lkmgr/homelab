@@ -1,0 +1,114 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: &app searxng
+spec:
+  interval: 1h
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+    namespace: flux-system
+  values:
+    controllers:
+      searxng:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        containers:
+          app:
+            image:
+              repository: ghcr.io/searxng/searxng
+              tag: 2026.11.23-a7163d091@sha256:a7fc607aa6723f5a8982105bcc5ffba4d1b9fc7c6922a31a88d6e4cba49ef12a
+            env:
+              TZ: Europe/Berlin
+              SEARXNG_PORT: &port 8080
+              SEARXNG_BASE_URL: "https://search.${SECRET_DOMAIN}/"
+            envFrom:
+              - secretRef:
+                  name: searxng-secret
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /healthz
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+            resources:
+              requests:
+                cpu: 20m
+                memory: 200Mi
+              limits:
+                memory: 1Gi
+    defaultPodOptions:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 977
+        runAsGroup: 977
+        fsGroup: 977
+        fsGroupChangePolicy: OnRootMismatch
+    service:
+      app:
+        controller: *app
+        ports:
+          http:
+            port: *port
+    route:
+      app:
+        hostnames: ["search.${SECRET_DOMAIN}"]
+        parentRefs:
+          - name: envoy-internal
+            namespace: networking
+            sectionName: https
+        rules:
+          - backendRefs:
+              - identifier: app
+                port: http
+    configMaps:
+      config:
+        data:
+          settings.yml: |
+            use_default_settings: true
+            general:
+              instance_name: SearXNG
+            search:
+              safe_search: 0
+              autocomplete: duckduckgo
+              formats:
+                - html
+                - json
+            server:
+              limiter: false
+              image_proxy: true
+              method: GET
+    persistence:
+      config:
+        type: configMap
+        identifier: config
+        advancedMounts:
+          searxng:
+            app:
+              - path: /etc/searxng/settings.yml
+                subPath: settings.yml
+                readOnly: true
+      cache:
+        type: emptyDir
+        advancedMounts:
+          searxng:
+            app:
+              - path: /var/cache/searxng
+      tmp:
+        type: emptyDir
+        advancedMounts:
+          searxng:
+            app:
+              - path: /tmp
