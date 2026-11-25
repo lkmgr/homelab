@@ -8,6 +8,9 @@ metadata:
 spec:
   interval: 1h
   path: ./kubernetes/apps/default/searxng/app
+  postBuild:
+    substitute:
+      APP: searxng
   prune: true
   sourceRef:
     kind: GitRepository
