@@ -22,7 +22,7 @@ spec:
           app:
             image:
               repository: ghcr.io/maxgramser/homeassistant_espscreen
-              tag: 0.4.100@sha256:f2f679f50b12c854e5b79c941527976481b4017ec8af805454702144a7a1318c
+              tag: 0.4.109@sha256:e66a7900fe9368fef3368e3959f52ce8ebef3b2c9f08e7e0ec1b1e83de45a774
             env:
               TZ: Europe/Berlin
               SCREEN_DEV: "1"
